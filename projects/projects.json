@@ -1,0 +1,62 @@
+[
+  {
+    "name": "Prison Information Management System",
+    "desc": "Developed a web application to manage prisoner records, visit requests, room allocations, and user roles using Laravel, Blade, JavaScript, and MySQL.",
+    "image": "pims2",
+    "category": "laravel",
+    "links": {
+      "view": "https://drive.google.com/file/d/1lyy5dbw6HjJboKPB0I0tyEOb2UUmeQd7/view?usp=sharing",
+      "code": "#"
+    }
+  },
+  {
+    "name": "Clearance Management System",
+    "desc": "Built a system to digitize clearance processes for Bahir Dar University using Laravel and MySQL.",
+    "image": "clearance",
+    "category": "laravel",
+    "links": {
+      "view": "https://drive.google.com/file/d/1vnyDUGONLzgqWrDJsQ7Y0mOUX6ukDRwc/view?usp=sharing",
+      "code": "#"
+    }
+  },
+  {
+    "name": "Campus Compass",
+    "desc": "Created an Android app for campus navigation, helping users locate places like dormitories and classrooms.",
+    "image": "campascompas",
+    "category": "android",
+    "links": {
+      "view": "https://drive.google.com/file/d/1niDoudRCdrIiR3vxMT9ReuHWDtGgN0DK/view?usp=sharing",
+      "code": "#"
+    }
+  },
+  {
+    "name": "Real Estate Management System",
+    "desc": "Developed a platform for property listing and communication using Java Servlet and Java GUI.",
+    "image": "realestate",
+    "category": "java",
+    "links": {
+      "view": "#",
+      "code": "#"
+    }
+  },
+  {
+    "name": "Smart Home Embedded System",
+    "desc": "Built a prototype to monitor temperature/humidity and control doors with RFID and sound detection.",
+    "image": "smarthome",
+    "category": "embedded",
+    "links": {
+      "view": "https://drive.google.com/file/d/1vnyDUGONLzgqWrDJsQ7Y0mOUX6ukDRwc/view?usp=sharing",
+      "code": "#"
+    }
+  },
+  {
+    "name": "Smart Stove Project certificate",
+    "desc": "Designed a mobile-controlled cooking system, awarded in a 2010 school innovation competition.",
+    "image": "certificate",
+    "category": "embedded",
+    "links": {
+      "view": "#",
+      "code": "#"
+    }
+  }
+]

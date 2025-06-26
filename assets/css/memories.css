@@ -1,0 +1,139 @@
+/* Styling the memories section */
+.memories {
+    padding: 4rem 5%;
+    background: #f9f9f9;
+    text-align: center;
+}
+
+.memories .heading {
+    font-size: 3.5rem;
+    color: #333;
+    margin-bottom: 2rem;
+}
+
+.memories .heading i {
+    color: #16a085;
+    margin-right: 0.5rem;
+}
+
+.memories .heading span {
+    color: #16a085;
+}
+
+.memories .box-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+}
+
+.memories .box {
+    flex: 1 1 30rem;
+    background: #fff;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.3s ease;
+}
+
+.memories .box img {
+    width: 100%;
+    height: 20rem;
+    object-fit: cover;
+}
+
+.memories .box .content {
+    padding: 1.5rem;
+}
+
+.memories .box .tag h3 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.memories .box .desc p {
+    font-size: 1.4rem;
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.memories .box .btns {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.memories .box .btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.8rem 1.5rem;
+    font-size: 1.4rem;
+    color: #fff;
+    background: #16a085;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    transition: background 0.3s ease;
+}
+
+.memories .box .btn i {
+    margin-right: 0.5rem;
+}
+
+.memories .box .btn:hover {
+    background: #1abc9c;
+}
+
+/* Lightbox styling */
+.lightbox {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.lightbox img {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 0.5rem;
+}
+
+.lightbox .close {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    font-size: 2.5rem;
+    color: #fff;
+    cursor: pointer;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .memories .heading {
+        font-size: 2.5rem;
+    }
+
+    .memories .box {
+        flex: 1 1 100%;
+    }
+
+    .memories .box img {
+        height: 15rem;
+    }
+
+    .memories .box .tag h3 {
+        font-size: 1.8rem;
+    }
+
+    .memories .box .desc p {
+        font-size: 1.2rem;
+    }
+}

@@ -1,0 +1,145 @@
+/* Styling the knowme section */
+.knowme {
+    padding: 4rem 5%;
+    background: #f9f9f9;
+    text-align: center;
+}
+
+.knowme .heading {
+    font-size: 3.5rem;
+    color: #333;
+    margin-bottom: 2rem;
+}
+
+.knowme .heading i {
+    color: #16a085;
+    margin-right: 0.5rem;
+}
+
+.knowme .heading span {
+    color: #16a085;
+}
+
+/* Carousel styling */
+.knowme .carousel {
+    position: relative;
+    max-width: 90rem;
+    margin: 0 auto;
+    overflow: hidden;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+}
+
+.knowme .carousel-inner {
+    display: flex;
+}
+
+.knowme .carousel-item {
+    flex: 0 0 100%;
+    position: relative;
+}
+
+.knowme .carousel-item img {
+    width: 100%;
+    height: 40rem;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+.knowme .carousel-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    padding: 1.5rem;
+    text-align: left;
+}
+
+.knowme .carousel-caption h3 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.knowme .carousel-caption p {
+    font-size: 1.4rem;
+    line-height: 1.6;
+}
+
+.knowme .carousel-control {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
+    padding: 1rem;
+    cursor: pointer;
+    font-size: 2rem;
+}
+
+.knowme .carousel-control.prev {
+    left: 0;
+}
+
+.knowme .carousel-control.next {
+    right: 0;
+}
+
+.knowme .carousel-control:hover {
+    background: #16a085;
+}
+
+/* Lightbox styling */
+.lightbox {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.lightbox img {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 0.5rem;
+}
+
+.lightbox .close {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    font-size: 2.5rem;
+    color: #fff;
+    cursor: pointer;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .knowme .heading {
+        font-size: 2.5rem;
+    }
+
+    .knowme .carousel-item img {
+        height: 25rem;
+    }
+
+    .knowme .carousel-caption h3 {
+        font-size: 1.8rem;
+    }
+
+    .knowme .carousel-caption p {
+        font-size: 1.2rem;
+    }
+
+    .knowme .carousel-control {
+        font-size: 1.5rem;
+        padding: 0.8rem;
+    }
+}
