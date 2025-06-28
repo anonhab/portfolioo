@@ -6,7 +6,7 @@
     "category": "laravel",
     "links": {
       "view": "https://drive.google.com/file/d/1lyy5dbw6HjJboKPB0I0tyEOb2UUmeQd7/view?usp=sharing",
-      "code": "#"
+      "code": "https://github.com/anonhab/pims/"
     }
   },
   {
@@ -16,7 +16,7 @@
     "category": "laravel",
     "links": {
       "view": "https://drive.google.com/file/d/1G0kU7EW2tuZ3xd4EKRDygXezy5QTiqcb/view?usp=sharing",
-      "code": "#"
+      "code": "https://github.com/anonhab/Clearance-Management-System/"
     }
   },
   {
@@ -26,7 +26,7 @@
     "category": "android",
     "links": {
       "view": "https://drive.google.com/file/d/1niDoudRCdrIiR3vxMT9ReuHWDtGgN0DK/view?usp=sharing",
-      "code": "#"
+      "code": "https://github.com/anonhab/wcucampuscompass/"
     }
   },
   {
@@ -35,8 +35,8 @@
     "image": "realestate",
     "category": "java",
     "links": {
-      "view": "#",
-      "code": "#"
+      "view": "https://github.com/anonhab/RealEstateManagementSystem/blob/main/realestate.png",
+      "code": "https://github.com/anonhab/RealEstateManagementSystem"
     }
   },
   {
@@ -46,7 +46,7 @@
     "category": "embedded",
     "links": {
       "view": "https://drive.google.com/file/d/1vnyDUGONLzgqWrDJsQ7Y0mOUX6ukDRwc/view?usp=sharing",
-      "code": "#"
+      "code": "https://github.com/anonhab/SmartHomeEmbedeSystem"
     }
   },
   {
@@ -55,8 +55,8 @@
     "image": "certificate",
     "category": "embedded",
     "links": {
-      "view": "#",
-      "code": "#"
+      "view": "https://github.com/anonhab/SmartStoveProjectcertificate/blob/main/photo_2025-06-26_16-00-53.jpg",
+      "code": "https://github.com/anonhab/SmartStoveProjectcertificate"
     }
   }
 ]
