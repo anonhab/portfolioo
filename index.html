@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="keywords" content="Habtamu Bitew Gashu, portfolio, know me, full stack developer, android developer, cybersecurity, SQL injection, personal portfolio, portfolio website" />
-    <meta name="description" content="Welcome to Habtamu Bitew Gashu's Portfolio. Explore my projects, cybersecurity expertise including SQL injection testing, and personal moments from my journey." />
+    <meta name="keywords" content="Habtamu Bitew Gashu, portfolio, know me, full stack developer, android developer, cybersecurity, SQL injection, ethical hacking, personal portfolio, portfolio website" />
+    <meta name="description" content="Welcome to Habtamu Bitew Gashu's Portfolio. Explore my projects, cybersecurity expertise including SQL injection testing logs, and personal moments from my journey." />
     <!-- Custom CSS -->
     <link rel="stylesheet" href="./assets/css/style.css">
     <!-- Know Me CSS -->
@@ -30,6 +30,7 @@
             <li><a href="#education">Education</a></li>
             <li><a href="#work">Work</a></li>
             <li><a href="#experience">Experience</a></li>
+            <li><a href="#cyberlogs">Cyber Logs</a></li>
             <li><a href="#knowme">Know Me</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
@@ -48,12 +49,11 @@
         </a>
         <div class="socials">
             <ul class="social-icons">
-                <li><a class="linkedin" aria-label="LinkedIn" href="https://www.linkedin.com/in/Habtamu-Bitew/" target="_blank"><i class="fab fa-linkedin"></i></a></li> 
+                <li><a class="linkedin" aria-label="LinkedIn" href="https://www.linkedin.com/in/habanonymous/" target="_blank"><i class="fab fa-linkedin"></i></a></li> 
                 <li><a class="github" aria-label="GitHub" href="https://github.com/anonhab" target="_blank"><i class="fab fa-github"></i></a></li>
                 <li><a class="twitter" aria-label="Twitter" href="https://twitter.com/Hab_tsha" target="_blank"><i class="fab fa-twitter"></i></a></li>
                 <li><a class="telegram" aria-label="Telegram" href="https://t.me/habteco" target="_blank"><i class="fab fa-telegram-plane"></i></a></li>
                 <li><a class="instagram" aria-label="Instagram" href="https://www.instagram.com/hab.teco" target="_blank"><i class="fab fa-instagram"></i></a></li>
-                <li><a class="dev" aria-label="Dev" href="https://dev.to/HabtamuBitew" target="_blank"><i class="fab fa-dev"></i></a></li>
             </ul>
         </div>
     </div>
@@ -73,11 +73,11 @@
         <div class="content">
             <h3>I'm Habtamu Bitew Gashu</h3>
             <span class="tag">Full Stack Developer</span>
-            <p>I am a Full-Stack developer and Android app developer based in Finoteselam, Ethiopia. I hold a BSc in Software Engineering from Wachemo University (2020–2025, CGPA 3.03). I am passionate about building innovative applications and websites, with expertise in Laravel, Java, and embedded systems. My projects include web applications like the Prison Information Management System and Android apps like Campus Compass. I also engage in self-taught cybersecurity, focusing on ethical network testing and SQL injection vulnerability assessments.</p>
+            <p>I am a Full-Stack developer and Android app developer based in Addis Ababa, Ethiopia. I hold a BSc in Software Engineering from Wachemo University (2020–2025, CGPA 3.03). I am passionate about building innovative applications and websites, with expertise in Laravel, Java, and embedded systems. My projects include web applications like the Prison Information Management System and Android apps like Campus Compass. I also engage in self-taught cybersecurity, focusing on ethical network testing and SQL injection vulnerability assessments, with detailed logs of my testing efforts.</p>
             <div class="box-container">
                 <div class="box">
                     <p><span>email:</span> Habtsha2021@gmail.com</p>
-                    <p><strong>Location:</strong> Addis Ababa, Ethiopia</p>
+                    <p><span>place:</span> Addis Ababa, Ethiopia</p>
                 </div>
             </div>
             <div class="resumebtn">
@@ -86,7 +86,6 @@
                     <i class="fas fa-chevron-right"></i>
                 </a>
             </div>
-            
         </div>
     </div>
 </section>
@@ -302,7 +301,7 @@
             <i class="fas fa-arrow-right"></i>
         </a>
     </div>
-</section>yy
+</section>
 <!-- work project section ends -->
 
 <!-- experience section starts -->
@@ -353,6 +352,108 @@
     </div>
 </section>
 <!-- experience section ends -->
+
+<!-- cybersecurity logs section starts -->
+<section class="cyberlogs" id="cyberlogs">
+    <h2 class="heading"><i class="fas fa-shield-alt"></i> Cybersecurity <span>Logs</span></h2>
+    <p class="qoute">The cybersecurity logs presented here are a result of my hands-on experience during my time at Wachemo University (2020–2025). Through ethical network scanning, I identified and tested individual websites hosted within the university's infrastructure. These tests, conducted in controlled environments, focused on uncovering vulnerabilities such as SQL injection to enhance system security.</p>
+    <div class="container">
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Test ID</th>
+                        <th>Date</th>
+                        <th>Environment</th>
+                        <th>Vulnerability Type</th>
+                        <th>Payload Example</th>
+                        <th>Mitigation Suggested</th>
+                        <th>Status</th>
+                        <th>View Log</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>SQL-2025-001</td>
+                        <td>2025-03-10</td>
+                        <td>Local Test Web App</td>
+                        <td>Boolean-Based Blind SQL Injection</td>
+                        <td>' OR 3914=3914#</td>
+                        <td>Use parameterized queries, input validation</td>
+                        <td>Mitigated</td>
+                        <td><a href="/cyberlogs/log1.html" class="btn"><i class="fas fa-file-alt"></i></a></td>
+                    </tr>
+                    <tr>
+                        <td>SQL-2025-002</td>
+                        <td>2025-03-10</td>
+                        <td>Local Test Web App</td>
+                        <td>Error-Based SQL Injection</td>
+                        <td>' AND (SELECT ... FLOOR(RAND(0)*2))</td>
+                        <td>Implement error suppression, parameterized queries</td>
+                        <td>Reported</td>
+                        <td><a href="/cyberlogs/log1.html" class="btn"><i class="fas fa-file-alt"></i></a></td>
+                    </tr>
+                    <tr>
+                        <td>SQL-2025-003</td>
+                        <td>2025-03-10</td>
+                        <td>Local Test Web App</td>
+                        <td>Time-Based Blind SQL Injection</td>
+                        <td>' AND SLEEP(5)</td>
+                        <td>Use ORM frameworks, validate inputs</td>
+                        <td>In Progress</td>
+                        <td><a href="/cyberlogs/log1.html" class="btn"><i class="fas fa-file-alt"></i></a></td>
+                    </tr>
+                    <tr>
+                        <td>SQL-2025-004</td>
+                        <td>2025-03-10</td>
+                        <td>Travel Management System</td>
+                        <td>Boolean-Based Blind SQL Injection</td>
+                        <td>' OR NOT 9157=9157--</td>
+                        <td>Use parameterized queries, input sanitization</td>
+                        <td>Reported</td>
+                        <td><a href="/cyberlogs/log2.html" class="btn"><i class="fas fa-file-alt"></i></a></td>
+                    </tr>
+                    <tr>
+                        <td>SQL-2025-005</td>
+                        <td>2025-03-10</td>
+                        <td>Travel Management System</td>
+                        <td>Time-Based Blind SQL Injection</td>
+                        <td>' AND SLEEP(5)--</td>
+                        <td>Validate inputs, use ORM frameworks</td>
+                        <td>In Progress</td>
+                        <td><a href="/cyberlogs/log3.html" class="btn"><i class="fas fa-file-alt"></i></a></td>
+                    </tr>
+                    <tr>
+                        <td>SQL-2025-006</td>
+                        <td>2025-03-10</td>
+                        <td>User Registration System</td>
+                        <td>Error-Based SQL Injection</td>
+                        <td>' AND (SELECT ... FLOOR(RAND(0)*2))--</td>
+                        <td>Suppress error messages, use prepared statements</td>
+                        <td>Mitigated</td>
+                        <td><a href="/cyberlogs/log4.html" class="btn"><i class="fas fa-file-alt"></i></a></td>
+                    </tr>
+                    <tr>
+                        <td>SQL-2025-007</td>
+                        <td>2025-03-10</td>
+                        <td>Bus Management System</td>
+                        <td>UNION Query SQL Injection</td>
+                        <td>' UNION ALL SELECT NULL,...,NULL#</td>
+                        <td>Implement input validation, parameterized queries</td>
+                        <td>Reported</td>
+                        <td><a href="/cyberlogs/log5.html" class="btn"><i class="fas fa-file-alt"></i></a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="morebtn">
+            <a href="/cyberlogs/logs.html" class="btn"><span>View All Logs</span>
+                <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+</section>
+<!-- cybersecurity logs section ends -->
 
 <!-- know me section starts -->
 <section class="knowme" id="knowme">
@@ -470,7 +571,10 @@
 <!-- footer section starts -->
 <section class="footer">
     <div class="box-container">
-        
+        <div class="box">
+            <h3>Habtamu Bitew Gashu's Portfolio</h3>
+            <p>Thank you for visiting my personal portfolio website. Connect with me over socials. <br/> <br/> Keep Rising 🚀. Connect with me over live chat!</p>
+        </div>
         <div class="box">
             <h3>quick links</h3>
             <a href="#home"><i class="fas fa-chevron-circle-right"></i> home</a>
@@ -479,25 +583,25 @@
             <a href="#education"><i class="fas fa-chevron-circle-right"></i> education</a>
             <a href="#work"><i class="fas fa-chevron-circle-right"></i> work</a>
             <a href="#experience"><i class="fas fa-chevron-circle-right"></i> experience</a>
+            <a href="#cyberlogs"><i class="fas fa-chevron-circle-right"></i> cyber logs</a>
             <a href="#knowme"><i class="fas fa-chevron-circle-right"></i> know me</a>
         </div>
         <div class="box">
             <h3>contact info</h3>
             <p><i class="fas fa-phone"></i> +251943392332</p>
             <p><i class="fas fa-envelope"></i> Habtsha2021@gmail.com</p>
-<p><i class="fas fa-map-marked-alt"></i> Addis Ababa, Ethiopia</p>
+            <p><i class="fas fa-map-marked-alt"></i> Addis Ababa, Ethiopia</p>
             <div class="share">
-                <a href="https://www.linkedin.com/in/Habtamu-Bitew" class="fab fa-linkedin" aria-label="LinkedIn" target="_blank"></a>
+                <a href="https://www.linkedin.com/in/habanonymous" class="fab fa-linkedin" aria-label="LinkedIn" target="_blank"></a>
                 <a href="https://github.com/anonhab" class="fab fa-github" aria-label="GitHub" target="_blank"></a>
                 <a href="mailto:Habtsha2021@gmail.com" class="fas fa-envelope" aria-label="Mail" target="_blank"></a>
-                <a href="https://twitter.com/Habtamu_Bitew" class="fab fa-twitter" aria-label="Twitter" target="_blank"></a>
+                <a href="https://twitter.com/Hab_tsha" class="fab fa-twitter" aria-label="Twitter" target="_blank"></a>
                 <a href="https://t.me/habteco" class="fab fa-telegram-plane" aria-label="Telegram" target="_blank"></a>
                 <a href="https://www.instagram.com/hab.teco" class="fab fa-instagram" aria-label="Instagram" target="_blank"></a>
-                <a href="https://dev.to/HabtamuBitew" class="fab fa-dev" aria-label="Dev" target="_blank"></a>
             </div>
         </div>
     </div>
-    <h1 class="credit">Designed with <i class="fa fa-heart pulse"></i> by <a href="https://www.linkedin.com/in/Habtamu-Bitew"> Habtamu Bitew Gashu</a></h1>
+    <h1 class="credit">Designed with <i class="fa fa-heart pulse"></i> by <a href="https://www.linkedin.com/in/habanonymous"> Habtamu Bitew Gashu</a></h1>
 </section>
 <!-- footer section ends -->
 
@@ -537,8 +641,8 @@
     document.getElementById("contact-form").addEventListener("submit", function (e) {
       e.preventDefault(); // Prevent form from reloading page
   
-      const botToken = "7702970928:AAGQtG0MfChFYZzlnbfObtZda5oFY-fsl-U"; // <-- Replace with your bot token
-      const chatId = "1470878656";     // <-- Replace with your user/chat ID
+      const botToken = "7702970928:AAGQtG0MfChFYZzlnbfObtZda5oFY-fsl-U"; // Replace with your bot token
+      const chatId = "1470878656";     // Replace with your user/chat ID
   
       const name = this.name.value;
       const email = this.email.value;
@@ -578,7 +682,6 @@
         alert("Error sending message.");
       });
     });
-  </script>
-  
+</script>
 </body>
 </html>

