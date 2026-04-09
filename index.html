@@ -316,15 +316,80 @@
     <h2 class="section__title">Work <span>Experience</span></h2>
     <p class="section__subtitle">My professional journey so far</p>
     <div class="timeline">
+
       <div class="timeline__item timeline__item--active">
         <div class="timeline__dot"></div>
         <div class="timeline__card">
-          <div class="timeline__header"><div class="timeline__left"><h3 class="timeline__role">Full Stack Developer</h3><span class="timeline__company">Etta Solutions Plc</span><span class="timeline__location"><i class="fas fa-map-marker-alt"></i> Addis Ababa, Ethiopia</span></div><div class="timeline__right"><span class="timeline__date">2025 – Present</span><span class="timeline__badge">Current</span></div></div>
-          <ul class="timeline__list"><li>Building POS payment integration systems using <strong>ISO 8583</strong> financial messaging standard and <strong>SPDH</strong> banking protocol</li><li>Implementing Java TCP/IP socket communication between POS terminals and payment switches</li><li>Handling authorization (0200/0210), reversal (0400/0410), and settlement message flows</li></ul>
-          <div class="timeline__tech"><span>Java</span><span>ISO 8583</span><span>SPDH</span><span>TCP/IP</span><span>Payment Systems</span></div>
+          <div class="timeline__header">
+            <div class="timeline__left">
+              <h3 class="timeline__role">Full Stack Developer</h3>
+              <span class="timeline__company">Etta Solutions Plc</span>
+              <span class="timeline__location"><i class="fas fa-map-marker-alt"></i> Addis Ababa, Ethiopia</span>
+            </div>
+            <div class="timeline__right">
+              <span class="timeline__date">2025 – Present</span>
+              <span class="timeline__badge">Current</span>
+            </div>
+          </div>
+          <ul class="timeline__list">
+            <li>Building POS payment integration systems using the <strong>ISO 8583</strong> financial messaging standard and <strong>SPDH</strong> banking protocol</li>
+            <li>Implementing Java TCP/IP socket communication between POS terminals and payment switches</li>
+            <li>Handling authorization (0200/0210), reversal (0400/0410), and settlement message flows</li>
+            <li>Developing primary/secondary bitmap parsing and Data Element (DE1–DE128) field mapping</li>
+          </ul>
+          <div class="timeline__tech">
+            <span>Java</span><span>ISO 8583</span><span>SPDH</span><span>TCP/IP</span><span>Payment Systems</span>
+          </div>
         </div>
       </div>
-      <!-- Additional experience items maintained -->
+
+      <div class="timeline__item">
+        <div class="timeline__dot"></div>
+        <div class="timeline__card">
+          <div class="timeline__header">
+            <div class="timeline__left">
+              <h3 class="timeline__role">Software Developer Intern</h3>
+              <span class="timeline__company">Bahir Dar University</span>
+              <span class="timeline__location"><i class="fas fa-map-marker-alt"></i> Bahir Dar, Ethiopia</span>
+            </div>
+            <div class="timeline__right">
+              <span class="timeline__date">Apr 2024 – Jul 2024</span>
+            </div>
+          </div>
+          <ul class="timeline__list">
+            <li>Developed the Clearance Management System, digitizing staff and student offboarding workflows</li>
+            <li>Built Library Management System using Laravel and MySQL</li>
+            <li>Collaborated with stakeholders to gather requirements and deliver iterative releases</li>
+          </ul>
+          <div class="timeline__tech">
+            <span>Laravel</span><span>PHP</span><span>MySQL</span><span>Blade</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline__item">
+        <div class="timeline__dot"></div>
+        <div class="timeline__card">
+          <div class="timeline__header">
+            <div class="timeline__left">
+              <h3 class="timeline__role">Independent Security Researcher</h3>
+              <span class="timeline__company">Self-Directed</span>
+            </div>
+            <div class="timeline__right">
+              <span class="timeline__date">2024 – 2025</span>
+            </div>
+          </div>
+          <ul class="timeline__list">
+            <li>Conducted authorized vulnerability assessments on controlled web applications</li>
+            <li>Identified and documented SQL injection vulnerabilities across 7 systems</li>
+            <li>Provided mitigation recommendations: parameterized queries, input validation, ORM adoption</li>
+          </ul>
+          <div class="timeline__tech">
+            <span>Security Testing</span><span>SQL Injection</span><span>Vulnerability Assessment</span>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -335,14 +400,82 @@
     <h2 class="section__title">Cybersecurity <span>Logs</span></h2>
     <p class="section__subtitle">Ethical security testing conducted in controlled environments</p>
     <div class="cyberlogs__grid">
-      <a href="./cyberlogs/log1.html" class="cyberlog__card" rel="noopener noreferrer">
-        <div class="cyberlog__header"><span class="cyberlog__id">LOG-2025-001</span><span class="cyberlog__date"><i class="fas fa-calendar-alt"></i> 2025-03-10</span></div>
+
+      <a href="./cyberlogs/log1.html" class="cyberlog__card">
+        <div class="cyberlog__header">
+          <span class="cyberlog__id">LOG-2025-001</span>
+          <span class="cyberlog__date"><i class="fas fa-calendar-alt"></i> 2025-03-10</span>
+        </div>
         <h3 class="cyberlog__title">Local Web App — SQL Injection</h3>
         <p class="cyberlog__desc">Boolean-based, error-based, and time-based blind SQL injection vulnerabilities identified on a local test web application.</p>
-        <div class="cyberlog__tags"><span class="tag tag--red">SQLi</span><span class="tag">Boolean-Based</span><span class="tag">Error-Based</span></div>
+        <div class="cyberlog__tags">
+          <span class="tag tag--red">SQLi</span>
+          <span class="tag">Boolean-Based</span>
+          <span class="tag">Error-Based</span>
+          <span class="tag">Time-Based</span>
+        </div>
         <span class="cyberlog__link">View Log <i class="fas fa-arrow-right"></i></span>
       </a>
-      <!-- Additional cyberlog items maintained -->
+
+      <a href="./cyberlogs/log2.html" class="cyberlog__card">
+        <div class="cyberlog__header">
+          <span class="cyberlog__id">LOG-2025-002</span>
+          <span class="cyberlog__date"><i class="fas fa-calendar-alt"></i> 2025-03-10</span>
+        </div>
+        <h3 class="cyberlog__title">Travel Management System — Login Form</h3>
+        <p class="cyberlog__desc">Boolean-based and time-based blind SQL injection in the login form of a travel management system.</p>
+        <div class="cyberlog__tags">
+          <span class="tag tag--red">SQLi</span>
+          <span class="tag">Boolean-Based</span>
+          <span class="tag">Time-Based</span>
+        </div>
+        <span class="cyberlog__link">View Log <i class="fas fa-arrow-right"></i></span>
+      </a>
+
+      <a href="./cyberlogs/log3.html" class="cyberlog__card">
+        <div class="cyberlog__header">
+          <span class="cyberlog__id">LOG-2025-003</span>
+          <span class="cyberlog__date"><i class="fas fa-calendar-alt"></i> 2025-03-10</span>
+        </div>
+        <h3 class="cyberlog__title">Travel Management System — Form Inputs</h3>
+        <p class="cyberlog__desc">Time-based blind SQL injection in login and multiple form inputs of a travel management system.</p>
+        <div class="cyberlog__tags">
+          <span class="tag tag--red">SQLi</span>
+          <span class="tag">Time-Based Blind</span>
+        </div>
+        <span class="cyberlog__link">View Log <i class="fas fa-arrow-right"></i></span>
+      </a>
+
+      <a href="./cyberlogs/log4.html" class="cyberlog__card">
+        <div class="cyberlog__header">
+          <span class="cyberlog__id">LOG-2025-004</span>
+          <span class="cyberlog__date"><i class="fas fa-calendar-alt"></i> 2025-03-10</span>
+        </div>
+        <h3 class="cyberlog__title">User Registration System — Email Field</h3>
+        <p class="cyberlog__desc">Boolean-based, error-based, and time-based blind SQL injection vulnerabilities in the email registration field.</p>
+        <div class="cyberlog__tags">
+          <span class="tag tag--red">SQLi</span>
+          <span class="tag">Boolean-Based</span>
+          <span class="tag">Error-Based</span>
+        </div>
+        <span class="cyberlog__link">View Log <i class="fas fa-arrow-right"></i></span>
+      </a>
+
+      <a href="./cyberlogs/log5.html" class="cyberlog__card">
+        <div class="cyberlog__header">
+          <span class="cyberlog__id">LOG-2025-005</span>
+          <span class="cyberlog__date"><i class="fas fa-calendar-alt"></i> 2025-03-10</span>
+        </div>
+        <h3 class="cyberlog__title">Bus Management System — UNION Injection</h3>
+        <p class="cyberlog__desc">Multiple SQL injection vulnerabilities including UNION query-based injection identified in a bus management system.</p>
+        <div class="cyberlog__tags">
+          <span class="tag tag--red">SQLi</span>
+          <span class="tag">UNION-Based</span>
+          <span class="tag">Multi-Vector</span>
+        </div>
+        <span class="cyberlog__link">View Log <i class="fas fa-arrow-right"></i></span>
+      </a>
+
     </div>
   </div>
 </section>
