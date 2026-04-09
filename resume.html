@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Resume of Habtamu Bitew Gashu — Full Stack Developer & Fintech Engineer">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link id="favicon" rel="shortcut icon" href="./assets/images/favicon.png" type="image/x-png">
+  <title>Resume — Habtamu Bitew Gashu</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary: #6c63ff;
+      --primary-dark: #5a52d5;
+      --text: #1a1a2e;
+      --text-muted: #555;
+      --border: #e0e0e0;
+      --bg: #f8f9fa;
+      --white: #fff;
+      --gold: #f59e0b;
+      --blue: #3b82f6;
+      --green: #10b981;
+      --purple: #8b5cf6;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* ---- Top bar ---- */
+    .topbar {
+      background: var(--primary);
+      color: #fff;
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .topbar a { color: #fff; text-decoration: none; font-size: 0.875rem; display: inline-flex; align-items: center; gap: 6px; }
+    .topbar a:hover { opacity: 0.85; }
+    .topbar__actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn-print {
+      background: #fff;
+      color: var(--primary);
+      border: none;
+      padding: 8px 18px;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+    }
+    .btn-print:hover { background: #f0f0f0; }
+
+    /* ---- Resume wrapper ---- */
+    .resume {
+      max-width: 900px;
+      margin: 32px auto;
+      background: var(--white);
+      border-radius: 12px;
+      box-shadow: 0 4px 24px rgba(0,0,0,.10);
+      overflow: hidden;
+    }
+
+    /* ---- Header ---- */
+    .resume__header {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 60%, #0f3460 100%);
+      color: #fff;
+      padding: 40px 48px 36px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .resume__name { font-size: 2.2rem; font-weight: 800; letter-spacing: -0.5px; }
+    .resume__name span { color: var(--primary); }
+    .resume__title { font-size: 1.05rem; color: #a5b4fc; margin-top: 4px; font-weight: 500; }
+    .resume__contact { display: flex; flex-direction: column; gap: 6px; text-align: right; }
+    .resume__contact a, .resume__contact span {
+      color: #c7d2fe;
+      font-size: 0.85rem;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 6px;
+    }
+    .resume__contact a:hover { color: #fff; }
+
+    /* ---- Body ---- */
+    .resume__body { padding: 36px 48px; display: grid; grid-template-columns: 1fr 280px; gap: 36px; }
+
+    /* ---- Section ---- */
+    .section-title {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--primary);
+      border-bottom: 2px solid var(--primary);
+      padding-bottom: 6px;
+      margin-bottom: 16px;
+    }
+    .resume__section { margin-bottom: 28px; }
+
+    /* Summary */
+    .summary { font-size: 0.9rem; color: var(--text-muted); line-height: 1.75; }
+
+    /* Experience */
+    .exp__item { margin-bottom: 20px; }
+    .exp__header { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; flex-wrap: wrap; }
+    .exp__role { font-weight: 700; font-size: 0.95rem; }
+    .exp__company { color: var(--primary); font-weight: 600; font-size: 0.88rem; }
+    .exp__date { font-size: 0.8rem; color: var(--text-muted); white-space: nowrap; }
+    .exp__list { margin-top: 6px; padding-left: 16px; }
+    .exp__list li { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 3px; }
+    .exp__tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+    .exp__tag {
+      background: #f0eeff;
+      color: var(--primary-dark);
+      font-size: 0.72rem;
+      padding: 2px 8px;
+      border-radius: 20px;
+      font-weight: 500;
+    }
+
+    /* Education */
+    .edu__item { margin-bottom: 16px; }
+    .edu__degree { font-weight: 700; font-size: 0.92rem; }
+    .edu__school { color: var(--primary); font-size: 0.85rem; font-weight: 600; }
+    .edu__date { font-size: 0.8rem; color: var(--text-muted); }
+    .edu__detail { font-size: 0.82rem; color: var(--text-muted); margin-top: 2px; }
+
+    /* ---- Sidebar ---- */
+    .sidebar { border-left: 1px solid var(--border); padding-left: 28px; }
+
+    /* Skills */
+    .skill-group { margin-bottom: 20px; }
+    .skill-group__label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .skill-group__label i { color: var(--primary); }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+    .skill-tag {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 4px 9px;
+      font-size: 0.76rem;
+      font-weight: 500;
+      color: var(--text);
+    }
+    .skill-tag img { width: 16px; height: 16px; object-fit: contain; }
+    /* Highlight HTML5 & CSS3 */
+    .skill-tag--highlight {
+      background: #f0eeff;
+      border-color: var(--primary);
+      color: var(--primary-dark);
+      font-weight: 700;
+    }
+
+    /* Languages / Soft skills */
+    .list-plain { list-style: none; }
+    .list-plain li {
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      padding: 3px 0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .list-plain li::before { content: '▸'; color: var(--primary); font-size: 0.7rem; }
+
+    /* Awards */
+    .award { font-size: 0.84rem; color: var(--text-muted); margin-bottom: 6px; display: flex; align-items: flex-start; gap: 6px; }
+    .award i { color: var(--gold); margin-top: 2px; flex-shrink: 0; }
+
+    /* ---- Print ---- */
+    @media print {
+      .topbar { display: none; }
+      body { background: #fff; }
+      .resume { box-shadow: none; margin: 0; border-radius: 0; }
+      .resume__body { gap: 24px; padding: 28px 36px; }
+      .sidebar { padding-left: 20px; }
+    }
+
+    @media (max-width: 680px) {
+      .resume__header { padding: 28px 24px; }
+      .resume__contact { text-align: left; }
+      .resume__contact a, .resume__contact span { justify-content: flex-start; }
+      .resume__body { grid-template-columns: 1fr; padding: 24px; gap: 0; }
+      .sidebar { border-left: none; border-top: 1px solid var(--border); padding-left: 0; padding-top: 24px; margin-top: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="/"><i class="fas fa-arrow-left"></i> Back to Portfolio</a>
+  <div class="topbar__actions">
+    <a href="assets/resume/CV-Resume.pdf" download class="btn-print"><i class="fas fa-file-pdf"></i> Download PDF</a>
+    <button class="btn-print" onclick="window.print()"><i class="fas fa-print"></i> Print</button>
+  </div>
+</div>
+
+<div class="resume">
+
+  <!-- Header -->
+  <div class="resume__header">
+    <div>
+      <div class="resume__name">Habtamu Bitew <span>Gashu</span></div>
+      <div class="resume__title">Full Stack Developer &amp; Fintech Engineer</div>
+    </div>
+    <div class="resume__contact">
+      <a href="mailto:Habtsha2021@gmail.com"><i class="fas fa-envelope"></i> Habtsha2021@gmail.com</a>
+      <a href="tel:+251943392332"><i class="fas fa-phone"></i> +251 943 392 332</a>
+      <span><i class="fas fa-map-marker-alt"></i> Addis Ababa, Ethiopia</span>
+      <a href="https://github.com/anonhab" target="_blank"><i class="fab fa-github"></i> github.com/anonhab</a>
+      <a href="https://www.linkedin.com/in/habtamu-gashu-7792b7398" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+    </div>
+  </div>
+
+  <!-- Body -->
+  <div class="resume__body">
+
+    <!-- Main Column -->
+    <div class="main-col">
+
+      <!-- Summary -->
+      <div class="resume__section">
+        <div class="section-title">Professional Summary</div>
+        <p class="summary">
+          Full Stack Developer and Fintech Engineer with hands-on experience building POS payment integration systems using ISO 8583 and SPDH protocols at Etta Solutions Plc. Skilled in Java, Laravel, Angular, and Android development. Proficient in front-end technologies including HTML5, CSS3, and JavaScript for building responsive, accessible web interfaces. Based in Addis Ababa, Ethiopia; open to local and remote opportunities.
+        </p>
+      </div>
+
+      <!-- Experience -->
+      <div class="resume__section">
+        <div class="section-title">Work Experience</div>
+
+        <div class="exp__item">
+          <div class="exp__header">
+            <div>
+              <div class="exp__role">Full Stack Developer</div>
+              <div class="exp__company">Etta Solutions Plc</div>
+            </div>
+            <div class="exp__date">2025 – Present &nbsp;|&nbsp; Addis Ababa, Ethiopia</div>
+          </div>
+          <ul class="exp__list">
+            <li>Building POS payment integration systems using ISO 8583 financial messaging and SPDH banking protocol</li>
+            <li>Implementing Java TCP/IP socket communication between POS terminals and payment switches</li>
+            <li>Handling authorization (0200/0210), reversal (0400/0410), and settlement message flows</li>
+            <li>Parsing primary/secondary bitmaps and mapping Data Elements (DE1–DE128)</li>
+          </ul>
+          <div class="exp__tags">
+            <span class="exp__tag">Java</span><span class="exp__tag">ISO 8583</span><span class="exp__tag">SPDH</span>
+            <span class="exp__tag">TCP/IP Sockets</span><span class="exp__tag">Payment Systems</span>
+          </div>
+        </div>
+
+        <div class="exp__item">
+          <div class="exp__header">
+            <div>
+              <div class="exp__role">Software Developer Intern</div>
+              <div class="exp__company">Bahir Dar University</div>
+            </div>
+            <div class="exp__date">Apr 2024 – Jul 2024 &nbsp;|&nbsp; Bahir Dar, Ethiopia</div>
+          </div>
+          <ul class="exp__list">
+            <li>Developed the Clearance Management System digitizing staff and student offboarding workflows</li>
+            <li>Built Library Management System with Laravel and MySQL</li>
+            <li>Gathered requirements from stakeholders and delivered iterative releases</li>
+          </ul>
+          <div class="exp__tags">
+            <span class="exp__tag">Laravel</span><span class="exp__tag">PHP</span>
+            <span class="exp__tag">MySQL</span><span class="exp__tag">HTML5</span><span class="exp__tag">CSS3</span>
+          </div>
+        </div>
+
+        <div class="exp__item">
+          <div class="exp__header">
+            <div>
+              <div class="exp__role">Independent Security Researcher</div>
+              <div class="exp__company">Self-Directed</div>
+            </div>
+            <div class="exp__date">2024 – 2025</div>
+          </div>
+          <ul class="exp__list">
+            <li>Conducted authorized vulnerability assessments on controlled web applications</li>
+            <li>Identified and documented SQL injection vulnerabilities across 7 systems</li>
+            <li>Provided mitigation: parameterized queries, input validation, ORM adoption</li>
+          </ul>
+          <div class="exp__tags">
+            <span class="exp__tag">Security Testing</span><span class="exp__tag">SQL Injection</span>
+            <span class="exp__tag">Vulnerability Assessment</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Education -->
+      <div class="resume__section">
+        <div class="section-title">Education</div>
+        <div class="edu__item">
+          <div class="edu__degree">Bachelor of Science in Software Engineering</div>
+          <div class="edu__school">Wachemo University</div>
+          <div class="edu__date">2020 – 2024 &nbsp;|&nbsp; Hossana, Ethiopia</div>
+          <div class="edu__detail">Coursework: Data Structures, Algorithms, Operating Systems, Networking, Web Development, Mobile Development</div>
+        </div>
+      </div>
+
+      <!-- Projects -->
+      <div class="resume__section">
+        <div class="section-title">Key Projects</div>
+        <div class="exp__item">
+          <div class="exp__role">Prison Information Management System</div>
+          <div class="edu__detail">Full-featured Laravel web app managing prison operations with 10+ user roles. 186 commits, Docker-deployed. Forked by 3 external developers.</div>
+          <div class="exp__tags" style="margin-top:5px">
+            <span class="exp__tag">Laravel</span><span class="exp__tag">MySQL</span>
+            <span class="exp__tag">HTML5</span><span class="exp__tag">Tailwind CSS</span><span class="exp__tag">Docker</span>
+          </div>
+        </div>
+        <div class="exp__item">
+          <div class="exp__role">HR Management System (Angular)</div>
+          <div class="edu__detail">Angular 8 SPA with modules for employees, recruitment, departments, and job listings.</div>
+          <div class="exp__tags" style="margin-top:5px">
+            <span class="exp__tag">Angular</span><span class="exp__tag">TypeScript</span>
+            <span class="exp__tag">HTML5</span><span class="exp__tag">CSS3</span>
+          </div>
+        </div>
+        <div class="exp__item">
+          <div class="exp__role">Smart Home Embedded System</div>
+          <div class="edu__detail">Multi-factor door lock with RFID + PIN, servo actuation, I2C LCD, temperature sensing.</div>
+          <div class="exp__tags" style="margin-top:5px">
+            <span class="exp__tag">C++</span><span class="exp__tag">Arduino</span><span class="exp__tag">IoT</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /main-col -->
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+
+      <!-- Skills -->
+      <div class="resume__section">
+        <div class="section-title">Technical Skills</div>
+
+        <div class="skill-group">
+          <div class="skill-group__label"><i class="fas fa-code"></i> Frontend &amp; Web</div>
+          <div class="skill-tags">
+            <span class="skill-tag skill-tag--highlight">
+              <img src="https://img.icons8.com/color/48/html-5.png" alt="HTML5"> HTML5
+            </span>
+            <span class="skill-tag skill-tag--highlight">
+              <img src="https://img.icons8.com/color/48/css3.png" alt="CSS3"> CSS3
+            </span>
+            <span class="skill-tag">
+              <img src="https://img.icons8.com/color/48/javascript.png" alt="JS"> JavaScript
+            </span>
+            <span class="skill-tag">
+              <img src="https://img.icons8.com/color/48/typescript.png" alt="TS"> TypeScript
+            </span>
+            <span class="skill-tag">
+              <img src="https://img.icons8.com/color/48/angularjs.png" alt="Angular"> Angular
+            </span>
+            <span class="skill-tag">
+              <img src="https://img.icons8.com/color/48/react-native.png" alt="React"> React
+            </span>
+            <span class="skill-tag">
+              <img src="https://img.icons8.com/color/48/tailwindcss.png" alt="Tailwind"> Tailwind
+            </span>
+            <span class="skill-tag">
+              <img src="https://img.icons8.com/color/48/bootstrap.png" alt="Bootstrap"> Bootstrap
+            </span>
+            <span class="skill-tag">
+              <img src="https://img.icons8.com/color/48/sass.png" alt="SASS"> SASS/SCSS
+            </span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <div class="skill-group__label"><i class="fas fa-server"></i> Backend</div>
+          <div class="skill-tags">
+            <span class="skill-tag">
+              <img src="https://img.icons8.com/color/48/java-coffee-cup-logo.png" alt="Java"> Java
+            </span>
+            <span class="skill-tag">
+              <img src="https://img.icons8.com/color/48/spring-logo.png" alt="Spring"> Spring Boot
+            </span>
+            <span class="skill-tag">
+              <img src="https://img.icons8.com/color/48/laravel.png" alt="Laravel"> Laravel
+            </span>
+            <span class="skill-tag">
+              <img src="https://img.icons8.com/color/48/php.png" alt="PHP"> PHP
+            </span>
+            <span class="skill-tag">
+              <img src="https://img.icons8.com/color/48/nodejs.png" alt="Node"> Node.js
+            </span>
+            <span class="skill-tag">
+              <img src="https://img.icons8.com/color/48/python.png" alt="Python"> Python
+            </span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <div class="skill-group__label"><i class="fas fa-credit-card"></i> Fintech &amp; Protocols</div>
+          <div class="skill-tags">
+            <span class="skill-tag"><img src="https://img.icons8.com/color/48/payment-terminal.png" alt="ISO 8583"> ISO 8583</span>
+            <span class="skill-tag"><img src="https://img.icons8.com/color/48/bank-card-back-side.png" alt="SPDH"> SPDH</span>
+            <span class="skill-tag"><img src="https://img.icons8.com/color/48/network.png" alt="TCP/IP"> TCP/IP</span>
+            <span class="skill-tag"><img src="https://img.icons8.com/color/48/pos-terminal.png" alt="POS"> POS Integration</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <div class="skill-group__label"><i class="fas fa-database"></i> Databases</div>
+          <div class="skill-tags">
+            <span class="skill-tag"><img src="https://img.icons8.com/color/48/mysql.png" alt="MySQL"> MySQL</span>
+            <span class="skill-tag"><img src="https://img.icons8.com/color/48/postgreesql.png" alt="PostgreSQL"> PostgreSQL</span>
+            <span class="skill-tag"><img src="https://img.icons8.com/color/48/mongodb.png" alt="MongoDB"> MongoDB</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <div class="skill-group__label"><i class="fas fa-mobile-alt"></i> Mobile</div>
+          <div class="skill-tags">
+            <span class="skill-tag"><img src="https://img.icons8.com/color/48/android-os.png" alt="Android"> Android</span>
+            <span class="skill-tag"><img src="https://img.icons8.com/color/48/flutter.png" alt="Flutter"> Flutter</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <div class="skill-group__label"><i class="fas fa-tools"></i> DevOps &amp; Tools</div>
+          <div class="skill-tags">
+            <span class="skill-tag"><img src="https://img.icons8.com/color/48/docker.png" alt="Docker"> Docker</span>
+            <span class="skill-tag"><img src="https://img.icons8.com/color/48/git.png" alt="Git"> Git</span>
+            <span class="skill-tag"><img src="https://img.icons8.com/color/48/amazon-web-services.png" alt="AWS"> AWS</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Awards -->
+      <div class="resume__section">
+        <div class="section-title">Awards</div>
+        <div class="award"><i class="fas fa-trophy"></i> Innovation Award — Smart Stove Project (3,000 Birr), School Innovation Competition, 2010</div>
+      </div>
+
+      <!-- Languages -->
+      <div class="resume__section">
+        <div class="section-title">Languages</div>
+        <ul class="list-plain">
+          <li>Amharic (Native)</li>
+          <li>English (Professional)</li>
+        </ul>
+      </div>
+
+      <!-- Soft Skills -->
+      <div class="resume__section">
+        <div class="section-title">Soft Skills</div>
+        <ul class="list-plain">
+          <li>Problem Solving</li>
+          <li>Team Collaboration</li>
+          <li>Agile / Scrum</li>
+          <li>Technical Communication</li>
+          <li>Self-directed Learning</li>
+        </ul>
+      </div>
+
+    </div><!-- /sidebar -->
+
+  </div><!-- /resume__body -->
+</div><!-- /resume -->
+
+</body>
+</html>

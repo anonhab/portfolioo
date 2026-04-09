@@ -1,687 +1,845 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="keywords" content="Habtamu Bitew Gashu, portfolio, know me, full stack developer, android developer, cybersecurity, SQL injection, ethical hacking, personal portfolio, portfolio website" />
-    <meta name="description" content="Welcome to Habtamu Bitew Gashu's Portfolio. Explore my projects, cybersecurity expertise including SQL injection testing logs, and personal moments from my journey." />
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="./assets/css/style.css">
-    <!-- Know Me CSS -->
-    <link rel="stylesheet" href="./assets/css/knowme.css">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!-- Favicon -->
-    <link id='favicon' rel="shortcut icon" href="./assets/images/favicon.png" type="image/x-png">
-    <title>Portfolio | Habtamu Bitew Gashu</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Habtamu Bitew Gashu — Full Stack Developer & Fintech Engineer at Etta Solutions Plc. ISO 8583, SPDH protocol, Laravel, Java, Angular, Android.">
+  <meta name="keywords" content="Habtamu Bitew Gashu, Full Stack Developer, Fintech, ISO 8583, SPDH, POS Integration, Laravel, Java, Android, Angular, Ethiopia">
+  <link rel="stylesheet" href="./assets/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link id="favicon" rel="shortcut icon" href="./assets/images/favicon.png" type="image/x-png">
+  <title>Habtamu Bitew Gashu — Full Stack Developer</title>
 </head>
-<body oncontextmenu="return false">
+<body>
 
-<!-- navbar starts -->
-<header>
-    <a href="/" class="logo"><i class="fab fa-node-js"></i> Habtamu</a>
-    <div id="menu" class="fas fa-bars"></div>
-    <nav class="navbar">
-        <ul>
-            <li><a class="active" href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#skills">Skills</a></li>
-            <li><a href="#education">Education</a></li>
-            <li><a href="#work">Work</a></li>
-            <li><a href="#experience">Experience</a></li>
-            <li><a href="#cyberlogs">Cyber Logs</a></li>
-            <li><a href="#knowme">Know Me</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </nav>
+<!-- ==================== NAVBAR ==================== -->
+<header class="header" id="header">
+  <nav class="nav container">
+    <a href="#home" class="nav__logo">HBG<span>.</span></a>
+    <div class="nav__menu" id="nav-menu">
+      <ul class="nav__list">
+        <li><a href="#home"       class="nav__link active-link">Home</a></li>
+        <li><a href="#about"      class="nav__link">About</a></li>
+        <li><a href="#skills"     class="nav__link">Skills</a></li>
+        <li><a href="#projects"   class="nav__link">Projects</a></li>
+        <li><a href="#experience" class="nav__link">Experience</a></li>
+        <li><a href="#cyberlogs"  class="nav__link">Cyberlogs</a></li>
+        <li><a href="#contact"    class="nav__link">Contact</a></li>
+      </ul>
+      <span class="nav__close" id="nav-close"><i class="fas fa-times"></i></span>
+    </div>
+    <a href="resume.html" class="btn btn--outline btn--sm nav__hire">Hire Me</a>
+    <span class="nav__toggle" id="nav-toggle"><i class="fas fa-bars"></i></span>
+  </nav>
 </header>
-<!-- navbar ends -->
 
-<!-- hero section starts -->
-<section class="home" id="home">
-    <div id="particles-js"></div>
-    <div class="content">
-        <h2>Hi There,<br/> I'm Habtamu <span>Bitew Gashu</span></h2>
-        <p>i am into <span class="typing-text"></span></p>
-        <a href="#about" class="btn"><span>About Me</span>
-            <i class="fas fa-arrow-circle-down"></i>
+<!-- ==================== HERO ==================== -->
+<section class="hero section" id="home">
+  <div id="particles-js"></div>
+  <div class="hero__container container">
+    <div class="hero__content">
+      <div class="hero__badges">
+        <span class="badge badge--green"><i class="fas fa-circle"></i> Open to Opportunities</span>
+        <span class="badge badge--blue"><i class="fas fa-building"></i> @ Etta Solutions Plc</span>
+      </div>
+      <h1 class="hero__title">Hi, I'm<br><span>Habtamu Bitew Gashu</span></h1>
+      <p class="hero__subtitle">I specialize in <span class="typing-text"></span></p>
+      <p class="hero__desc">Full Stack Developer & Fintech Engineer building card payment systems with ISO 8583 & SPDH protocols. Based in Addis Ababa, Ethiopia.</p>
+      <div class="hero__btns">
+        <a href="#projects" class="btn btn--primary">View My Work <i class="fas fa-arrow-right"></i></a>
+        <a href="resume.html" class="btn btn--outline">View Resume <i class="fas fa-file-alt"></i></a>
+      </div>
+      <div class="hero__socials">
+        <a href="https://github.com/anonhab" target="_blank" class="hero__social" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/habtamu-gashu-7792b7398" target="_blank" class="hero__social" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        <a href="https://twitter.com/Hab_tsha" target="_blank" class="hero__social" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="https://t.me/habteco" target="_blank" class="hero__social" aria-label="Telegram"><i class="fab fa-telegram-plane"></i></a>
+        <a href="https://www.instagram.com/hab.teco" target="_blank" class="hero__social" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
+    <div class="hero__image">
+      <div class="hero__img-ring">
+        <img src="./assets/images/hero.png" alt="Habtamu Bitew Gashu" class="hero__img">
+      </div>
+    </div>
+  </div>
+  <a href="#about" class="hero__scroll" aria-label="Scroll down">
+    <i class="fas fa-chevron-down"></i>
+  </a>
+</section>
+
+<!-- ==================== ABOUT ==================== -->
+<section class="about section" id="about">
+  <div class="container">
+    <h2 class="section__title">About <span>Me</span></h2>
+    <p class="section__subtitle">Full Stack Developer · Fintech Engineer · Security Researcher</p>
+    <div class="about__grid">
+      <div class="about__image-wrapper">
+        <img src="./assets/images/profile2.jpg" alt="Habtamu Bitew Gashu" class="about__img">
+        <div class="about__img-deco"></div>
+      </div>
+      <div class="about__content">
+        <h3 class="about__name">Habtamu Bitew Gashu</h3>
+        <span class="about__role">Full Stack Developer &amp; Fintech Engineer</span>
+        <p class="about__desc">I'm a Full Stack Developer at <strong>Etta Solutions Plc</strong>, Addis Ababa, specializing in fintech payment integrations using <strong>ISO 8583</strong> and <strong>SPDH</strong> banking protocols. I build card-based POS systems, enterprise web applications, Angular SPAs, and Android mobile apps.</p>
+        <p class="about__desc">BSc in Software Engineering from Wachemo University (2020–2025). Passionate about financial technology, secure systems, and software that solves real problems.</p>
+        <div class="about__info-grid">
+          <div class="about__info-item">
+            <span class="about__info-label">Email</span>
+            <span class="about__info-value">Habtsha2021@gmail.com</span>
+          </div>
+          <div class="about__info-item">
+            <span class="about__info-label">Phone</span>
+            <span class="about__info-value">+251 943 392 332</span>
+          </div>
+          <div class="about__info-item">
+            <span class="about__info-label">Location</span>
+            <span class="about__info-value">Addis Ababa, Ethiopia</span>
+          </div>
+          <div class="about__info-item">
+            <span class="about__info-label">Status</span>
+            <span class="about__info-value about__info-open">&#9679; Open to Opportunities</span>
+          </div>
+        </div>
+        <a href="resume.html" class="btn btn--primary">
+          View Resume <i class="fas fa-file-alt"></i>
         </a>
-        <div class="socials">
-            <ul class="social-icons">
-                <li><a class="linkedin" aria-label="LinkedIn" href="https://www.linkedin.com/in/habanonymous/" target="_blank"><i class="fab fa-linkedin"></i></a></li> 
-                <li><a class="github" aria-label="GitHub" href="https://github.com/anonhab" target="_blank"><i class="fab fa-github"></i></a></li>
-                <li><a class="twitter" aria-label="Twitter" href="https://twitter.com/Hab_tsha" target="_blank"><i class="fab fa-twitter"></i></a></li>
-                <li><a class="telegram" aria-label="Telegram" href="https://t.me/habteco" target="_blank"><i class="fab fa-telegram-plane"></i></a></li>
-                <li><a class="instagram" aria-label="Instagram" href="https://www.instagram.com/hab.teco" target="_blank"><i class="fab fa-instagram"></i></a></li>
-            </ul>
-        </div>
+      </div>
     </div>
-    <div class="image">
-        <img draggable="false" class="tilt" src="./assets/images/hero.png" alt="">
+    <div class="stats__row">
+      <div class="stat__card">
+        <h3 class="stat__number" data-target="2">0</h3>
+        <p>Years Experience</p>
+      </div>
+      <div class="stat__card">
+        <h3 class="stat__number" data-target="10">0</h3>
+        <p>Projects Built</p>
+      </div>
+      <div class="stat__card">
+        <h3 class="stat__number" data-target="15">0</h3>
+        <p>Technologies</p>
+      </div>
+      <div class="stat__card">
+        <h3 class="stat__number" data-target="186">0</h3>
+        <p>Commits (PIMS)</p>
+      </div>
     </div>
+  </div>
 </section>
-<!-- hero section ends -->
 
-<!-- about section starts -->
-<section class="about" id="about">
-    <h2 class="heading"><i class="fas fa-user-alt"></i> About <span>Me</span></h2>
-    <div class="row">
-        <div class="image">
-            <img draggable="false" class="tilt" src="./assets/images/profile2.jpg" alt="">
+<!-- ==================== SKILLS ==================== -->
+<section class="skills section" id="skills">
+  <div class="container">
+    <h2 class="section__title">Technical <span>Skills</span></h2>
+    <p class="section__subtitle">Specialized in fintech payment systems and full-stack development</p>
+    <div class="skills__grid">
+
+      <div class="skills__card skills__card--gold">
+        <div class="skills__card-head">
+          <i class="fas fa-credit-card"></i>
+          <h3>Fintech &amp; Protocols</h3>
         </div>
-        <div class="content">
-            <h3>I'm Habtamu Bitew Gashu</h3>
-            <span class="tag">Full Stack Developer</span>
-            <p>I am a Full-Stack developer and Android app developer based in Addis Ababa, Ethiopia. I hold a BSc in Software Engineering from Wachemo University (2020–2025, CGPA 3.03). I am passionate about building innovative applications and websites, with expertise in Laravel, Java, and embedded systems. My projects include web applications like the Prison Information Management System and Android apps like Campus Compass. I also engage in self-taught cybersecurity, focusing on ethical network testing and SQL injection vulnerability assessments, with detailed logs of my testing efforts.</p>
-            <div class="box-container">
-                <div class="box">
-                    <p><span>email:</span> Habtsha2021@gmail.com</p>
-                    <p><span>place:</span> Addis Ababa, Ethiopia</p>
-                </div>
-            </div>
-            <div class="resumebtn">
-                <a href="assets/resume/CV-Resume.pdf" download class="btn">
-                    <span>Resume</span>
-                    <i class="fas fa-chevron-right"></i>
-                </a>
-            </div>
+        <div class="skills__items">
+          <div class="skill__item">
+            <img src="https://img.icons8.com/color/48/payment-terminal.png" alt="ISO 8583">
+            <span>ISO 8583</span>
+          </div>
+          <div class="skill__item">
+            <img src="https://img.icons8.com/color/48/bank-card-back-side.png" alt="SPDH">
+            <span>SPDH Protocol</span>
+          </div>
+          <div class="skill__item">
+            <img src="https://img.icons8.com/color/48/network.png" alt="TCP/IP">
+            <span>TCP/IP Sockets</span>
+          </div>
+          <div class="skill__item">
+            <img src="https://img.icons8.com/color/48/pos-terminal.png" alt="POS">
+            <span>POS Integration</span>
+          </div>
+          <div class="skill__item">
+            <img src="https://img.icons8.com/color/48/api-settings.png" alt="REST API">
+            <span>REST APIs</span>
+          </div>
+        
+        
         </div>
+      </div>
+
+      <div class="skills__card skills__card--blue">
+        <div class="skills__card-head">
+          <i class="fas fa-server"></i>
+          <h3>Backend</h3>
+        </div>
+        <div class="skills__items">
+          <div class="skill__item">
+            <img src="https://img.icons8.com/color/48/java-coffee-cup-logo.png" alt="Java">
+            <span>Java</span>
+          </div>
+          <div class="skill__item">
+            <img src="https://img.icons8.com/color/48/spring-logo.png" alt="Spring Boot">
+            <span>Spring Boot</span>
+          </div>
+          <div class="skill__item">
+            <img src="https://img.icons8.com/color/48/php.png" alt="PHP">
+            <span>PHP</span>
+          </div>
+          <div class="skill__item">
+            <img src="https://img.icons8.com/color/48/laravel.png" alt="Laravel">
+            <span>Laravel</span>
+          </div>
+          <div class="skill__item">
+            <img src="https://img.icons8.com/color/48/python.png" alt="Python">
+            <span>Python</span>
+          </div>
+          <div class="skill__item">
+            <img src="https://img.icons8.com/color/48/nodejs.png" alt="Node.js">
+            <span>Node.js</span>
+          </div>
+          <div class="skill__item">
+            <img src="https://img.icons8.com/color/48/mysql.png" alt="MySQL">
+            <span>MySQL</span>
+          </div>
+          <div class="skill__item">
+            <img src="https://img.icons8.com/color/48/postgreesql.png" alt="PostgreSQL">
+            <span>PostgreSQL</span>
+          </div>
+          <div class="skill__item">
+            <img src="https://img.icons8.com/color/48/mongodb.png" alt="MongoDB">
+            <span>MongoDB</span>
+          </div>
+           
+          <div class="skill__item">
+            <img src="https://img.icons8.com/color/48/docker.png" alt="Docker">
+            <span>Docker</span>
+          </div>
+          
+          <div class="skill__item">
+            <img src="https://img.icons8.com/color/48/amazon-web-services.png" alt="AWS">
+            <span>AWS</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="skills__card skills__card--purple">
+        <div class="skills__card-head">
+          <i class="fas fa-laptop-code"></i>
+          <h3>Frontend</h3>
+        </div>
+        <div class="skills__items">
+          <div class="skill__item">
+            <img src="https://img.icons8.com/color/48/angularjs.png" alt="Angular">
+            <span>Angular</span>
+          </div>
+          <div class="skill__item">
+            <img src="https://img.icons8.com/color/48/react-native.png" alt="React">
+            <span>React</span>
+          </div>
+          <div class="skill__item">
+            <img src="https://img.icons8.com/color/48/vue-js.png" alt="Vue.js">
+            <span>Vue.js</span>
+          </div>
+          <div class="skill__item">
+            <img src="https://img.icons8.com/color/48/typescript.png" alt="TypeScript">
+            <span>TypeScript</span>
+          </div>
+          <div class="skill__item">
+            <img src="https://img.icons8.com/color/48/javascript.png" alt="JavaScript">
+            <span>JavaScript</span>
+          </div>
+          <div class="skill__item">
+            <img src="https://img.icons8.com/color/48/html-5.png" alt="HTML5">
+            <span>HTML5</span>
+          </div>
+          <div class="skill__item">
+            <img src="https://img.icons8.com/color/48/css3.png" alt="CSS3">
+            <span>CSS3</span>
+          </div>
+          <div class="skill__item">
+            <img src="https://img.icons8.com/color/48/sass.png" alt="SASS/SCSS">
+            <span>SASS/SCSS</span>
+          </div>
+          <div class="skill__item">
+            <img src="https://img.icons8.com/color/48/tailwindcss.png" alt="Tailwind CSS">
+            <span>Tailwind CSS</span>
+          </div>
+          <div class="skill__item">
+            <img src="https://img.icons8.com/color/48/bootstrap.png" alt="Bootstrap">
+            <span>Bootstrap</span>
+          </div>
+         
+        </div>
+      </div>
+
+      <div class="skills__card skills__card--green">
+        <div class="skills__card-head">
+          <i class="fas fa-mobile-alt"></i>
+          <h3>Mobile &amp; Embedded</h3>
+        </div>
+        <div class="skills__items">
+          <div class="skill__item">
+            <img src="https://img.icons8.com/color/48/android-os.png" alt="Android">
+            <span>Android (Kotlin)</span>
+          </div>
+        
+          <div class="skill__item">
+            <img src="https://img.icons8.com/color/48/flutter.png" alt="Flutter">
+            <span>Flutter</span>
+          </div>
+          <div class="skill__item">
+            <img src="https://img.icons8.com/color/48/react-native.png" alt="React Native">
+            <span>React Native</span>
+          </div>
+          <div class="skill__item">
+            <img src="https://img.icons8.com/color/48/c-plus-plus-logo.png" alt="C++">
+            <span>C++</span>
+          </div>
+          <div class="skill__item">
+            <img src="https://img.icons8.com/color/48/c-programming.png" alt="C">
+            <span>C</span>
+          </div>
+          <div class="skill__item">
+            <img src="https://img.icons8.com/color/48/arduino.png" alt="Arduino">
+            <span>Arduino</span>
+          </div>
+           
+          <div class="skill__item">
+            <img src="https://img.icons8.com/color/48/git.png" alt="Git">
+            <span>Git</span>
+          </div>
+          <div class="skill__item">
+            <img src="https://img.icons8.com/color/48/jenkins.png" alt="CI/CD">
+            <span>CI/CD Pipelines</span>
+          </div>
+        
+        </div>
+      </div>
+
     </div>
+  </div>
 </section>
-<!-- about section ends -->
 
-<!-- skills section starts -->
-<section class="skills" id="skills">
-    <h2 class="heading"><i class="fas fa-laptop-code"></i> Skills & <span>Abilities</span></h2>
-    <div class="container">
-        <div class="row" id="skillsContainer">
-            <div class="bar">
-                <div class="info">
-                    <img src="https://img.icons8.com/color/48/000000/html-5.png"/>
-                    <span>HTML</span>
-                </div>
-            </div>
-            <div class="bar">
-                <div class="info">
-                    <img src="https://img.icons8.com/color/48/000000/css3.png"/>
-                    <span>CSS</span>
-                </div>
-            </div>
-            <div class="bar">
-                <div class="info">
-                    <img src="https://img.icons8.com/color/48/000000/javascript.png"/>
-                    <span>JavaScript</span>
-                </div>
-            </div>
-            <div class="bar">
-                <div class="info">
-                    <img src="https://img.icons8.com/color/48/000000/php.png"/>
-                    <span>PHP</span>
-                </div>
-            </div>
-            <div class="bar">
-                <div class="info">
-                    <img src="https://img.icons8.com/color/48/000000/laravel.png"/>
-                    <span>Laravel</span>
-                </div>
-            </div>
-            <div class="bar">
-                <div class="info">
-                    <img src="https://img.icons8.com/color/48/000000/java-coffee-cup-logo.png"/>
-                    <span>Java</span>
-                </div>
-            </div>
-            <div class="bar">
-                <div class="info">
-                    <img src="https://img.icons8.com/color/48/000000/c-plus-plus-logo.png"/>
-                    <span>C++</span>
-                </div>
-            </div>
-            <div class="bar">
-                <div class="info">
-                    <img src="https://img.icons8.com/color/48/000000/mysql.png"/>
-                    <span>MySQL</span>
-                </div>
-            </div>
-            <div class="bar">
-                <div class="info">
-                    <img src="https://img.icons8.com/color/48/000000/network.png"/>
-                    <span>Networking</span>
-                </div>
-            </div>
-            <div class="bar">
-                <div class="info">
-                    <img src="https://img.icons8.com/color/48/000000/security-checked.png"/>
-                    <span>SQL Injection Testing</span>
-                </div>
-            </div>
-        </div>
+<!-- ==================== PROJECTS ==================== -->
+<section class="projects section" id="projects">
+  <div class="container">
+    <h2 class="section__title">Featured <span>Projects</span></h2>
+    <p class="section__subtitle">A selection of my best work — click a category to filter</p>
+    <div class="projects__filters">
+      <button class="filter__btn active" data-filter="all">All</button>
+      <button class="filter__btn" data-filter="laravel">Laravel</button>
+      <button class="filter__btn" data-filter="java">Java</button>
+      <button class="filter__btn" data-filter="android">Android</button>
+      <button class="filter__btn" data-filter="embedded">Embedded</button>
+      <button class="filter__btn" data-filter="angular">Angular</button>
     </div>
+    <div class="projects__grid">
+
+      <div class="project__card" data-category="laravel">
+        <div class="project__img-wrap">
+          <img src="./assets/images/projects/pims2.png" alt="Prison Information Management System" class="project__img">
+          <div class="project__overlay">
+            <a href="https://github.com/anonhab/pims" target="_blank" class="project__overlay-btn"><i class="fab fa-github"></i> Code</a>
+            <a href="https://github.com/anonhab/pims" target="_blank" class="project__overlay-btn project__overlay-btn--ghost"><i class="fas fa-external-link-alt"></i> View</a>
+          </div>
+        </div>
+        <div class="project__body">
+          <div class="project__tags">
+            <span class="tag tag--red">Laravel</span>
+            <span class="tag">Docker</span>
+            <span class="tag">MySQL</span>
+            <span class="tag">Tailwind</span>
+          </div>
+          <h3 class="project__title">Prison Information Management System</h3>
+          <p class="project__desc">Full-featured web application managing prison operations with 10+ user roles — police officer, lawyer, medical officer, sysadmin, and more. 186 commits, Docker-deployed. Forked by 3 external developers.</p>
+          <div class="project__meta">
+            <span><i class="fas fa-code-branch"></i> 186 commits</span>
+            <span><i class="fas fa-code-fork"></i> 3 forks</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project__card" data-category="laravel">
+        <div class="project__img-wrap">
+          <img src="./assets/images/projects/clearance.png" alt="Clearance Management System" class="project__img">
+          <div class="project__overlay">
+            <a href="https://github.com/anonhab/Clearance-Management-System" target="_blank" class="project__overlay-btn"><i class="fab fa-github"></i> Code</a>
+          </div>
+        </div>
+        <div class="project__body">
+          <div class="project__tags">
+            <span class="tag tag--red">Laravel</span>
+            <span class="tag">MySQL</span>
+            <span class="tag">Email</span>
+          </div>
+          <h3 class="project__title">Clearance Management System</h3>
+          <p class="project__desc">Institutional employee clearance workflow system with 21 controllers, multi-step approval chains, email notifications, and PDF generation. Built for Bahir Dar University.</p>
+          <div class="project__meta">
+            <span><i class="fas fa-code-branch"></i> 41 commits</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project__card" data-category="java">
+        <div class="project__img-wrap">
+          <img src="./assets/images/projects/realestate.png" alt="Real Estate Management System" class="project__img">
+          <div class="project__overlay">
+            <a href="https://github.com/anonhab/RealEstateManagementSystem" target="_blank" class="project__overlay-btn"><i class="fab fa-github"></i> Code</a>
+          </div>
+        </div>
+        <div class="project__body">
+          <div class="project__tags">
+            <span class="tag tag--orange">Java</span>
+            <span class="tag">Swing/AWT</span>
+            <span class="tag">Client-Server</span>
+          </div>
+          <h3 class="project__title">Real Estate Management System</h3>
+          <p class="project__desc">Desktop Java application with client-server architecture for property listing and management. Rich GUI with 25+ interactive components.</p>
+        </div>
+      </div>
+
+      <div class="project__card" data-category="android">
+        <div class="project__img-wrap">
+          <img src="./assets/images/projects/campascompas.png" alt="Campus Compass" class="project__img">
+          <div class="project__overlay">
+            <a href="https://github.com/anonhab/wcucampuscompass" target="_blank" class="project__overlay-btn"><i class="fab fa-github"></i> Code</a>
+          </div>
+        </div>
+        <div class="project__body">
+          <div class="project__tags">
+            <span class="tag tag--green">Android</span>
+            <span class="tag">Java</span>
+            <span class="tag">Navigation</span>
+          </div>
+          <h3 class="project__title">Campus Compass</h3>
+          <p class="project__desc">Android navigation app for Wachemo University — locates dormitories, classrooms, cafeteria, and facilities. Built with Java and Android Studio.</p>
+        </div>
+      </div>
+
+      <div class="project__card" data-category="embedded">
+        <div class="project__img-wrap">
+          <img src="./assets/images/projects/smarthome.jpg" alt="Smart Home Embedded System" class="project__img">
+          <div class="project__overlay">
+            <a href="https://github.com/anonhab/SmartHomeEmbedeSystem" target="_blank" class="project__overlay-btn"><i class="fab fa-github"></i> Code</a>
+          </div>
+        </div>
+        <div class="project__body">
+          <div class="project__tags">
+            <span class="tag tag--purple">C++</span>
+            <span class="tag">Arduino</span>
+            <span class="tag">RFID</span>
+            <span class="tag">IoT</span>
+          </div>
+          <h3 class="project__title">Smart Home Embedded System</h3>
+          <p class="project__desc">Multi-factor door lock using RFID + PIN keypad, servo motor actuation, I2C LCD display, and temperature sensing. Documented with photos and demo video.</p>
+        </div>
+      </div>
+
+      <div class="project__card" data-category="embedded">
+        <div class="project__img-wrap">
+          <img src="./assets/images/projects/stove.jpg" alt="Smart Stove Project" class="project__img">
+          <div class="project__overlay">
+            <a href="https://github.com/anonhab" target="_blank" class="project__overlay-btn"><i class="fab fa-github"></i> GitHub</a>
+          </div>
+        </div>
+        <div class="project__body">
+          <div class="project__tags">
+            <span class="tag tag--purple">Embedded</span>
+            <span class="tag">IoT</span>
+            <span class="tag">Hardware</span>
+          </div>
+          <h3 class="project__title">Smart Stove Project</h3>
+          <p class="project__desc">Mobile-controlled cooking system for remote operation. Won a school innovation competition — the project that sparked a career in technology.</p>
+          <div class="project__meta">
+            <span class="project__award"><i class="fas fa-trophy"></i> Innovation Award — 3,000 Birr</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project__card" data-category="angular">
+        <div class="project__img-wrap project__img-placeholder project__img-placeholder--angular">
+          <div class="placeholder__icon"><i class="fab fa-angular"></i></div>
+          <div class="placeholder__label">Angular · TypeScript</div>
+          <div class="project__overlay">
+            <a href="https://github.com/anonhab/hr" target="_blank" class="project__overlay-btn"><i class="fab fa-github"></i> Code</a>
+          </div>
+        </div>
+        <div class="project__body">
+          <div class="project__tags">
+            <span class="tag tag--blue">Angular</span>
+            <span class="tag tag--blue">TypeScript</span>
+            <span class="tag">HTML</span>
+            <span class="tag">CSS</span>
+          </div>
+          <h3 class="project__title">HR Management System</h3>
+          <p class="project__desc">Full-featured Angular 8 single-page application for human resource management. Modules for employees, recruitment/candidates, departments, job listings, company management, and a dashboard. Built with TypeScript and Angular CLI.</p>
+          <div class="project__meta">
+            <span><i class="fas fa-code-branch"></i> 4 commits</span>
+            <span><i class="fas fa-code"></i> 59.7% TypeScript</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project__card" data-category="android">
+        <div class="project__img-wrap project__img-placeholder project__img-placeholder--foodie">
+          <div class="placeholder__icon"><i class="fas fa-utensils"></i></div>
+          <div class="placeholder__label">Android · Java</div>
+          <div class="project__overlay">
+            <a href="https://github.com/anonhab/foodie" target="_blank" class="project__overlay-btn"><i class="fab fa-github"></i> Code</a>
+          </div>
+        </div>
+        <div class="project__body">
+          <div class="project__tags">
+            <span class="tag tag--green">Android</span>
+            <span class="tag tag--orange">Java</span>
+            <span class="tag">Gradle</span>
+          </div>
+          <h3 class="project__title">Foodie — Android Food App</h3>
+          <p class="project__desc">Android food application built in Java with Android Studio. Currently in active development — the most recently updated project in the portfolio (February 2026), demonstrating ongoing mobile development work.</p>
+          <div class="project__meta">
+            <span><i class="fas fa-code-branch"></i> 7 commits</span>
+            <span><i class="fas fa-fire"></i> Active — Feb 2026</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project__card" data-category="laravel">
+        <div class="project__img-wrap project__img-placeholder project__img-placeholder--job">
+          <div class="placeholder__icon"><i class="fas fa-briefcase"></i></div>
+          <div class="placeholder__label">Laravel · PHP</div>
+          <div class="project__overlay">
+            <a href="https://github.com/anonhab/job" target="_blank" class="project__overlay-btn"><i class="fab fa-github"></i> Code</a>
+          </div>
+        </div>
+        <div class="project__body">
+          <div class="project__tags">
+            <span class="tag tag--red">Laravel</span>
+            <span class="tag">PHP</span>
+            <span class="tag">Blade</span>
+            <span class="tag">MySQL</span>
+          </div>
+          <h3 class="project__title">Job Listing Management System</h3>
+          <p class="project__desc">Laravel-based web application for job listing and management. Built with PHP/Blade templating, handling job postings, applications, and management workflows.</p>
+          <div class="project__meta">
+            <span><i class="fas fa-code-branch"></i> 4 commits</span>
+            <span><i class="fas fa-clock"></i> Aug 2025</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
 </section>
-<!-- skills section ends -->
 
-<!-- education section starts -->
-<section class="education" id="education">
-    <h1 class="heading"><i class="fas fa-graduation-cap"></i> My <span>Education</span></h1>
-    <p class="qoute">Education is not the learning of facts, but the training of the mind to think.</p>
-    <div class="box-container">
-        <div class="box">
-            <div class="image">
-                <img draggable="false" src="./assets/images/educat/college.jpg" alt="">
-            </div>
-            <div class="content">
-                <h3>Bachelor of Science in Software Engineering</h3>
-                <p>Wachemo University</p>
-                <h4>2020–2025 | CGPA: 3.03</h4>
-                <h4>Passed the National Exit Exam with a score of 77% on June 20, 2025</h4>
-            </div>
-        </div>
-        <div class="box">
-            <div class="image">
-                <img draggable="false" src="./assets/images/educat/school2.jpg" alt="">
-            </div>
-            <div class="content">
-                <h3>High School</h3>
-                <p>Damot Secondary School</p>
-                <h4>2017–2020 | Completed</h4>
-            </div>
-        </div>
-        <div class="box">
-            <div class="image">
-                <img draggable="false" src="./assets/images/educat/school1.jpg" alt="">
-            </div>
-            <div class="content">
-                <h3>Elementary School</h3>
-                <p>Bata Elementary School</p>
-                <h4>2009–2016 | Completed</h4>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- education section ends -->
-
-<!-- work project section starts -->
-<section class="work" id="work">
-    <h2 class="heading"><i class="fas fa-laptop-code"></i> Projects <span>Made</span></h2>
-    <div class="box-container">
-        <div class="box tilt laravel">
-            <img draggable="false" src="./assets/images/projects/pims2.png" alt="" />
-            <div class="content">
-                <div class="tag">
-                    <h3>Prison Information Management System</h3>
-                </div>
-                <div class="desc">
-                    <p>Developed a web application to manage prisoner records, visit requests, room allocations, and user roles using Laravel, Blade, JavaScript, and MySQL.</p>
-                    <div class="btns">
-                        <a href="[Insert Video URL for Prison Information Management System]" class="btn" target="_blank"><i class="fas fa-eye"></i> View</a>
-                        <a href="[Insert Code URL for Prison Information Management System]" class="btn" target="_blank">Code <i class="fas fa-code"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="box tilt laravel">
-            <img draggable="false" src="./assets/images/projects/clearance.jpg" alt="" />
-            <div class="content">
-                <div class="tag">
-                    <h3>Clearance Management System</h3>
-                </div>
-                <div class="desc">
-                    <p>Built a system to digitize clearance processes for Bahir Dar University using Laravel and MySQL.</p>
-                    <div class="btns">
-                        <a href="#" class="btn" target="_blank"><i class="fas fa-eye"></i> View</a>
-                        <a href="#" class="btn" target="_blank">Code <i class="fas fa-code"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="box tilt android">
-            <img draggable="false" src="./assets/images/projects/campus.jpg" alt="" />
-            <div class="content">
-                <div class="tag">
-                    <h3>Campus Compass (Android App)</h3>
-                </div>
-                <div class="desc">
-                    <p>Developed an Android app for campus navigation, locating places like dormitories and classrooms.</p>
-                    <div class="btns">
-                        <a href="[Insert Video URL for Campus Compass]" class="btn" target="_blank"><i class="fas fa-eye"></i> View</a>
-                        <a href="[Insert Code URL for Campus Compass]" class="btn" target="_blank">Code <i class="fas fa-code"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="box tilt java">
-            <img draggable="false" src="./assets/images/projects/realestate.jpg" alt="" />
-            <div class="content">
-                <div class="tag">
-                    <h3>Real Estate Management System</h3>
-                </div>
-                <div class="desc">
-                    <p>Created a platform for property listing and communication using Java Servlet and Java GUI.</p>
-                    <div class="btns">
-                        <a href="#" class="btn" target="_blank"><i class="fas fa-eye"></i> View</a>
-                        <a href="#" class="btn" target="_blank">Code <i class="fas fa-code"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="box tilt embedded">
-            <img draggable="false" src="./assets/images/projects/smarthome.jpg" alt="" />
-            <div class="content">
-                <div class="tag">
-                    <h3>Smart Home Embedded System</h3>
-                </div>
-                <div class="desc">
-                    <p>Built a prototype to monitor temperature/humidity and control doors with RFID and sound detection.</p>
-                    <div class="btns">
-                        <a href="[Insert Video URL for Smart Home Embedded System]" class="btn" target="_blank"><i class="fas fa-eye"></i> View</a>
-                        <a href="[Insert Code URL for Smart Home Embedded System]" class="btn" target="_blank">Code <i class="fas fa-code"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="box tilt embedded">
-            <img draggable="false" src="./assets/images/projects/stove.jpg" alt="" />
-            <div class="content">
-                <div class="tag">
-                    <h3>Smart Stove Project</h3>
-                </div>
-                <div class="desc">
-                    <p>Designed a mobile-controlled cooking system, awarded in a 2010 school innovation competition.</p>
-                    <div class="btns">
-                        <a href="#" class="btn" target="_blank"><i class="fas fa-eye"></i> View</a>
-                        <a href="#" class="btn" target="_blank">Code <i class="fas fa-code"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="viewall">
-        <a href="/projects/project.html" class="btn"><span>View All</span>
-            <i class="fas fa-arrow-right"></i>
-        </a>
-    </div>
-</section>
-<!-- work project section ends -->
-
-<!-- experience section starts -->
-<section class="experience" id="experience">
-    <h2 class="heading"><i class="fas fa-briefcase"></i> Experience </h2>
+<!-- ==================== EXPERIENCE ==================== -->
+<section class="experience section" id="experience">
+  <div class="container">
+    <h2 class="section__title">Work <span>Experience</span></h2>
+    <p class="section__subtitle">My professional journey so far</p>
     <div class="timeline">
-        <div class="container right">
-            <div class="content">
-                <div class="tag">
-                    <h2>Bahir Dar University</h2>
-                </div>
-                <div class="desc">
-                    <h3>Software Developer Intern</h3>
-                    <p>April 2024 - July 2024</p>
-                    <p>Contributed to the development of the Clearance Management System and Library Management System, digitizing administrative tasks for staff and students using Laravel and MySQL.</p>
-                </div>
+
+      <div class="timeline__item timeline__item--active">
+        <div class="timeline__dot"></div>
+        <div class="timeline__card">
+          <div class="timeline__header">
+            <div class="timeline__left">
+              <h3 class="timeline__role">Full Stack Developer</h3>
+              <span class="timeline__company">Etta Solutions Plc</span>
+              <span class="timeline__location"><i class="fas fa-map-marker-alt"></i> Addis Ababa, Ethiopia</span>
             </div>
-        </div>
-        <div class="container left">
-            <div class="content">
-                <div class="tag">
-                    <h2>Self-Driven Cybersecurity Challenges</h2>
-                </div>
-                <div class="desc">
-                    <h3>Independent Study</h3>
-                    <p>Ongoing</p>
-                    <p>Conducted ethical testing of vulnerabilities in controlled test environments, focusing on SQL injection. Successfully identified a blind SQL injection vulnerability in a sample web application login form, using payloads like ' OR 1=1 -- to bypass authentication, and recommended input sanitization and prepared statements to mitigate risks.</p>
-                </div>
+            <div class="timeline__right">
+              <span class="timeline__date">2025 – Present</span>
+              <span class="timeline__badge">Current</span>
             </div>
+          </div>
+          <ul class="timeline__list">
+            <li>Building POS payment integration systems using the <strong>ISO 8583</strong> financial messaging standard and <strong>SPDH</strong> banking protocol</li>
+            <li>Implementing Java TCP/IP socket communication between POS terminals and payment switches</li>
+            <li>Handling authorization (0200/0210), reversal (0400/0410), and settlement message flows</li>
+            <li>Developing primary/secondary bitmap parsing and Data Element (DE1–DE128) field mapping</li>
+          </ul>
+          <div class="timeline__tech">
+            <span>Java</span><span>ISO 8583</span><span>SPDH</span><span>TCP/IP</span><span>Payment Systems</span>
+          </div>
         </div>
-        <div class="container right">
-            <div class="content">
-                <div class="tag">
-                    <h2>Local Innovation Program</h2>
-                </div>
-                <div class="desc">
-                    <h3>Smart Stove Project - School Innovation Competition</h3>
-                    <p>2010</p>
-                    <p>Designed a smart cooking system controllable via mobile call, awarded 3,000 Birr and a certificate of appreciation.</p>
-                </div>
+      </div>
+
+      <div class="timeline__item">
+        <div class="timeline__dot"></div>
+        <div class="timeline__card">
+          <div class="timeline__header">
+            <div class="timeline__left">
+              <h3 class="timeline__role">Software Developer Intern</h3>
+              <span class="timeline__company">Bahir Dar University</span>
+              <span class="timeline__location"><i class="fas fa-map-marker-alt"></i> Bahir Dar, Ethiopia</span>
             </div>
+            <div class="timeline__right">
+              <span class="timeline__date">Apr 2024 – Jul 2024</span>
+            </div>
+          </div>
+          <ul class="timeline__list">
+            <li>Developed the Clearance Management System, digitizing staff and student offboarding workflows</li>
+            <li>Built Library Management System using Laravel and MySQL</li>
+            <li>Collaborated with stakeholders to gather requirements and deliver iterative releases</li>
+          </ul>
+          <div class="timeline__tech">
+            <span>Laravel</span><span>PHP</span><span>MySQL</span><span>Blade</span>
+          </div>
         </div>
+      </div>
+
+      <div class="timeline__item">
+        <div class="timeline__dot"></div>
+        <div class="timeline__card">
+          <div class="timeline__header">
+            <div class="timeline__left">
+              <h3 class="timeline__role">Independent Security Researcher</h3>
+              <span class="timeline__company">Self-Directed</span>
+            </div>
+            <div class="timeline__right">
+              <span class="timeline__date">2024 – 2025</span>
+            </div>
+          </div>
+          <ul class="timeline__list">
+            <li>Conducted authorized vulnerability assessments on controlled web applications</li>
+            <li>Identified and documented SQL injection vulnerabilities across 7 systems</li>
+            <li>Provided mitigation recommendations: parameterized queries, input validation, ORM adoption</li>
+          </ul>
+          <div class="timeline__tech">
+            <span>Security Testing</span><span>SQL Injection</span><span>Vulnerability Assessment</span>
+          </div>
+        </div>
+      </div>
+
     </div>
-    <div class="morebtn">
-        <a href="/experience/experience.html" class="btn"><span>View All</span>
-            <i class="fas fa-arrow-right"></i>
-        </a>
-    </div>
+  </div>
 </section>
-<!-- experience section ends -->
 
-<!-- cybersecurity logs section starts -->
-<section class="cyberlogs" id="cyberlogs">
-    <h2 class="heading"><i class="fas fa-shield-alt"></i> Cybersecurity <span>Logs</span></h2>
-    <p class="qoute">The cybersecurity logs presented here are a result of my hands-on experience during my time at Wachemo University (2020–2025). Through ethical network scanning, I identified and tested individual websites hosted within the university's infrastructure. These tests, conducted in controlled environments, focused on uncovering vulnerabilities such as SQL injection to enhance system security.</p>
-    <div class="container">
-        <div class="table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Test ID</th>
-                        <th>Date</th>
-                        <th>Environment</th>
-                        <th>Vulnerability Type</th>
-                        <th>Payload Example</th>
-                        <th>Mitigation Suggested</th>
-                        <th>Status</th>
-                        <th>View Log</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>SQL-2025-001</td>
-                        <td>2025-03-10</td>
-                        <td>Local Test Web App</td>
-                        <td>Boolean-Based Blind SQL Injection</td>
-                        <td>' OR 3914=3914#</td>
-                        <td>Use parameterized queries, input validation</td>
-                        <td>Mitigated</td>
-                        <td><a href="/cyberlogs/log1.html" class="btn"><i class="fas fa-file-alt"></i></a></td>
-                    </tr>
-                    <tr>
-                        <td>SQL-2025-002</td>
-                        <td>2025-03-10</td>
-                        <td>Local Test Web App</td>
-                        <td>Error-Based SQL Injection</td>
-                        <td>' AND (SELECT ... FLOOR(RAND(0)*2))</td>
-                        <td>Implement error suppression, parameterized queries</td>
-                        <td>Reported</td>
-                        <td><a href="/cyberlogs/log1.html" class="btn"><i class="fas fa-file-alt"></i></a></td>
-                    </tr>
-                    <tr>
-                        <td>SQL-2025-003</td>
-                        <td>2025-03-10</td>
-                        <td>Local Test Web App</td>
-                        <td>Time-Based Blind SQL Injection</td>
-                        <td>' AND SLEEP(5)</td>
-                        <td>Use ORM frameworks, validate inputs</td>
-                        <td>In Progress</td>
-                        <td><a href="/cyberlogs/log1.html" class="btn"><i class="fas fa-file-alt"></i></a></td>
-                    </tr>
-                    <tr>
-                        <td>SQL-2025-004</td>
-                        <td>2025-03-10</td>
-                        <td>Travel Management System</td>
-                        <td>Boolean-Based Blind SQL Injection</td>
-                        <td>' OR NOT 9157=9157--</td>
-                        <td>Use parameterized queries, input sanitization</td>
-                        <td>Reported</td>
-                        <td><a href="/cyberlogs/log2.html" class="btn"><i class="fas fa-file-alt"></i></a></td>
-                    </tr>
-                    <tr>
-                        <td>SQL-2025-005</td>
-                        <td>2025-03-10</td>
-                        <td>Travel Management System</td>
-                        <td>Time-Based Blind SQL Injection</td>
-                        <td>' AND SLEEP(5)--</td>
-                        <td>Validate inputs, use ORM frameworks</td>
-                        <td>In Progress</td>
-                        <td><a href="/cyberlogs/log3.html" class="btn"><i class="fas fa-file-alt"></i></a></td>
-                    </tr>
-                    <tr>
-                        <td>SQL-2025-006</td>
-                        <td>2025-03-10</td>
-                        <td>User Registration System</td>
-                        <td>Error-Based SQL Injection</td>
-                        <td>' AND (SELECT ... FLOOR(RAND(0)*2))--</td>
-                        <td>Suppress error messages, use prepared statements</td>
-                        <td>Mitigated</td>
-                        <td><a href="/cyberlogs/log4.html" class="btn"><i class="fas fa-file-alt"></i></a></td>
-                    </tr>
-                    <tr>
-                        <td>SQL-2025-007</td>
-                        <td>2025-03-10</td>
-                        <td>Bus Management System</td>
-                        <td>UNION Query SQL Injection</td>
-                        <td>' UNION ALL SELECT NULL,...,NULL#</td>
-                        <td>Implement input validation, parameterized queries</td>
-                        <td>Reported</td>
-                        <td><a href="/cyberlogs/log5.html" class="btn"><i class="fas fa-file-alt"></i></a></td>
-                    </tr>
-                </tbody>
-            </table>
+<!-- ==================== CYBERLOGS ==================== -->
+<section class="cyberlogs section" id="cyberlogs">
+  <div class="container">
+    <h2 class="section__title">Cybersecurity <span>Logs</span></h2>
+    <p class="section__subtitle">Ethical security testing conducted in controlled environments</p>
+    <div class="cyberlogs__grid">
+
+      <a href="./cyberlogs/log1.html" class="cyberlog__card">
+        <div class="cyberlog__header">
+          <span class="cyberlog__id">LOG-2025-001</span>
+          <span class="cyberlog__date"><i class="fas fa-calendar-alt"></i> 2025-03-10</span>
         </div>
-        <div class="morebtn">
-            <a href="/cyberlogs/logs.html" class="btn"><span>View All Logs</span>
-                <i class="fas fa-arrow-right"></i>
-            </a>
+        <h3 class="cyberlog__title">Local Web App — SQL Injection</h3>
+        <p class="cyberlog__desc">Boolean-based, error-based, and time-based blind SQL injection vulnerabilities identified on a local test web application.</p>
+        <div class="cyberlog__tags">
+          <span class="tag tag--red">SQLi</span>
+          <span class="tag">Boolean-Based</span>
+          <span class="tag">Error-Based</span>
+          <span class="tag">Time-Based</span>
         </div>
+        <span class="cyberlog__link">View Log <i class="fas fa-arrow-right"></i></span>
+      </a>
+
+      <a href="./cyberlogs/log2.html" class="cyberlog__card">
+        <div class="cyberlog__header">
+          <span class="cyberlog__id">LOG-2025-002</span>
+          <span class="cyberlog__date"><i class="fas fa-calendar-alt"></i> 2025-03-10</span>
+        </div>
+        <h3 class="cyberlog__title">Travel Management System — Login Form</h3>
+        <p class="cyberlog__desc">Boolean-based and time-based blind SQL injection in the login form of a travel management system.</p>
+        <div class="cyberlog__tags">
+          <span class="tag tag--red">SQLi</span>
+          <span class="tag">Boolean-Based</span>
+          <span class="tag">Time-Based</span>
+        </div>
+        <span class="cyberlog__link">View Log <i class="fas fa-arrow-right"></i></span>
+      </a>
+
+      <a href="./cyberlogs/log3.html" class="cyberlog__card">
+        <div class="cyberlog__header">
+          <span class="cyberlog__id">LOG-2025-003</span>
+          <span class="cyberlog__date"><i class="fas fa-calendar-alt"></i> 2025-03-10</span>
+        </div>
+        <h3 class="cyberlog__title">Travel Management System — Form Inputs</h3>
+        <p class="cyberlog__desc">Time-based blind SQL injection in login and multiple form inputs of a travel management system.</p>
+        <div class="cyberlog__tags">
+          <span class="tag tag--red">SQLi</span>
+          <span class="tag">Time-Based Blind</span>
+        </div>
+        <span class="cyberlog__link">View Log <i class="fas fa-arrow-right"></i></span>
+      </a>
+
+      <a href="./cyberlogs/log4.html" class="cyberlog__card">
+        <div class="cyberlog__header">
+          <span class="cyberlog__id">LOG-2025-004</span>
+          <span class="cyberlog__date"><i class="fas fa-calendar-alt"></i> 2025-03-10</span>
+        </div>
+        <h3 class="cyberlog__title">User Registration System — Email Field</h3>
+        <p class="cyberlog__desc">Boolean-based, error-based, and time-based blind SQL injection vulnerabilities in the email registration field.</p>
+        <div class="cyberlog__tags">
+          <span class="tag tag--red">SQLi</span>
+          <span class="tag">Boolean-Based</span>
+          <span class="tag">Error-Based</span>
+        </div>
+        <span class="cyberlog__link">View Log <i class="fas fa-arrow-right"></i></span>
+      </a>
+
+      <a href="./cyberlogs/log5.html" class="cyberlog__card">
+        <div class="cyberlog__header">
+          <span class="cyberlog__id">LOG-2025-005</span>
+          <span class="cyberlog__date"><i class="fas fa-calendar-alt"></i> 2025-03-10</span>
+        </div>
+        <h3 class="cyberlog__title">Bus Management System — UNION Injection</h3>
+        <p class="cyberlog__desc">Multiple SQL injection vulnerabilities including UNION query-based injection identified in a bus management system.</p>
+        <div class="cyberlog__tags">
+          <span class="tag tag--red">SQLi</span>
+          <span class="tag">UNION-Based</span>
+          <span class="tag">Multi-Vector</span>
+        </div>
+        <span class="cyberlog__link">View Log <i class="fas fa-arrow-right"></i></span>
+      </a>
+
     </div>
+  </div>
 </section>
-<!-- cybersecurity logs section ends -->
 
-<!-- know me section starts -->
-<section class="knowme" id="knowme">
-    <h2 class="heading"><i class="fas fa-camera"></i> Know <span>Me</span></h2>
-    <div class="carousel">
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="./assets/images/memories/photo1.jpg" alt="Graduation Photo 1" class="knowme-lightbox" />
-                <div class="carousel-caption">
-                    <h3>Graduation Day 2025</h3>
-                    <p>Celebrating my BSc in Software Engineering from Wachemo University, a milestone of hard work and dedication.</p>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <img src="./assets/images/memories/photo2.jpg" alt="Graduation Photo 2" class="knowme-lightbox" />
-                <div class="carousel-caption">
-                    <h3>Graduation Ceremony</h3>
-                    <p>Memorable moments with friends and family during the Wachemo University graduation ceremony in 2025.</p>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <img src="./assets/images/memories/photo3.jpg" alt="Memory Photo 1" class="knowme-lightbox" />
-                <div class="carousel-caption">
-                    <h3>Campus Life</h3>
-                    <p>Capturing unforgettable moments from my time at Wachemo University, filled with learning and growth.</p>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <img src="./assets/images/memories/photo4.jpg" alt="Memory Photo 2" class="knowme-lightbox" />
-                <div class="carousel-caption">
-                    <h3>Classroom Vibes</h3>
-                    <p>Engaging in deep discussions and coding sessions during our final semester.</p>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <img src="./assets/images/memories/photo5.jpg" alt="Memory Photo 3" class="knowme-lightbox" />
-                <div class="carousel-caption">
-                    <h3>Group Projects</h3>
-                    <p>Working with amazing teammates on our senior project — the Prison Information Management System.</p>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <img src="./assets/images/memories/photo6.jpg" alt="Memory Photo 4" class="knowme-lightbox" />
-                <div class="carousel-caption">
-                    <h3>Victory Smiles</h3>
-                    <p>The joy of success after final project presentations and evaluations.</p>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <img src="./assets/images/memories/photo7.jpg" alt="Memory Photo 5" class="knowme-lightbox" />
-                <div class="carousel-caption">
-                    <h3>Chill Moments</h3>
-                    <p>Relaxing with friends on campus after long study hours and lectures.</p>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <img src="./assets/images/memories/photo8.jpg" alt="Memory Photo 6" class="knowme-lightbox" />
-                <div class="carousel-caption">
-                    <h3>Farewell Party</h3>
-                    <p>A night full of laughter, memories, and goodbyes as we closed our university chapter.</p>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <img src="./assets/images/memories/photo9.jpg" alt="Memory Photo 7" class="knowme-lightbox" />
-                <div class="carousel-caption">
-                    <h3>New Beginnings</h3>
-                    <p>Looking forward to the future with hope and excitement after graduation.</p>
-                </div>
-            </div>
+<!-- ==================== CONTACT ==================== -->
+<section class="contact section" id="contact">
+  <div class="container">
+    <h2 class="section__title">Get In <span>Touch</span></h2>
+    <p class="section__subtitle">Have a project or opportunity? Let's talk.</p>
+    <div class="contact__grid">
+
+      <div class="contact__info">
+        <div class="contact__card">
+          <div class="contact__icon-wrap"><i class="fas fa-envelope"></i></div>
+          <div>
+            <h4>Email</h4>
+            <p>Habtsha2021@gmail.com</p>
+            <a href="mailto:Habtsha2021@gmail.com">Send Email →</a>
+          </div>
         </div>
-        <button class="carousel-control prev"><i class="fas fa-chevron-left"></i></button>
-        <button class="carousel-control next"><i class="fas fa-chevron-right"></i></button>
+        <div class="contact__card">
+          <div class="contact__icon-wrap"><i class="fas fa-phone"></i></div>
+          <div>
+            <h4>Phone</h4>
+            <p>+251 943 392 332</p>
+            <a href="tel:+251943392332">Call Now →</a>
+          </div>
+        </div>
+        <div class="contact__card">
+          <div class="contact__icon-wrap"><i class="fab fa-linkedin"></i></div>
+          <div>
+            <h4>LinkedIn</h4>
+            <p>habanonymous</p>
+            <a href="https://www.linkedin.com/in/habtamu-gashu-7792b7398" target="_blank">Connect →</a>
+          </div>
+        </div>
+        <div class="contact__card">
+          <div class="contact__icon-wrap"><i class="fab fa-github"></i></div>
+          <div>
+            <h4>GitHub</h4>
+            <p>anonhab</p>
+            <a href="https://github.com/anonhab" target="_blank">Follow →</a>
+          </div>
+        </div>
+      </div>
+
+      <form class="contact__form" id="contact-form">
+        <div class="form__row">
+          <div class="form__field">
+            <input type="text" name="name" placeholder="Your Name" required>
+            <i class="fas fa-user"></i>
+          </div>
+          <div class="form__field">
+            <input type="email" name="email" placeholder="Your Email" required>
+            <i class="fas fa-envelope"></i>
+          </div>
+        </div>
+        <div class="form__field">
+          <input type="text" name="phone" placeholder="Phone Number (optional)">
+          <i class="fas fa-phone"></i>
+        </div>
+        <div class="form__field form__field--area">
+          <textarea name="message" placeholder="Your Message" rows="6" required></textarea>
+          <i class="fas fa-comment-dots"></i>
+        </div>
+        <button type="submit" class="btn btn--primary btn--full">
+          Send Message <i class="fas fa-paper-plane"></i>
+        </button>
+      </form>
+
     </div>
+  </div>
 </section>
-<!-- know me section ends -->
 
-<!-- contact section starts -->
-<section class="contact" id="contact">
-    <h2 class="heading"><i class="fas fa-headset"></i> Get in <span>Touch</span></h2>
-    <div class="container">
-        <div class="content">
-            <div class="image-box">
-                <img draggable="false" src="./assets/images/contact1.png" alt="">
-            </div>
-            <form id="contact-form">
-                <div class="form-group">
-                    <div class="field">
-                        <input type="text" name="name" placeholder="Name" required>
-                        <i class='fas fa-user'></i>
-                    </div>
-                    <div class="field">
-                        <input type="text" name="email" placeholder="Email" required>
-                        <i class='fas fa-envelope'></i>
-                    </div>
-                    <div class="field">
-                        <input type="text" name="phone" placeholder="Phone">
-                        <i class='fas fa-phone-alt'></i>
-                    </div>
-                    <div class="message">
-                        <textarea placeholder="Message" name="message" required></textarea>
-                        <i class="fas fa-comment-dots"></i>
-                    </div>
-                </div>
-                <div class="button-area">
-                    <button type="submit">
-                        Submit <i class="fa fa-paper-plane"></i>
-                    </button>
-                </div>
-            </form>
+<!-- ==================== FOOTER ==================== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <a href="#home" class="footer__logo">HBG<span>.</span></a>
+        <p>Full Stack Developer &amp; Fintech Engineer</p>
+        <p><i class="fas fa-map-marker-alt"></i> Addis Ababa, Ethiopia</p>
+      </div>
+      <div class="footer__nav">
+        <h4>Quick Links</h4>
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#experience">Experience</a>
+        <a href="#cyberlogs">Cyberlogs</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="footer__connect">
+        <h4>Connect</h4>
+        <div class="footer__socials">
+          <a href="https://github.com/anonhab" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/habtamu-gashu-7792b7398" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+          <a href="https://twitter.com/Hab_tsha" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="https://t.me/habteco" target="_blank" aria-label="Telegram"><i class="fab fa-telegram-plane"></i></a>
         </div>
+        <a href="resume.html" class="btn btn--outline btn--sm">View Resume</a>
+      </div>
     </div>
-</section>
-<!-- contact section ends -->
-
-<!-- footer section starts -->
-<section class="footer">
-    <div class="box-container">
-        <div class="box">
-            <h3>Habtamu Bitew Gashu's Portfolio</h3>
-            <p>Thank you for visiting my personal portfolio website. Connect with me over socials. <br/> <br/> Keep Rising 🚀. Connect with me over live chat!</p>
-        </div>
-        <div class="box">
-            <h3>quick links</h3>
-            <a href="#home"><i class="fas fa-chevron-circle-right"></i> home</a>
-            <a href="#about"><i class="fas fa-chevron-circle-right"></i> about</a>
-            <a href="#skills"><i class="fas fa-chevron-circle-right"></i> skills</a>
-            <a href="#education"><i class="fas fa-chevron-circle-right"></i> education</a>
-            <a href="#work"><i class="fas fa-chevron-circle-right"></i> work</a>
-            <a href="#experience"><i class="fas fa-chevron-circle-right"></i> experience</a>
-            <a href="#cyberlogs"><i class="fas fa-chevron-circle-right"></i> cyber logs</a>
-            <a href="#knowme"><i class="fas fa-chevron-circle-right"></i> know me</a>
-        </div>
-        <div class="box">
-            <h3>contact info</h3>
-            <p><i class="fas fa-phone"></i> +251943392332</p>
-            <p><i class="fas fa-envelope"></i> Habtsha2021@gmail.com</p>
-            <p><i class="fas fa-map-marked-alt"></i> Addis Ababa, Ethiopia</p>
-            <div class="share">
-                <a href="https://www.linkedin.com/in/habanonymous" class="fab fa-linkedin" aria-label="LinkedIn" target="_blank"></a>
-                <a href="https://github.com/anonhab" class="fab fa-github" aria-label="GitHub" target="_blank"></a>
-                <a href="mailto:Habtsha2021@gmail.com" class="fas fa-envelope" aria-label="Mail" target="_blank"></a>
-                <a href="https://twitter.com/Hab_tsha" class="fab fa-twitter" aria-label="Twitter" target="_blank"></a>
-                <a href="https://t.me/habteco" class="fab fa-telegram-plane" aria-label="Telegram" target="_blank"></a>
-                <a href="https://www.instagram.com/hab.teco" class="fab fa-instagram" aria-label="Instagram" target="_blank"></a>
-            </div>
-        </div>
+    <div class="footer__bottom">
+      <p>© 2026 Habtamu Bitew Gashu — Designed &amp; Built with <i class="fas fa-heart"></i></p>
     </div>
-    <h1 class="credit">Designed with <i class="fa fa-heart pulse"></i> by <a href="https://www.linkedin.com/in/habanonymous"> Habtamu Bitew Gashu</a></h1>
-</section>
-<!-- footer section ends -->
+  </div>
+</footer>
 
-<!-- scroll top btn -->
-<a href="#home" aria-label="ScrollTop" class="fas fa-angle-up" id="scroll-top"></a>
-<!-- scroll back to top -->
+<!-- Scroll to top -->
+<a href="#home" class="scroll-top" id="scroll-top" aria-label="Scroll to top">
+  <i class="fas fa-angle-up"></i>
+</a>
 
-<!-- ==== ALL MAJOR JAVASCRIPT CDNS STARTS ==== -->
-<!-- jquery cdn -->
+<!-- ==================== SCRIPTS ==================== -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-<!-- typed.js cdn -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.5/typed.min.js" integrity="sha512-1KbKusm/hAtkX5FScVR5G36wodIMnVd/aP04af06iyQTkD17szAMGNmxfNH+tEuFp3Og/P5G32L1qEC47CZbUQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-<!-- particle.js links -->
 <script src="./assets/js/particles.min.js"></script>
 <script src="./assets/js/app.js"></script>
-
-<!-- vanilla tilt.js links -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js" integrity="sha512-SttpKhJqONuBVxbRcuH0wezjuX+BoFoli0yPsnrAADcHsQMW8rkR84ItFHGIkPvhnlRnE2FaifDOUw+EltbuHg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-<!-- scroll reveal anim -->
 <script src="https://unpkg.com/scrollreveal"></script>
-
-<script
-    type="text/javascript"
-    src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"
-></script>
-
-<!-- know me js -->
-<script src="./assets/js/knowme.js"></script>
-
-<!-- ==== ALL MAJOR JAVASCRIPT CDNS ENDS ==== -->
-
 <script src="./assets/js/script.js"></script>
+
 <script>
-    document.getElementById("contact-form").addEventListener("submit", function (e) {
-      e.preventDefault(); // Prevent form from reloading page
-  
-      const botToken = "7702970928:AAGQtG0MfChFYZzlnbfObtZda5oFY-fsl-U"; // Replace with your bot token
-      const chatId = "1470878656";     // Replace with your user/chat ID
-  
-      const name = this.name.value;
-      const email = this.email.value;
-      const phone = this.phone.value;
-      const message = this.message.value;
-  
-      const text = `
-  New Contact Message:
-  👤 Name: ${name}
-  📧 Email: ${email}
-  📱 Phone: ${phone}
-  💬 Message: ${message}
-      `;
-  
-      const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
-  
-      fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          chat_id: chatId,
-          text: text,
-        }),
-      })
-      .then(response => {
-        if (response.ok) {
-          alert("Message sent Successfully!");
-          document.getElementById("contact-form").reset();
-        } else {
-          alert("Failed to send message.");
-        }
-      })
-      .catch(error => {
-        console.error("Error:", error);
-        alert("Error sending message.");
-      });
-    });
+  document.getElementById('contact-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const botToken = '7702970928:AAGQtG0MfChFYZzlnbfObtZda5oFY-fsl-U';
+    const chatId   = '1470878656';
+    const name     = this.name.value;
+    const email    = this.email.value;
+    const phone    = this.phone.value;
+    const message  = this.message.value;
+    const text = `New Portfolio Message:\n👤 ${name}\n📧 ${email}\n📱 ${phone || 'N/A'}\n💬 ${message}`;
+    fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ chat_id: chatId, text })
+    }).then(r => {
+      if (r.ok) { alert('Message sent successfully!'); this.reset(); }
+      else alert('Failed to send. Please email directly.');
+    }).catch(() => alert('Error. Please email directly.'));
+  });
 </script>
+
 </body>
 </html>

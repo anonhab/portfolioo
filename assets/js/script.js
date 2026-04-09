@@ -1,239 +1,119 @@
-$(document).ready(function () {
+/* ============================================================
+   HABTAMU BITEW GASHU — PORTFOLIO  |  Main JavaScript
+   ============================================================ */
 
-    $('#menu').click(function () {
-        $(this).toggleClass('fa-times');
-        $('.navbar').toggleClass('nav-toggle');
-    });
+/* ---- Mobile nav ---- */
+const navMenu   = document.getElementById('nav-menu');
+const navToggle = document.getElementById('nav-toggle');
+const navClose  = document.getElementById('nav-close');
 
-    $(window).on('scroll load', function () {
-        $('#menu').removeClass('fa-times');
-        $('.navbar').removeClass('nav-toggle');
+if (navToggle) navToggle.addEventListener('click', () => navMenu.classList.add('show-menu'));
+if (navClose)  navClose.addEventListener('click',  () => navMenu.classList.remove('show-menu'));
+document.querySelectorAll('.nav__link').forEach(l => l.addEventListener('click', () => navMenu.classList.remove('show-menu')));
 
-        if (window.scrollY > 60) {
-            document.querySelector('#scroll-top').classList.add('active');
-        } else {
-            document.querySelector('#scroll-top').classList.remove('active');
-        }
+/* ---- Scroll spy ---- */
+const sections = document.querySelectorAll('section[id]');
+function scrollSpy() {
+  const y = window.scrollY;
+  sections.forEach(sec => {
+    const h  = sec.offsetHeight;
+    const t  = sec.offsetTop - 120;
+    const id = sec.getAttribute('id');
+    const a  = document.querySelector(`.nav__link[href="#${id}"]`);
+    if (a) a.classList.toggle('active-link', y > t && y <= t + h);
+  });
+}
+window.addEventListener('scroll', scrollSpy);
 
-        // scroll spy
-        $('section').each(function () {
-            let height = $(this).height();
-            let offset = $(this).offset().top - 200;
-            let top = $(window).scrollTop();
-            let id = $(this).attr('id');
-
-            if (top > offset && top < offset + height) {
-                $('.navbar ul li a').removeClass('active');
-                $('.navbar').find(`[href="#${id}"]`).addClass('active');
-            }
-        });
-    });
-
-    // smooth scrolling
-    $('a[href*="#"]').on('click', function (e) {
-        e.preventDefault();
-        $('html, body').animate({
-            scrollTop: $($(this).attr('href')).offset().top,
-        }, 500, 'linear')
-    });
-
-    // <!-- emailjs to mail contact form data -->
-    $("#contact-form").submit(function (event) {
-        emailjs.init("user_TTDmetQLYgWCLzHTDgqxm");
-
-        emailjs.sendForm('contact_service', 'template_contact', '#contact-form')
-            .then(function (response) {
-                console.log('SUCCESS!', response.status, response.text);
-                document.getElementById("contact-form").reset();
-                alert("Form Submitted Successfully");
-            }, function (error) {
-                console.log('FAILED...', error);
-                alert("Form Submission Failed! Try Again");
-            });
-        event.preventDefault();
-    });
-    // <!-- emailjs to mail contact form data -->
-
+/* ---- Scroll-top button ---- */
+const scrollTopBtn = document.getElementById('scroll-top');
+window.addEventListener('scroll', () => {
+  if (scrollTopBtn) scrollTopBtn.classList.toggle('show', window.scrollY > 320);
 });
 
-document.addEventListener('visibilitychange',
-    function () {
-        if (document.visibilityState === "visible") {
-            document.title = "Portfolio | Habtamu Bitew";
-            $("#favicon").attr("href", "assets/images/favicon.png");
-        }
-        else {
-            document.title = "Come Back To Portfolio";
-            $("#favicon").attr("href", "assets/images/favhand.png");
-        }
-    });
-
-
-// <!-- typed js effect starts -->
-var typed = new Typed(".typing-text", {
-    strings: ["frontend development", "backend development", "web designing", "android development", "web development"],
-    loop: true,
-    typeSpeed: 50,
-    backSpeed: 25,
-    backDelay: 500,
+/* ---- Typed.js ---- */
+new Typed('.typing-text', {
+  strings: [
+    'fintech &amp; payment systems',
+    'ISO 8583 integration',
+    'full-stack development',
+    'Android development',
+    'Laravel backend development',
+    'POS terminal integration',
+  ],
+  loop: true,
+  typeSpeed: 55,
+  backSpeed: 30,
+  backDelay: 1600,
 });
-// <!-- typed js effect ends -->
 
-async function fetchData(type = "skills") {
-    let response
-    type === "skills" ?
-        response = await fetch("skills.json")
-        :
-        response = await fetch("./projects/projects.json")
-    const data = await response.json();
-    return data;
+/* ---- Stats counter ---- */
+function runCounters() {
+  document.querySelectorAll('.stat__number').forEach(el => {
+    const target = +el.getAttribute('data-target');
+    const step   = Math.max(1, Math.ceil(target / 45));
+    let cur = 0;
+    const t = setInterval(() => {
+      cur += step;
+      if (cur >= target) { el.textContent = target; clearInterval(t); }
+      else el.textContent = cur;
+    }, 35);
+  });
+}
+const statsEl = document.querySelector('.stats__row');
+if (statsEl) {
+  new IntersectionObserver((entries, obs) => {
+    entries.forEach(e => { if (e.isIntersecting) { runCounters(); obs.disconnect(); } });
+  }, { threshold: 0.3 }).observe(statsEl);
 }
 
-function showSkills(skills) {
-    let skillsContainer = document.getElementById("skillsContainer");
-    let skillHTML = "";
-    skills.forEach(skill => {
-        skillHTML += `
-        <div class="bar">
-              <div class="info">
-                <img src=${skill.icon} alt="skill" />
-                <span>${skill.name}</span>
-              </div>
-            </div>`
+/* ---- Project filter ---- */
+document.querySelectorAll('.filter__btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter__btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const f = btn.getAttribute('data-filter');
+    document.querySelectorAll('.project__card').forEach(card => {
+      card.classList.toggle('hidden', f !== 'all' && card.getAttribute('data-category') !== f);
     });
-    skillsContainer.innerHTML = skillHTML;
-}
-
-function showProjects(projects) {
-    let projectsContainer = document.querySelector("#work .box-container");
-    let projectHTML = "";
-    projects.slice(0, 10).filter(project => project.category != "android").forEach(project => {
-        projectHTML += `
-        <div class="box tilt">
-      <img draggable="false" src="/assets/images/projects/${project.image}.png" alt="project" />
-      <div class="content">
-        <div class="tag">
-        <h3>${project.name}</h3>
-        </div>
-        <div class="desc">
-          <p>${project.desc}</p>
-          <div class="btns">
-            <a href="${project.links.view}" class="btn" target="_blank"><i class="fas fa-eye"></i> View</a>
-            <a href="${project.links.code}" class="btn" target="_blank">Code <i class="fas fa-code"></i></a>
-          </div>
-        </div>
-      </div>
-    </div>`
-    });
-    projectsContainer.innerHTML = projectHTML;
-
-    // <!-- tilt js effect starts -->
-    VanillaTilt.init(document.querySelectorAll(".tilt"), {
-        max: 15,
-    });
-    // <!-- tilt js effect ends -->
-
-    /* ===== SCROLL REVEAL ANIMATION ===== */
-    const srtop = ScrollReveal({
-        origin: 'top',
-        distance: '80px',
-        duration: 1000,
-        reset: true
-    });
-
-    /* SCROLL PROJECTS */
-    srtop.reveal('.work .box', { interval: 200 });
-
-}
-
-fetchData().then(data => {
-    showSkills(data);
+  });
 });
 
-fetchData("projects").then(data => {
-    showProjects(data);
+/* ---- Scroll reveal ---- */
+const sr = ScrollReveal({ origin:'bottom', distance:'36px', duration:750, delay:80, easing:'ease-out', reset:false });
+sr.reveal('.hero__content',    { origin:'left' });
+sr.reveal('.hero__image',      { origin:'right', delay:160 });
+sr.reveal('.section__title',   {});
+sr.reveal('.section__subtitle',{ delay:140 });
+sr.reveal('.about__image-wrapper', { origin:'left' });
+sr.reveal('.about__content',       { origin:'right', delay:120 });
+sr.reveal('.stat__card',       { interval:90 });
+sr.reveal('.skills__card',     { interval:100 });
+sr.reveal('.project__card',    { interval:80 });
+sr.reveal('.timeline__item',   { interval:130, origin:'left' });
+sr.reveal('.contact__card',    { interval:90, origin:'left' });
+sr.reveal('.contact__form',    { origin:'right', delay:120 });
+
+/* ---- VanillaTilt on project cards ---- */
+VanillaTilt.init(document.querySelectorAll('.project__card'), {
+  max: 7, speed: 400, glare: true, 'max-glare': 0.08,
 });
 
-// <!-- tilt js effect starts -->
-VanillaTilt.init(document.querySelectorAll(".tilt"), {
-    max: 15,
-});
-// <!-- tilt js effect ends -->
-
-
-// pre loader start
-// function loader() {
-//     document.querySelector('.loader-container').classList.add('fade-out');
-// }
-// function fadeOut() {
-//     setInterval(loader, 500);
-// }
-// window.onload = fadeOut;
-// pre loader end
-
-// disable developer mode
-document.onkeydown = function (e) {
-    if (e.keyCode == 123) {
-        return false;
-    }
-    if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
-        return false;
-    }
-    if (e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) {
-        return false;
-    }
-    if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
-        return false;
-    }
-    if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
-        return false;
-    }
-}
-
-
-/* ===== SCROLL REVEAL ANIMATION ===== */
-const srtop = ScrollReveal({
-    origin: 'top',
-    distance: '80px',
-    duration: 1000,
-    reset: true
+/* ---- Tab visibility ---- */
+document.addEventListener('visibilitychange', () => {
+  const fav = document.getElementById('favicon');
+  if (document.visibilityState === 'visible') {
+    document.title = 'Habtamu Bitew Gashu — Portfolio';
+    if (fav) fav.setAttribute('href', 'assets/images/favicon.png');
+  } else {
+    document.title = 'Come Back! 👋';
+    if (fav) fav.setAttribute('href', 'assets/images/favhand.png');
+  }
 });
 
-/* SCROLL HOME */
-srtop.reveal('.home .content h3', { delay: 200 });
-srtop.reveal('.home .content p', { delay: 200 });
-srtop.reveal('.home .content .btn', { delay: 200 });
-
-srtop.reveal('.home .image', { delay: 400 });
-srtop.reveal('.home .linkedin', { interval: 600 });
-srtop.reveal('.home .github', { interval: 800 });
-srtop.reveal('.home .twitter', { interval: 1000 });
-srtop.reveal('.home .telegram', { interval: 600 });
-srtop.reveal('.home .instagram', { interval: 600 });
-srtop.reveal('.home .dev', { interval: 600 });
-
-/* SCROLL ABOUT */
-srtop.reveal('.about .content h3', { delay: 200 });
-srtop.reveal('.about .content .tag', { delay: 200 });
-srtop.reveal('.about .content p', { delay: 200 });
-srtop.reveal('.about .content .box-container', { delay: 200 });
-srtop.reveal('.about .content .resumebtn', { delay: 200 });
-
-
-/* SCROLL SKILLS */
-srtop.reveal('.skills .container', { interval: 200 });
-srtop.reveal('.skills .container .bar', { delay: 400 });
-
-/* SCROLL EDUCATION */
-srtop.reveal('.education .box', { interval: 200 });
-
-/* SCROLL PROJECTS */
-srtop.reveal('.work .box', { interval: 200 });
-
-/* SCROLL EXPERIENCE */
-srtop.reveal('.experience .timeline', { delay: 400 });
-srtop.reveal('.experience .timeline .container', { interval: 400 });
-
-/* SCROLL CONTACT */
-srtop.reveal('.contact .container', { delay: 400 });
-srtop.reveal('.contact .container .form-group', { delay: 400 });
+/* ---- Disable devtools shortcuts ---- */
+document.addEventListener('keydown', e => {
+  if (e.keyCode === 123) { e.preventDefault(); return false; }
+  if (e.ctrlKey && e.shiftKey && 'ICJ'.includes(String.fromCharCode(e.keyCode))) { e.preventDefault(); return false; }
+  if (e.ctrlKey && e.keyCode === 85) { e.preventDefault(); return false; }
+});
