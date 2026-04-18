@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="Technical breakdown of a live Telegram account hijacking toolkit — fake social proof, Mini App phishing, session theft via MTProto API. By Habtamu Bitew Gashu.">
+  <meta name="keywords" content="Habtamu Bitew Gashu, Telegram phishing, session hijacking, account takeover, Mini App, MTProto, cybersecurity research">
+  <meta name="author" content="Habtamu Bitew Gashu">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link id="favicon" rel="shortcut icon" href="../assets/images/favicon.png" type="image/x-png">
+  <title>Telegram Account Hijacking — Full Kill Chain Analysis | Habtamu Bitew Gashu</title>
+
+  <style>
+  /* ── Blog-specific styles built on top of portfolio CSS vars ── */
+
+  .blog-page { padding-top: 62px; }
+
+  /* ── HERO BANNER ── */
+  .blog-hero {
+    background: linear-gradient(160deg, var(--bg-2) 0%, var(--bg) 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 4rem 0 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .blog-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(248,81,73,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(248,81,73,0.03) 1px, transparent 1px);
+    background-size: 44px 44px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 20%, transparent 100%);
+  }
+  .blog-hero .container { position: relative; z-index: 1; max-width: 780px; }
+
+  .blog-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.78rem;
+    color: var(--text-3);
+    margin-bottom: 1.5rem;
+  }
+  .blog-breadcrumb a { color: var(--blue); transition: var(--ease); }
+  .blog-breadcrumb a:hover { color: var(--text); }
+  .blog-breadcrumb i { font-size: 0.6rem; }
+
+  .blog-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: var(--red-d);
+    border: 1px solid rgba(248,81,73,0.25);
+    color: #f85149;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.85rem;
+    border-radius: 100px;
+    margin-bottom: 1.25rem;
+  }
+
+  .blog-hero h1 {
+    font-size: clamp(1.6rem, 4vw, 2.5rem);
+    font-weight: 900;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+    color: var(--text);
+    margin-bottom: 1rem;
+  }
+  .blog-hero h1 span { color: #f85149; }
+
+  .blog-hero-desc {
+    font-size: 1rem;
+    color: var(--text-2);
+    line-height: 1.75;
+    max-width: 660px;
+    margin-bottom: 1.75rem;
+  }
+
+  .blog-meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.25rem;
+    font-size: 0.78rem;
+    color: var(--text-3);
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+  .blog-meta-row span { display: flex; align-items: center; gap: 0.35rem; }
+  .blog-meta-row .live-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: #f85149;
+    animation: blink 1.5s infinite;
+  }
+
+  /* ── BLOG LAYOUT ── */
+  .blog-layout {
+    display: grid;
+    grid-template-columns: 1fr 240px;
+    gap: 3rem;
+    max-width: 1060px;
+    margin: 0 auto;
+    padding: 3rem 2rem 5rem;
+    align-items: start;
+  }
+  @media (max-width: 860px) {
+    .blog-layout { grid-template-columns: 1fr; }
+    .blog-sidebar { display: none; }
+  }
+
+  /* ── ARTICLE ── */
+  .blog-article { min-width: 0; }
+
+  .blog-section { margin-bottom: 3rem; }
+
+  .section-label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .section-label::before { content: ''; width: 20px; height: 2px; background: var(--blue); display: block; }
+
+  .blog-article h2 {
+    font-size: 1.35rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 0.6rem;
+    line-height: 1.25;
+  }
+
+  .blog-article p {
+    font-size: 0.92rem;
+    color: var(--text-2);
+    line-height: 1.8;
+    margin-bottom: 1rem;
+  }
+
+  .blog-article strong { color: var(--text); }
+  .blog-article code {
+    font-family: 'Courier New', monospace;
+    font-size: 0.82rem;
+    background: var(--bg-3);
+    border: 1px solid var(--border);
+    padding: 1px 6px;
+    border-radius: 4px;
+    color: var(--blue);
+  }
+
+  .art-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 2.5rem 0;
+  }
+
+  /* ── ATTACK CHAIN ── */
+  .chain { position: relative; padding-left: 52px; }
+  .chain-spine {
+    position: absolute;
+    left: 16px; top: 0; bottom: 0; width: 2px;
+    background: linear-gradient(to bottom, #f85149 0%, var(--orange) 60%, var(--border) 100%);
+    opacity: 0.35;
+  }
+  .chain-step { position: relative; margin-bottom: 0.75rem; }
+
+  .chain-num {
+    position: absolute;
+    left: -43px; top: 13px;
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.65rem; font-weight: 700;
+    font-family: 'Courier New', monospace;
+    z-index: 2;
+  }
+  .cs-atk  .chain-num { background: var(--red-d);    border: 2px solid #f85149;       color: #f85149; }
+  .cs-vic  .chain-num { background: var(--orange-d); border: 2px solid var(--orange);  color: var(--orange); }
+  .cs-sys  .chain-num { background: var(--gold-d);   border: 2px solid var(--gold);    color: var(--gold); }
+  .cs-crit .chain-num { background: var(--red-d);    border: 2px solid #f85149;        color: #f85149;
+                         box-shadow: 0 0 0 4px rgba(248,81,73,0.12); }
+
+  .chain-card {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    padding: 13px 16px;
+    transition: var(--ease);
+    position: relative;
+  }
+  .chain-card:hover { transform: translateX(4px); border-color: var(--border-h); }
+  .cs-atk  .chain-card { border-left: 3px solid #f85149; }
+  .cs-vic  .chain-card { border-left: 3px solid var(--orange); }
+  .cs-sys  .chain-card { border-left: 3px solid var(--gold); }
+  .cs-crit .chain-card { border-left: 3px solid #f85149; background: #120808; }
+
+  .chain-head { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.3rem; }
+  .chain-head .ci { font-size: 1rem; }
+  .chain-head h4 { font-size: 0.875rem; font-weight: 700; }
+  .cs-atk  .chain-head h4 { color: #f85149; }
+  .cs-vic  .chain-head h4 { color: var(--orange); }
+  .cs-sys  .chain-head h4 { color: var(--gold); }
+  .cs-crit .chain-head h4 { color: #f85149; }
+  .chain-card p { font-size: 0.8rem; color: var(--text-2); line-height: 1.55; margin: 0; }
+
+  .cbadge {
+    position: absolute; top: 9px; right: 11px;
+    font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; padding: 2px 7px; border-radius: 100px;
+  }
+  .cs-atk  .cbadge { background: var(--red-d);    color: #f85149;      border: 1px solid rgba(248,81,73,0.25); }
+  .cs-vic  .cbadge { background: var(--orange-d); color: var(--orange); border: 1px solid rgba(240,136,62,0.25); }
+  .cs-sys  .cbadge { background: var(--gold-d);   color: var(--gold);   border: 1px solid rgba(212,167,44,0.25); }
+  .cs-crit .cbadge { background: var(--red-d);    color: #ff6b6b;       border: 1px solid rgba(248,81,73,0.35); }
+
+  .chain-arrow { text-align: left; font-size: 0.75rem; color: var(--text-3); padding: 1px 0; }
+
+  /* ── COMPARE TABLE ── */
+  .compare-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    border-radius: var(--r-lg); overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  @media (max-width: 580px) {
+    .compare-grid { grid-template-columns: 1fr; }
+    .col-fake { border-left: none !important; border-top: 1px solid var(--border); }
+  }
+  .col-real { background: var(--bg-2); padding: 22px; }
+  .col-fake { background: #120808; padding: 22px; border-left: 1px solid var(--border); }
+  .col-head { font-size: 0.85rem; font-weight: 700; padding-bottom: 0.85rem; border-bottom: 1px solid var(--border); margin-bottom: 1rem; }
+  .col-real .col-head { color: var(--green); }
+  .col-fake .col-head { color: #f85149; }
+  .cmp-item { display: flex; align-items: flex-start; gap: 0.5rem; margin-bottom: 0.65rem; font-size: 0.82rem; color: var(--text-2); }
+  .cmark { width: 17px; height: 17px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 9px; flex-shrink: 0; margin-top: 1px; }
+  .col-real .cmark { background: rgba(63,185,80,0.12); color: var(--green); border: 1px solid rgba(63,185,80,0.25); }
+  .col-fake .cmark { background: var(--red-d);          color: #f85149;      border: 1px solid rgba(248,81,73,0.25); }
+  .cmp-note {
+    grid-column: 1/-1;
+    background: rgba(212,167,44,0.06);
+    border-top: 1px solid var(--border);
+    padding: 13px 22px;
+    font-size: 0.78rem; color: var(--gold);
+    display: flex; align-items: flex-start; gap: 0.5rem;
+  }
+
+  /* ── SESSION BOXES ── */
+  .session-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  @media (max-width: 540px) { .session-grid { grid-template-columns: 1fr; } }
+  .sbox { background: var(--bg-2); border: 1px solid var(--border); border-radius: var(--r); padding: 18px; }
+  .sbox.stolen { background: #120808; border-color: rgba(248,81,73,0.2); }
+  .sbox-title { font-size: 0.82rem; font-weight: 700; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border); margin-bottom: 1rem; }
+  .sbox.normal .sbox-title { color: var(--green); }
+  .sbox.stolen .sbox-title { color: #f85149; }
+  .sflow { display: flex; align-items: center; flex-wrap: wrap; gap: 5px; margin-bottom: 0.85rem; }
+  .sstep { background: var(--bg-3); border: 1px solid var(--border); border-radius: 4px; padding: 3px 9px; font-size: 0.72rem; font-family: 'Courier New', monospace; color: var(--text-2); }
+  .sstep.red { border-color: rgba(248,81,73,0.3); color: #f85149; }
+  .sarrow { color: var(--text-3); font-size: 0.75rem; }
+  .sresult { border-radius: 4px; padding: 5px 11px; font-size: 0.75rem; font-family: 'Courier New', monospace; font-weight: 700; }
+  .normal .sresult { background: rgba(63,185,80,0.1); color: var(--green); border: 1px solid rgba(63,185,80,0.2); }
+  .stolen .sresult { background: var(--red-d); color: #f85149; border: 1px solid rgba(248,81,73,0.2); }
+  .dlist { margin-top: 0.85rem; display: flex; flex-direction: column; gap: 0.45rem; }
+  .ditem { display: flex; align-items: center; gap: 0.5rem; font-size: 0.78rem; }
+  .dx { width: 16px; height: 16px; background: var(--red-d); border: 1px solid rgba(248,81,73,0.25); border-radius: 3px; display: flex; align-items: center; justify-content: center; font-size: 9px; color: #f85149; flex-shrink: 0; font-weight: 900; }
+  .ditem span { color: var(--text-2); }
+
+  /* ── SPREAD DIAGRAM ── */
+  .spread-box { background: var(--bg-2); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 2rem 1.5rem; overflow-x: auto; }
+  .spread-inner { min-width: 500px; display: flex; flex-direction: column; align-items: center; gap: 0; }
+  .slevel { display: flex; justify-content: center; align-items: center; gap: 10px; width: 100%; }
+  .snode { border-radius: 6px; padding: 8px 12px; text-align: center; }
+  .sn-source { background: var(--red-d); border: 2px solid #f85149; color: #f85149; box-shadow: 0 0 14px rgba(248,81,73,0.18); }
+  .sn-mid    { background: var(--orange-d); border: 1px solid rgba(240,136,62,0.3); color: var(--orange); min-width: 110px; }
+  .sn-grp    { background: var(--gold-d); border: 1px solid rgba(212,167,44,0.25); color: var(--gold); min-width: 72px; }
+  .sn-dim    { background: var(--bg-3); border: 1px solid var(--border); color: var(--text-3); min-width: 60px; }
+  .snode .nc { font-size: 1.1rem; font-weight: 800; display: block; line-height: 1; font-family: 'Courier New', monospace; }
+  .snode .nl { font-size: 0.62rem; opacity: 0.75; letter-spacing: 0.03em; }
+  .scon { width: 1px; height: 22px; background: var(--border); margin: 0 auto; }
+  .sbranches { display: flex; width: 100%; position: relative; }
+  .sbranches::before { content: ''; position: absolute; top: 0; left: 12%; right: 12%; height: 1px; background: var(--border); }
+  .sbb { flex: 1; display: flex; flex-direction: column; align-items: center; }
+  .sbl { width: 1px; height: 18px; background: var(--border); }
+  .spread-total { margin: 1.5rem auto 0; max-width: 340px; background: var(--red-d); border: 1px solid rgba(248,81,73,0.2); border-radius: 6px; padding: 12px 18px; text-align: center; font-size: 0.78rem; color: #f85149; font-family: 'Courier New', monospace; }
+  .spread-total strong { font-size: 1.4rem; display: block; margin-bottom: 3px; }
+
+  /* ── CODE BLOCKS ── */
+  .code-block { border-radius: var(--r); overflow: hidden; border: 1px solid var(--border); margin-bottom: 1.25rem; }
+  .code-top { background: var(--bg-3); padding: 9px 14px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); }
+  .code-dots { display: flex; gap: 5px; }
+  .cdot { width: 9px; height: 9px; border-radius: 50%; }
+  .cdot:nth-child(1){background:#f85149;}.cdot:nth-child(2){background:var(--gold);}.cdot:nth-child(3){background:var(--green);}
+  .code-fname { font-size: 0.72rem; color: var(--text-3); font-family: 'Courier New', monospace; }
+  .ctag { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 2px 8px; border-radius: 100px; }
+  .ctag-red    { background: var(--red-d);    color: #f85149;      border: 1px solid rgba(248,81,73,0.25); }
+  .ctag-orange { background: var(--orange-d); color: var(--orange); border: 1px solid rgba(240,136,62,0.25); }
+  .ctag-gold   { background: var(--gold-d);   color: var(--gold);   border: 1px solid rgba(212,167,44,0.25); }
+  .code-body { background: #060b13; padding: 16px 18px; font-family: 'Courier New', monospace; font-size: 0.76rem; line-height: 1.85; overflow-x: auto; color: var(--text-2); }
+  .kw  { color: #c792ea; }
+  .fn  { color: #82aaff; }
+  .str { color: #c3e88d; }
+  .num { color: #f78c6c; }
+  .cm  { color: #4a6070; font-style: italic; }
+  .vr  { color: #ffcb6b; }
+  .op  { color: #89ddff; }
+
+  /* ── TIPS ── */
+  .tips-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; }
+  @media (max-width: 540px) { .tips-grid { grid-template-columns: 1fr; } }
+  .tip-card {
+    background: rgba(63,185,80,0.04);
+    border: 1px solid rgba(63,185,80,0.14);
+    border-radius: var(--r); padding: 18px;
+    transition: var(--ease);
+  }
+  .tip-card:hover { background: rgba(63,185,80,0.08); border-color: rgba(63,185,80,0.35); transform: translateY(-2px); }
+  .tip-icon { font-size: 1.4rem; margin-bottom: 8px; display: block; }
+  .tip-title { font-size: 0.87rem; font-weight: 700; color: var(--green); margin-bottom: 0.4rem; }
+  .tip-desc { font-size: 0.78rem; color: var(--text-2); line-height: 1.6; }
+  .tip-cmd { margin-top: 0.6rem; font-size: 0.7rem; color: var(--green); opacity: 0.75; font-family: 'Courier New', monospace; }
+  .tip-cmd::before { content: '→ '; }
+
+  /* ── SIDEBAR ── */
+  .blog-sidebar { position: sticky; top: 78px; }
+  .sidebar-card { background: var(--bg-2); border: 1px solid var(--border); border-radius: var(--r); padding: 1.25rem; margin-bottom: 1rem; }
+  .sidebar-title { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-3); margin-bottom: 0.85rem; padding-bottom: 0.6rem; border-bottom: 1px solid var(--border); }
+  .toc-item { font-size: 0.78rem; color: var(--text-2); padding: 0.35rem 0; border-bottom: 1px solid rgba(255,255,255,0.04); display: flex; gap: 0.5rem; align-items: center; text-decoration: none; transition: var(--ease); }
+  .toc-item:hover { color: var(--text); }
+  .toc-item:last-child { border-bottom: none; }
+  .toc-num { font-size: 0.65rem; color: var(--text-3); font-family: 'Courier New', monospace; min-width: 20px; }
+  .sidebar-meta-item { font-size: 0.78rem; color: var(--text-2); display: flex; justify-content: space-between; align-items: center; padding: 0.35rem 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
+  .sidebar-meta-item:last-child { border-bottom: none; }
+  .sidebar-meta-item .label { font-size: 0.68rem; color: var(--text-3); }
+  .sidebar-meta-item .value { font-size: 0.75rem; color: var(--text); font-weight: 600; }
+
+  /* ── BACK NAV ── */
+  .blog-nav-back {
+    display: flex; gap: 0.85rem; flex-wrap: wrap;
+    padding-top: 2rem; border-top: 1px solid var(--border); margin-top: 3rem;
+  }
+
+  /* ── ALERT BOX ── */
+  .alert-box {
+    background: rgba(212,167,44,0.06);
+    border: 1px solid rgba(212,167,44,0.2);
+    border-radius: var(--r);
+    padding: 14px 18px;
+    font-size: 0.82rem;
+    color: var(--gold);
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+  }
+  .alert-box i { margin-top: 2px; flex-shrink: 0; }
+  </style>
+</head>
+<body class="blog-page">
+
+  <!-- ── NAVBAR ── -->
+  <header class="header" id="header">
+    <nav class="nav container">
+      <a href="../index.html" class="nav__logo">HBG<span>.</span></a>
+      <div class="nav__menu" id="nav-menu">
+        <ul class="nav__list">
+          <li><a href="../index.html#home"       class="nav__link">Home</a></li>
+          <li><a href="../index.html#about"      class="nav__link">About</a></li>
+          <li><a href="../index.html#projects"   class="nav__link">Projects</a></li>
+          <li><a href="../index.html#cyberlogs"  class="nav__link active-link">Cyberlogs</a></li>
+          <li><a href="../index.html#contact"    class="nav__link">Contact</a></li>
+        </ul>
+        <span class="nav__close" id="nav-close"><i class="fas fa-times"></i></span>
+      </div>
+      <a href="../resume.html" class="btn btn--outline btn--sm nav__hire">Hire Me</a>
+      <span class="nav__toggle" id="nav-toggle"><i class="fas fa-bars"></i></span>
+    </nav>
+  </header>
+
+  <!-- ── HERO ── -->
+  <div class="blog-hero">
+    <div class="container">
+      <div class="blog-breadcrumb">
+        <a href="../index.html">Home</a>
+        <i class="fas fa-chevron-right"></i>
+        <a href="../index.html#cyberlogs">Cyberlogs</a>
+        <i class="fas fa-chevron-right"></i>
+        <span>LOG-2026-006</span>
+      </div>
+      <div class="blog-label">
+        <span class="live-dot" style="width:6px;height:6px;border-radius:50%;background:#f85149;display:inline-block;animation:blink 1.5s infinite;"></span>
+        Security Research
+      </div>
+      <h1>How <span>Telegram Account Hijacking</span> Campaigns Really Work</h1>
+      <p class="blog-hero-desc">
+        A technical breakdown of a live spam and session-theft toolkit — tracing the full attack chain from fabricated "winning" posts through Mini App phishing to permanent account takeover and mass weaponization.
+      </p>
+      <div class="blog-meta-row">
+        <span><span class="live-dot"></span> Habtamu Bitew Gashu</span>
+        <span><i class="fas fa-calendar-alt"></i> April 18, 2026</span>
+        <span><i class="fas fa-clock"></i> 12 min read</span>
+        <span><i class="fas fa-flask"></i> Static code analysis</span>
+        <span><i class="fab fa-telegram-plane"></i> Telegram / MTProto</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── MAIN LAYOUT ── -->
+  <div class="blog-layout container">
+
+    <!-- ── ARTICLE ── -->
+    <article class="blog-article">
+
+      <!-- INTRO -->
+      <div class="blog-section">
+        <div class="alert-box">
+          <i class="fas fa-info-circle"></i>
+          <span>This analysis was conducted on static source code only. No live accounts were targeted, no credentials were captured, and no personal data was published. All findings are disclosed for public awareness and defensive education.</span>
+        </div>
+        <p>
+          I recently analyzed a live toolkit targeting Telegram users across East Africa. The campaign combines three techniques that individually look harmless but chain together into a highly effective account takeover: <strong>fabricated social proof</strong>, <strong>Mini App phishing</strong>, and <strong>persistent session theft</strong> via the Telegram MTProto API.
+        </p>
+        <p>
+          What makes this attack particularly dangerous is that it exploits Telegram's own infrastructure. The victim receives a real SMS code from Telegram, clicks a real Telegram link, and interacts with what looks like a real Telegram UI — and still loses their account.
+        </p>
+      </div>
+
+      <div class="art-divider"></div>
+
+      <!-- ATTACK CHAIN -->
+      <div class="blog-section" id="chain">
+        <div class="section-label">Attack Chain</div>
+        <h2>The Full 11-Step Kill Chain</h2>
+        <p>Color key: <span style="color:#f85149;font-weight:600;">■ Attacker</span> &nbsp; <span style="color:var(--orange);font-weight:600;">■ Victim</span> &nbsp; <span style="color:var(--gold);font-weight:600;">■ System</span></p>
+
+        <br>
+        <div class="chain">
+          <div class="chain-spine"></div>
+
+          <div class="chain-step cs-atk">
+            <div class="chain-num">01</div>
+            <div class="chain-card">
+              <span class="cbadge">Attacker</span>
+              <div class="chain-head"><span class="ci">🤖</span><h4>Spam Bot Posts Fake "Winners"</h4></div>
+              <p>An automated bot floods large Telegram groups every 5–10 minutes with fabricated winning messages. Phone numbers are <strong>randomly generated</strong> Ethiopian numbers, masked as <code>+25191****789</code>. Prize amounts (5,000–50,000 birr) and member counts are random integers. None represents a real person.</p>
+            </div>
+          </div>
+          <div class="chain-arrow">↓</div>
+
+          <div class="chain-step cs-vic">
+            <div class="chain-num">02</div>
+            <div class="chain-card">
+              <span class="cbadge">Victim</span>
+              <div class="chain-head"><span class="ci">👀</span><h4>Victim Sees the "Winner" Post</h4></div>
+              <p>Because the bot posts repeatedly, the group appears flooded with winners. Volume creates false legitimacy. The victim cannot distinguish fabricated phone numbers from real ones.</p>
+            </div>
+          </div>
+          <div class="chain-arrow">↓</div>
+
+          <div class="chain-step cs-vic">
+            <div class="chain-num">03</div>
+            <div class="chain-card">
+              <span class="cbadge">Victim</span>
+              <div class="chain-head"><span class="ci">🔗</span><h4>Victim Clicks the t.me Link</h4></div>
+              <p>The post contains a <code>t.me</code> domain link. Because it is Telegram-native, it feels safe. The link opens a <strong>Telegram Mini App</strong> — a web application running inside the official Telegram client.</p>
+            </div>
+          </div>
+          <div class="chain-arrow">↓</div>
+
+          <div class="chain-step cs-sys">
+            <div class="chain-num">04</div>
+            <div class="chain-card">
+              <span class="cbadge">Pivot</span>
+              <div class="chain-head"><span class="ci">📱</span><h4>Telegram Mini App Opens</h4></div>
+              <p>The Mini App loads <em>inside</em> the official Telegram client with full Telegram UI chrome around it. It uses Telegram's own SDK and native components. There is no visual difference between this and an official Telegram feature.</p>
+            </div>
+          </div>
+          <div class="chain-arrow">↓</div>
+
+          <div class="chain-step cs-vic">
+            <div class="chain-num">05</div>
+            <div class="chain-card">
+              <span class="cbadge">Victim</span>
+              <div class="chain-head"><span class="ci">📞</span><h4>"Share Phone Number" Prompt Appears</h4></div>
+              <p>The app shows a "Share your phone number to claim your prize" screen, implemented using Telegram's native <code>RequestPhone</code> button — a real Telegram UI element. The victim has no visual cue to distrust it.</p>
+            </div>
+          </div>
+          <div class="chain-arrow">↓</div>
+
+          <div class="chain-step cs-atk">
+            <div class="chain-num">06</div>
+            <div class="chain-card">
+              <span class="cbadge">Attacker</span>
+              <div class="chain-head"><span class="ci">📡</span><h4>Phone Number Harvested via Webhook</h4></div>
+              <p>When the victim taps "Share", their real Telegram-registered phone number is sent to the attacker's webhook endpoint and logged immediately. The victim sees a loading screen.</p>
+            </div>
+          </div>
+          <div class="chain-arrow">↓</div>
+
+          <div class="chain-step cs-atk">
+            <div class="chain-num">07</div>
+            <div class="chain-card">
+              <span class="cbadge">Attacker</span>
+              <div class="chain-head"><span class="ci">⚡</span><h4>Attacker Calls the Telegram MTProto API</h4></div>
+              <p>The server immediately calls <code>send_code_request(phone)</code> using a registered App API ID and hash. This is a <strong>legitimate Telegram API call</strong> that triggers a real system event on Telegram's infrastructure.</p>
+            </div>
+          </div>
+          <div class="chain-arrow">↓</div>
+
+          <div class="chain-step cs-sys">
+            <div class="chain-num">08</div>
+            <div class="chain-card">
+              <span class="cbadge">System</span>
+              <div class="chain-head"><span class="ci">💬</span><h4>Real Telegram SMS Code Sent to Victim</h4></div>
+              <p>The victim receives a genuine Telegram verification code via SMS or in-app notification from "Telegram". It is the same code as any legitimate login — completely authentic, because it is.</p>
+            </div>
+          </div>
+          <div class="chain-arrow">↓</div>
+
+          <div class="chain-step cs-vic">
+            <div class="chain-num">09</div>
+            <div class="chain-card">
+              <span class="cbadge">Victim</span>
+              <div class="chain-head"><span class="ci">🔢</span><h4>Victim Enters the Code on the Fake Page</h4></div>
+              <p>The Mini App displays a "Enter your confirmation code to verify and claim your prize" field. Having just received a code from Telegram, the victim enters it. The code is submitted to the attacker's server.</p>
+            </div>
+          </div>
+          <div class="chain-arrow">↓</div>
+
+          <div class="chain-step cs-crit">
+            <div class="chain-num">10</div>
+            <div class="chain-card">
+              <span class="cbadge">⚠ Critical</span>
+              <div class="chain-head"><span class="ci">💀</span><h4>Session File Created — Account Stolen</h4></div>
+              <p>The attacker calls <code>sign_in(phone, code)</code>. Telegram authenticates the request. A <code>.session</code> file — a permanent authentication token — is saved on the attacker's server. <strong style="color:#f85149;">No password needed. No 2FA triggered. No notification to the victim.</strong></p>
+            </div>
+          </div>
+          <div class="chain-arrow">↓</div>
+
+          <div class="chain-step cs-atk">
+            <div class="chain-num">11</div>
+            <div class="chain-card">
+              <span class="cbadge">Attacker</span>
+              <div class="chain-head"><span class="ci">📤</span><h4>Victim's Account Weaponized</h4></div>
+              <p>The stolen session is loaded into a web-based session manager. <code>send_to_all()</code> blasts the same scam to up to 50 of the victim's groups and channels. Because it comes from a <strong>trusted contact</strong>, click rates are dramatically higher. The cycle repeats exponentially.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="art-divider"></div>
+
+      <!-- WHY IT LOOKS LEGIT -->
+      <div class="blog-section" id="legitimacy">
+        <div class="section-label">Trust Exploitation</div>
+        <h2>Why the Mini App Looks Legitimate</h2>
+        <p>The attack exploits Telegram's own UI components. There is no visual difference between a real Telegram feature and the fake Mini App — because the attacker uses Telegram's own SDK to build it.</p>
+
+        <div class="compare-grid">
+          <div class="col-real">
+            <div class="col-head">✅ Real Telegram Feature</div>
+            <div class="cmp-item"><div class="cmark">✓</div>Telegram logo &amp; navigation chrome</div>
+            <div class="cmp-item"><div class="cmark">✓</div>Native "Share Contact" button</div>
+            <div class="cmp-item"><div class="cmark">✓</div>Opens inside Telegram app</div>
+            <div class="cmp-item"><div class="cmark">✓</div>t.me domain link</div>
+            <div class="cmp-item"><div class="cmark">✓</div>Uses Telegram SDK components</div>
+            <div class="cmp-item"><div class="cmark">✓</div>Sends a real SMS code</div>
+          </div>
+          <div class="col-fake">
+            <div class="col-head">⚠ Fake Mini App</div>
+            <div class="cmp-item"><div class="cmark">✓</div>Same Telegram logo &amp; chrome</div>
+            <div class="cmp-item"><div class="cmark">✓</div>Same native "Share Contact" button</div>
+            <div class="cmp-item"><div class="cmark">✓</div>Also opens inside Telegram app</div>
+            <div class="cmp-item"><div class="cmark">✓</div>Also uses t.me domain link</div>
+            <div class="cmp-item"><div class="cmark">✓</div>Also uses Telegram SDK components</div>
+            <div class="cmp-item"><div class="cmark">✓</div>Also triggers a real SMS code</div>
+          </div>
+          <div class="cmp-note">
+            <i class="fas fa-exclamation-triangle" style="flex-shrink:0;margin-top:2px;"></i>
+            The attacker's Mini App uses Telegram's own infrastructure against its users. There is nothing for the victim to distrust visually.
+          </div>
+        </div>
+      </div>
+
+      <div class="art-divider"></div>
+
+      <!-- SESSION FILE -->
+      <div class="blog-section" id="session">
+        <div class="section-label">Technical Detail</div>
+        <h2>What a Stolen Session File Grants</h2>
+        <p>A Telegram <code>.session</code> file is a persistent authentication token that bypasses every login layer except physical device revocation.</p>
+
+        <div class="session-grid">
+          <div class="sbox normal">
+            <div class="sbox-title">✅ Normal Login Flow</div>
+            <div class="sflow">
+              <span class="sstep">📱 Phone</span><span class="sarrow">→</span>
+              <span class="sstep">💬 SMS Code</span><span class="sarrow">→</span>
+              <span class="sstep">🔒 Password</span><span class="sarrow">→</span>
+            </div>
+            <div class="sresult">✅ Access Granted</div>
+          </div>
+          <div class="sbox stolen">
+            <div class="sbox-title">💀 With Stolen .session File</div>
+            <div class="sflow">
+              <span class="sstep red">📄 .session file</span><span class="sarrow">→</span>
+            </div>
+            <div class="sresult">💀 Instant Full Access</div>
+            <div class="dlist">
+              <div class="ditem"><div class="dx">✗</div><span>No password required</span></div>
+              <div class="ditem"><div class="dx">✗</div><span>No 2FA prompt triggered</span></div>
+              <div class="ditem"><div class="dx">✗</div><span>No notification to victim</span></div>
+              <div class="ditem"><div class="dx">✗</div><span>Persists until manually revoked</span></div>
+              <div class="ditem"><div class="dx">✗</div><span>Full read/write to all chats</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="art-divider"></div>
+
+      <!-- SPREAD -->
+      <div class="blog-section" id="spread">
+        <div class="section-label">Scale</div>
+        <h2>Exponential Spread</h2>
+        <p>Each compromised account immediately becomes a new attack vector, reaching tens of thousands of trusted contacts.</p>
+        <div class="spread-box">
+          <div class="spread-inner">
+            <div class="slevel">
+              <div class="snode sn-source"><span class="nc">1</span><span class="nl">Compromised Account</span></div>
+            </div>
+            <div class="scon"></div>
+            <div class="slevel">
+              <div class="snode sn-mid"><span class="nc">50+</span><span class="nl">Dialogs Spammed</span></div>
+            </div>
+            <div class="scon"></div>
+            <div class="sbranches">
+              <div class="sbb"><div class="sbl"></div><div class="snode sn-grp"><span class="nc">200</span><span class="nl">Group A</span></div></div>
+              <div class="sbb"><div class="sbl"></div><div class="snode sn-grp"><span class="nc">500</span><span class="nl">Group B</span></div></div>
+              <div class="sbb"><div class="sbl"></div><div class="snode sn-grp"><span class="nc">1,000</span><span class="nl">Group C</span></div></div>
+              <div class="sbb"><div class="sbl"></div><div class="snode sn-dim"><span class="nc">···</span><span class="nl">+47 more</span></div></div>
+            </div>
+            <div class="spread-total">
+              <strong>~85,000+ users</strong>
+              reached per stolen account — each a potential next victim
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="art-divider"></div>
+
+      <!-- CODE -->
+      <div class="blog-section" id="code">
+        <div class="section-label">Evidence</div>
+        <h2>Inside the Toolkit</h2>
+        <p>Pseudocode representations of the core mechanisms. Function names and identifiers generalized for this publication.</p>
+
+        <div class="code-block">
+          <div class="code-top">
+            <div class="code-dots"><div class="cdot"></div><div class="cdot"></div><div class="cdot"></div></div>
+            <span class="code-fname">fake_winner_generator.py</span>
+            <span class="ctag ctag-red">Social Engineering</span>
+          </div>
+          <div class="code-body"><pre><span class="cm"># All phone numbers, win amounts, and member counts are random</span>
+
+<span class="kw">def</span> <span class="fn">generate_ethiopian_number</span>():
+    <span class="vr">prefixes</span> <span class="op">=</span> [<span class="str">"+25191"</span>, <span class="str">"+25192"</span>, <span class="str">"+25193"</span>, ...]  <span class="cm"># all fabricated</span>
+    <span class="kw">return</span> random.choice(<span class="vr">prefixes</span>) <span class="op">+</span> random_digits(<span class="num">6</span>)
+
+<span class="kw">def</span> <span class="fn">generate_message</span>():
+    <span class="vr">phone</span>   <span class="op">=</span> mask(<span class="fn">generate_ethiopian_number</span>())   <span class="cm"># e.g. +25191****789</span>
+    <span class="vr">members</span> <span class="op">=</span> random.randint(<span class="num">50</span>,  <span class="num">500</span>)
+    <span class="vr">prize</span>   <span class="op">=</span> random.randint(<span class="num">5000</span>, <span class="num">50000</span>)
+    <span class="kw">return</span> <span class="str">f"🎉 {phone} added {members} members → won {prize:,} birr!\n👇 {APP_LINK}"</span>
+
+<span class="kw">async def</span> <span class="fn">auto_poster</span>():
+    <span class="kw">while</span> <span class="kw">True</span>:
+        <span class="kw">await</span> bot.send_message(<span class="vr">GROUP_ID</span>, <span class="fn">generate_message</span>())
+        <span class="kw">await</span> asyncio.sleep(random.randint(<span class="num">300</span>, <span class="num">600</span>))  <span class="cm"># 5–10 min</span></pre></div>
+        </div>
+
+        <div class="code-block">
+          <div class="code-top">
+            <div class="code-dots"><div class="cdot"></div><div class="cdot"></div><div class="cdot"></div></div>
+            <span class="code-fname">session_manager.py — send_to_all()</span>
+            <span class="ctag ctag-orange">Mass Spam Engine</span>
+          </div>
+          <div class="code-body"><pre><span class="cm"># Uses stolen .session files to spam all of a victim's contacts</span>
+
+<span class="kw">async def</span> <span class="fn">_send_to_all</span>(<span class="vr">session_id</span>, <span class="vr">message</span>):
+    <span class="vr">dialogs</span> <span class="op">=</span> <span class="kw">await</span> <span class="fn">get_all_dialogs</span>(<span class="vr">session_id</span>)
+
+    <span class="kw">for</span> <span class="vr">dialog</span> <span class="kw">in</span> <span class="vr">dialogs</span>[:<span class="num">50</span>]:        <span class="cm"># up to 50 per stolen account</span>
+        <span class="kw">if</span> <span class="vr">dialog</span>[<span class="str">'type'</span>] <span class="kw">in</span> [<span class="str">'group'</span>, <span class="str">'channel'</span>]:
+            <span class="vr">entity</span> <span class="op">=</span> <span class="kw">await</span> client.get_entity(<span class="vr">dialog</span>[<span class="str">'peer_id'</span>])
+            <span class="kw">await</span> client.send_message(<span class="vr">entity</span>, <span class="vr">message</span>)
+            <span class="cm"># ↑ Sent AS the victim — from a trusted contact</span>
+            <span class="kw">await</span> asyncio.sleep(<span class="num">0.2</span>)       <span class="cm"># rate-limit evasion</span></pre></div>
+        </div>
+
+        <div class="code-block">
+          <div class="code-top">
+            <div class="code-dots"><div class="cdot"></div><div class="cdot"></div><div class="cdot"></div></div>
+            <span class="code-fname">webhook_handler.py</span>
+            <span class="ctag ctag-gold">Contact Harvesting</span>
+          </div>
+          <div class="code-body"><pre><span class="cm"># Receives phone number when victim taps "Share Contact"</span>
+
+<span class="fn">@app.route</span>(<span class="str">'/webhook/&lt;token&gt;'</span>, methods<span class="op">=</span>[<span class="str">'POST'</span>])
+<span class="kw">def</span> <span class="fn">webhook</span>(<span class="vr">token</span>):
+    <span class="vr">contact</span> <span class="op">=</span> request.json[<span class="str">'message'</span>][<span class="str">'contact'</span>]
+    harvest({
+        <span class="str">'phone'</span>: <span class="vr">contact</span>[<span class="str">'phone_number'</span>],   <span class="cm"># ← victim's real number</span>
+        <span class="str">'name'</span>:  <span class="vr">contact</span>[<span class="str">'first_name'</span>],
+        <span class="str">'id'</span>:    <span class="vr">contact</span>[<span class="str">'user_id'</span>],
+    })
+    <span class="cm"># Immediately trigger SMS code to victim via MTProto API</span>
+    telegram_api.send_code_request(<span class="vr">contact</span>[<span class="str">'phone_number'</span>])</pre></div>
+        </div>
+      </div>
+
+      <div class="art-divider"></div>
+
+      <!-- PROTECTION -->
+      <div class="blog-section" id="defense">
+        <div class="section-label">Defense</div>
+        <h2>How to Protect Yourself</h2>
+        <p>Four actions that break this attack chain completely — even if you click the link.</p>
+        <div class="tips-grid">
+          <div class="tip-card">
+            <span class="tip-icon">🔐</span>
+            <div class="tip-title">Enable Two-Step Verification</div>
+            <p class="tip-desc">The single most effective defense. With 2FA active, an SMS code alone is not enough — the attacker also needs your password, which this attack cannot retrieve.</p>
+            <div class="tip-cmd">Settings → Privacy &amp; Security → Two-Step Verification</div>
+          </div>
+          <div class="tip-card">
+            <span class="tip-icon">🚫</span>
+            <div class="tip-title">Never Enter Codes in Mini Apps</div>
+            <p class="tip-desc">Telegram never asks for verification codes inside a Mini App, bot, or website. If anything prompts for it, close it immediately — regardless of how it looks.</p>
+            <div class="tip-cmd">Unexpected SMS code = phishing attempt in progress</div>
+          </div>
+          <div class="tip-card">
+            <span class="tip-icon">🖥️</span>
+            <div class="tip-title">Audit Active Sessions</div>
+            <p class="tip-desc">Telegram lists every device and session with access to your account. Review regularly and terminate anything unfamiliar immediately — there is no grace period.</p>
+            <div class="tip-cmd">Settings → Devices → Terminate all other sessions</div>
+          </div>
+          <div class="tip-card">
+            <span class="tip-icon">🎰</span>
+            <div class="tip-title">Distrust "Winner" Posts</div>
+            <p class="tip-desc">Groups flooded with prize posts are running bots. Even if the sender is a known contact, their account may already be compromised. Report the post and leave the group.</p>
+            <div class="tip-cmd">Report → Warn the group → Leave if necessary</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="art-divider"></div>
+
+      <!-- SUMMARY LOG -->
+      <div class="blog-section" id="summary">
+        <div class="section-label">Research Summary</div>
+        <h2>Findings Log</h2>
+        <div class="code-block">
+          <div class="code-top">
+            <div class="code-dots"><div class="cdot"></div><div class="cdot"></div><div class="cdot"></div></div>
+            <span class="code-fname">LOG-2026-006.txt</span>
+            <span class="ctag ctag-red">Confidential — Research Only</span>
+          </div>
+          <div class="code-body"><pre><span class="vr">RESEARCH_ID</span>   <span class="op">=</span> <span class="str">"LOG-2026-006"</span>
+<span class="vr">DATE</span>          <span class="op">=</span> <span class="str">"2026-04-18"</span>
+<span class="vr">RESEARCHER</span>    <span class="op">=</span> <span class="str">"Habtamu Bitew Gashu"</span>
+<span class="vr">METHOD</span>        <span class="op">=</span> <span class="str">"Static code analysis — no live accounts targeted"</span>
+<span class="vr">REGION</span>        <span class="op">=</span> <span class="str">"East Africa (Ethiopian phone number patterns)"</span>
+
+<span class="cm"># ── Components Analyzed ──────────────────────────────────</span>
+<span class="vr">COMPONENT_1</span> <span class="op">=</span> <span class="str">"Spam bot (aiogram) — auto-generates fake winner messages"</span>
+<span class="vr">COMPONENT_2</span> <span class="op">=</span> <span class="str">"Session manager (Flask + Telethon) — manages stolen .session files"</span>
+<span class="vr">COMPONENT_3</span> <span class="op">=</span> <span class="str">"Contact harvesting webhook — captures phone numbers via Mini App"</span>
+
+<span class="cm"># ── Attack Metrics ───────────────────────────────────────</span>
+<span class="vr">CHAIN_LENGTH</span>    <span class="op">=</span> <span class="num">11</span>  <span class="cm"># steps from first post to account takeover</span>
+<span class="vr">DIALOGS_SPAMMED</span> <span class="op">=</span> <span class="num">50</span>  <span class="cm"># max per stolen session</span>
+<span class="vr">ESTIMATED_REACH</span> <span class="op">=</span> <span class="str">"85,000+ users per compromised account"</span>
+<span class="vr">AUTH_BYPASS</span>     <span class="op">=</span> <span class="kw">True</span>  <span class="cm"># no password, no 2FA, no notification</span>
+
+<span class="cm"># ── Mitigations ──────────────────────────────────────────</span>
+<span class="vr">MITIGATIONS</span> <span class="op">=</span> [
+    <span class="str">"Enable Two-Step Verification (breaks step 10 completely)"</span>,
+    <span class="str">"Never enter Telegram codes in Mini Apps or websites"</span>,
+    <span class="str">"Audit active sessions monthly via Settings > Devices"</span>,
+    <span class="str">"Report prize-recruitment spam immediately"</span>,
+]</pre></div>
+        </div>
+      </div>
+
+      <!-- BACK NAV -->
+      <div class="blog-nav-back">
+        <a href="../index.html#cyberlogs" class="btn btn--outline">
+          <i class="fas fa-arrow-left"></i> Back to Cyberlogs
+        </a>
+        <a href="../index.html" class="btn btn--outline">
+          <i class="fas fa-home"></i> Back to Portfolio
+        </a>
+      </div>
+
+    </article>
+
+    <!-- ── SIDEBAR ── -->
+    <aside class="blog-sidebar">
+      <div class="sidebar-card">
+        <div class="sidebar-title">Table of Contents</div>
+        <a href="#chain"       class="toc-item"><span class="toc-num">01</span> Attack Chain</a>
+        <a href="#legitimacy"  class="toc-item"><span class="toc-num">02</span> Why It Looks Real</a>
+        <a href="#session"     class="toc-item"><span class="toc-num">03</span> Session File Access</a>
+        <a href="#spread"      class="toc-item"><span class="toc-num">04</span> Exponential Spread</a>
+        <a href="#code"        class="toc-item"><span class="toc-num">05</span> Toolkit Code</a>
+        <a href="#defense"     class="toc-item"><span class="toc-num">06</span> How to Protect</a>
+        <a href="#summary"     class="toc-item"><span class="toc-num">07</span> Findings Log</a>
+      </div>
+
+      <div class="sidebar-card">
+        <div class="sidebar-title">Post Details</div>
+        <div class="sidebar-meta-item">
+          <span class="label">Log ID</span>
+          <span class="value" style="color:#f85149;font-size:0.7rem;">LOG-2026-006</span>
+        </div>
+        <div class="sidebar-meta-item">
+          <span class="label">Published</span>
+          <span class="value">Apr 18, 2026</span>
+        </div>
+        <div class="sidebar-meta-item">
+          <span class="label">Category</span>
+          <span class="value">Phishing / Social Eng.</span>
+        </div>
+        <div class="sidebar-meta-item">
+          <span class="label">Platform</span>
+          <span class="value">Telegram</span>
+        </div>
+        <div class="sidebar-meta-item">
+          <span class="label">Method</span>
+          <span class="value">Static Analysis</span>
+        </div>
+        <div class="sidebar-meta-item">
+          <span class="label">Read time</span>
+          <span class="value">12 min</span>
+        </div>
+      </div>
+
+      <div class="sidebar-card">
+        <div class="sidebar-title">Tags</div>
+        <div style="display:flex;flex-wrap:wrap;gap:0.4rem;">
+          <span class="tag tag--red">Phishing</span>
+          <span class="tag tag--orange">Session Theft</span>
+          <span class="tag">Telegram</span>
+          <span class="tag">MTProto</span>
+          <span class="tag">Mini App</span>
+          <span class="tag">Social Engineering</span>
+        </div>
+      </div>
+    </aside>
+
+  </div><!-- /blog-layout -->
+
+  <!-- scroll top -->
+  <a href="#top" aria-label="ScrollTop" class="fas fa-angle-up" id="scroll-top"></a>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://unpkg.com/scrollreveal"></script>
+  <script src="../assets/js/script.js"></script>
+</body>
+</html>

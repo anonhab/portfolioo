@@ -403,6 +403,7 @@
         <button class="filter__btn" data-filter="android">Android</button>
         <button class="filter__btn" data-filter="embedded">Embedded</button>
         <button class="filter__btn" data-filter="angular">Angular</button>
+        <button class="filter__btn" data-filter="php">PHP</button>
       </div>
       <div class="projects__grid">
   
@@ -598,10 +599,35 @@
           </div>
         </div>
   
+
+        <div class="project__card" data-category="php">
+          <div class="project__img-wrap project__img-placeholder project__img-placeholder--job">
+            <div class="placeholder__icon"><i class="fas fa-gift"></i></div>
+            <div class="placeholder__label">PHP · MySQL</div>
+            <div class="project__overlay">
+              <a href="https://github.com/Gemeking/link" target="_blank" class="project__overlay-btn"><i class="fab fa-github"></i> Code</a>
+            </div>
+          </div>
+          <div class="project__body">
+            <div class="project__tags">
+              <span class="tag tag--red">PHP</span>
+              <span class="tag">MySQL</span>
+              <span class="tag">PDO</span>
+              <span class="tag">Telebirr</span>
+            </div>
+            <h3 class="project__title">Gift Link Generator</h3>
+            <p class="project__desc">Web platform for creating and sharing personalized greeting cards for birthdays, Christmas, and other events. Features event templates, custom image &amp; audio uploads, Telebirr payment integration, shareable unique links, and a full admin panel for managing templates, payments, and link lifecycle.</p>
+            <div class="project__meta">
+              <span><i class="fas fa-link"></i> Shareable Links</span>
+              <span><i class="fas fa-credit-card"></i> Payment Gateway</span>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
-  
+
   <!-- ==================== EXPERIENCE ==================== -->
   <section class="experience section" id="experience">
     <div class="container">
@@ -693,6 +719,23 @@
       <p class="section__subtitle">Ethical security testing conducted in controlled environments</p>
       <div class="cyberlogs__grid">
   
+        <a href="./cyberlogs/sqli-summary.html" class="cyberlog__card">
+          <div class="cyberlog__header">
+            <span class="cyberlog__id">LOG-2025-001~005</span>
+            <span class="cyberlog__date"><i class="fas fa-calendar-alt"></i> 2025-03-10</span>
+          </div>
+          <h3 class="cyberlog__title">SQL Injection — 5-Target Research Summary</h3>
+          <p class="cyberlog__desc">Consolidated blog covering all five SQL injection assessments — boolean-based, error-based, and time-based blind vulnerabilities found across PHP/MySQL web apps with full payloads and mitigations.</p>
+          <div class="cyberlog__tags">
+            <span class="tag tag--red">SQLi</span>
+            <span class="tag tag--orange">5 Targets</span>
+            <span class="tag">Boolean-Based</span>
+            <span class="tag">Error-Based</span>
+            <span class="tag">Time-Based</span>
+          </div>
+          <span class="cyberlog__link">Read Blog <i class="fas fa-arrow-right"></i></span>
+        </a>
+
         <a href="./cyberlogs/log1.html" class="cyberlog__card">
           <div class="cyberlog__header">
             <span class="cyberlog__id">LOG-2025-001</span>
@@ -767,7 +810,23 @@
           </div>
           <span class="cyberlog__link">View Log <i class="fas fa-arrow-right"></i></span>
         </a>
-  
+
+        <a href="./cyberlogs/log6.html" class="cyberlog__card">
+          <div class="cyberlog__header">
+            <span class="cyberlog__id">LOG-2026-006</span>
+            <span class="cyberlog__date"><i class="fas fa-calendar-alt"></i> 2026-04-18</span>
+          </div>
+          <h3 class="cyberlog__title">Telegram Account Hijacking — Full Kill Chain Analysis</h3>
+          <p class="cyberlog__desc">Technical breakdown of a live spam & session-theft toolkit: fake social proof, Mini App phishing, MTProto API abuse, and mass account weaponization.</p>
+          <div class="cyberlog__tags">
+            <span class="tag tag--red">Phishing</span>
+            <span class="tag tag--orange">Session Theft</span>
+            <span class="tag">Telegram</span>
+            <span class="tag">Social Engineering</span>
+          </div>
+          <span class="cyberlog__link">Read Blog <i class="fas fa-arrow-right"></i></span>
+        </a>
+
       </div>
     </div>
   </section>
